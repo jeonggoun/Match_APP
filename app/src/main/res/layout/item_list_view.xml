@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_app_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_app_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/parentLayout"
+            android:layout_width="match_app_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="20"
+                android:src=""/>
+
+            <LinearLayout
+                android:id="@+id/textLayout"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_weight="60"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_app_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:text="이름"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/contentText"
+                    android:layout_width="match_app_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:text="전화번호"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
