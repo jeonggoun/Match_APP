@@ -59,7 +59,7 @@
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
         <activity android:name=".post.PostMapActivity"/>
-        <activity android:name=".post.PostDetailActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,7 +74,7 @@
             android:required="false" />
 
         <activity android:name=".ChattingActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".post.PostDetailActivity" />
         <activity android:name=".post.PostWriteActivity" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".IntroActivity" />
