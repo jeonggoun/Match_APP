@@ -6,28 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.match_app.post.Fragment1;
-import com.example.match_app.post.Fragment2;
-import com.example.match_app.post.Fragment3;
-import com.example.match_app.post.Fragment4;
+import com.example.match_app.fragment.ChatListFragment;
+import com.example.match_app.fragment.EtcFragment;
+import com.example.match_app.fragment.HomeFragment;
+import com.example.match_app.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 //홈화면
-    Fragment1 fragment1;
-    Fragment2 fragment2;
-    Fragment3 fragment3;
-    Fragment4 fragment4;
+    HomeFragment fragment1;
+    SearchFragment fragment2;
+    ChatListFragment fragment3;
+    EtcFragment fragment4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragment1 = new Fragment1();
-        fragment2 = new Fragment2();
-        fragment3 = new Fragment3();
-        fragment4 = new Fragment4();
+        fragment1 = new HomeFragment();
+        fragment2 = new SearchFragment();
+        fragment3 = new ChatListFragment();
+        fragment4 = new EtcFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contain, fragment1).commit();

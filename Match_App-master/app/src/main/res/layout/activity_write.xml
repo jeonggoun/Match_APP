@@ -1,9 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".post.PostWriteActivity">
+    android:orientation="vertical"
+    android:weightSum="100">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="92">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="104dp"
+            android:layout_height="42dp"
+            android:text="참가비 없음"
+            tools:layout_editor_absoluteX="266dp"
+            tools:layout_editor_absoluteY="318dp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="109dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            tools:layout_editor_absoluteY="37dp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="340"
+            android:layout_height="40"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="글 제목"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="153dp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="340"
+            android:layout_height="40"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="카테고리 선택"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="333dp"
+            android:layout_height="265dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="내용을 입력하세요"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="384dp" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="340"
+            android:layout_height="40"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="카테고리 선택"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="글 작성하기"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="65dp"
+            android:layout_height="40"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="다음"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/cansel"
+            android:layout_width="65dp"
+            android:layout_height="40"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="닫기"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        app:itemBackground="@android:color/holo_blue_dark"
+        app:itemIconTint="@drawable/item_color"
+        app:itemTextColor="@drawable/item_color"
+        app:menu="@menu/menu_bottom">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</LinearLayout>
