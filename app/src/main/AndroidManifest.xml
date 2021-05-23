@@ -58,8 +58,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".post.PostMapActivity"/>
-        <activity android:name=".IntroActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +79,7 @@
         <activity android:name=".post.PostWriteActivity" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
+        <activity android:name=".IntroActivity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

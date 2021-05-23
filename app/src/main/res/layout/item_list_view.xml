@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_app_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_app_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="10dp"
@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:id="@+id/parentLayout"
-            android:layout_width="match_app_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
 
@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="20"
-                android:src=""/>
+                android:src="@color/black"/>
 
             <LinearLayout
                 android:id="@+id/textLayout"
@@ -39,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="match_app_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"
                     android:text="이름"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/contentText"
-                    android:layout_width="match_app_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"
                     android:text="전화번호"
