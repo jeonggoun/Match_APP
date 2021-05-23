@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class JoinActivity extends AppCompatActivity {
 
+public class JoinActivity extends AppCompatActivity {
+    private static final String TAG = "JoinActivity MAIN :" ;
     private FirebaseAuth mFirebaseAuth;         // 파이어베이스 인증
     private DatabaseReference mDatabaseRef;     // 실시간 데이터베이스
     private EditText mEtEmail, mEtPwd;          // 회원가입 필드
@@ -28,11 +30,12 @@ public class JoinActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         mEtEmail = findViewById(R.id.et_email);
         mEtPwd = findViewById(R.id.et_pwd);
@@ -56,6 +59,7 @@ public class JoinActivity extends AppCompatActivity {
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
 
+                            Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
                             // setValue : database에 insert(삽입) 행위
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
                             Toast.makeText(JoinActivity.this, "회원가입을 성공하셨습니다.", Toast.LENGTH_SHORT).show();
