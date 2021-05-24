@@ -10,8 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 맵 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" /><!-- 진동 권한 -->
-
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 진동 권한 -->
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" /> <!-- 안드로이드에 카메라가 꼭 있어야 한다 -->
@@ -65,7 +64,6 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
 
-
             <data android:mimeType="text/plain" />
         </intent>
         <intent>
@@ -88,7 +86,6 @@
                 android:mimeType="vnd.android.cursor.item/*"
                 android:scheme="content" />
         </intent>
-
     </queries>
 
     <application
@@ -100,9 +97,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".post.PostMapActivity"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".post.PostMapActivity" />
+        <activity android:name=".Login01Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -121,7 +117,8 @@
         <activity android:name=".post.PostWriteActivity" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".IntroActivity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
+        <activity android:name=".Login02Activity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
+        <activity android:name=".IntroActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
