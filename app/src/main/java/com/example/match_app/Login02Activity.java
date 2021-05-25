@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.match_app.dto.MemberDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +35,9 @@ public class Login02Activity extends AppCompatActivity {
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabaseRef;
     private String otp;
+    private String phoneNumber = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +58,8 @@ public class Login02Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phone = et_phone.getText().toString();
-                String phoneNumber = "+82"+""+phone.substring(1,phone.length());
-                Log.d(TAG, "onClick: "+phoneNumber);
-
                 if (!phone.isEmpty()) {
+                    phoneNumber = "+82"+phone.substring(1,phone.length());
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                             .setPhoneNumber(phoneNumber)
                             .setTimeout(90L, TimeUnit.SECONDS)
@@ -139,6 +141,14 @@ public class Login02Activity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    MemberDTO account = new MemberDTO();
+                    account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
+                    account.setPhoneNumber(phoneNumber);
+
+                    Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
+                    // setValue : database에 insert(삽입) 행위
+                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
                     sendToMain();
                 } else {
                     tv_auth05.setText(task.getException().getMessage());

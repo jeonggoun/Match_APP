@@ -5,6 +5,7 @@ public class MemberDTO {
     private String idToken;     // Firebase Uid (고유 토큰 정보)
     private String emailId;
     private String password;
+    private String phoneNumber;
 
     // FireBase에서는 빈 생성자 필수
 
@@ -34,5 +35,13 @@ public class MemberDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
