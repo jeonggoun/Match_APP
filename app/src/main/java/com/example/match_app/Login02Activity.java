@@ -94,7 +94,7 @@ public class Login02Activity extends AppCompatActivity {
 
                 // 코드가 자동 입력이 안될 시 사용자가 수동으로 코드 입력해야함
                 tv_auth05.setText("코드가 발송됐습니다.");
-                tv_auth05.setText(View.VISIBLE);
+                tv_auth05.setVisibility(View.VISIBLE);
                 otp = s;
 
                 new Handler().postDelayed(new Runnable() {
