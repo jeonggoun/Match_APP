@@ -1,5 +1,6 @@
 package com.example.match_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,22 +20,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class IntroActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
 
-    private Button button;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
+        mAuth = FirebaseAuth.getInstance();
+
     }
+
+
 
     private void checkDangerousPermissions() {
         String[] permissions = {
@@ -83,14 +81,16 @@ public class IntroActivity extends AppCompatActivity {
         }
     }
 
-    // 현재 사용자 계정정보가 있는가? if =null 이면 로그인 액티비티로 가시오
+    // 사용자 정보가 없으면 Login02로 바로 가게끔, 있으면 main으로 가게끔
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d(TAG, "onStart: currentUser : "+currentUser);
         if (currentUser == null) {
             startActivity(new Intent(IntroActivity.this, Login02Activity.class));
+            finish();
+        } else {
+            startActivity(new Intent(IntroActivity.this, MainActivity.class));
             finish();
         }
     }

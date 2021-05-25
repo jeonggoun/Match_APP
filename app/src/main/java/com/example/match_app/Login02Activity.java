@@ -54,7 +54,7 @@ public class Login02Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phone = et_phone.getText().toString();
-                String phoneNumber = "+82"+""+phone.substring(1,phone.length()-1);
+                String phoneNumber = "+82"+""+phone.substring(1,phone.length());
                 Log.d(TAG, "onClick: "+phoneNumber);
 
                 if (!phone.isEmpty()) {
@@ -119,14 +119,14 @@ public class Login02Activity extends AppCompatActivity {
     }
 
     // 시작시 유저정보가 있으면 메인으로 건너가기
-/*    @Override
+    @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             sendToMain();
         }
-    }*/
+    }
 
     private void sendToMain() {
         Intent mainIntent = new Intent(Login02Activity.this,MainActivity.class);
