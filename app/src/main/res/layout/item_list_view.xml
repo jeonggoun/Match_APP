@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--글 목록 들어갈 CardView-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,49 +15,89 @@
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
+        <!--CardView 내에서 줄 나누기 위한 LinearLayout-->
         <LinearLayout
             android:id="@+id/parentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical">
 
-            android:weightSum="100">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="20"
-                android:src="@color/black"/>
-
+            <!--첫 줄: 종목, 글 제목 가로로 넣기 위한 LinearLayout-->
             <LinearLayout
-                android:id="@+id/textLayout"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:orientation="vertical"
-                android:layout_weight="60"
-                android:paddingLeft="10dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/event"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:text="종목"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="30dp"
                     android:gravity="center_vertical"
-                    android:text="이름"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/contentText"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical"
-                    android:text="전화번호"
+                    android:text="글 제목"
                     android:textSize="24sp" />
 
             </LinearLayout>
 
+            <!--둘째 줄: 이미지와 글 칸 나누기 위한 LinearLayout-->
+            <LinearLayout
+                android:id="@+id/contentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:weightSum="100">
+
+                <!--글 이미지-->
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="20"
+                    android:src="@color/black" />
+
+                <!--일시, 장소, 참가비 등 입력하기 위해 줄 나누는 LinearLayout-->
+                <LinearLayout
+                    android:id="@+id/textLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="80"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:text="일시"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/place"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:text="장소"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/fee"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:text="참가비"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </LinearLayout>

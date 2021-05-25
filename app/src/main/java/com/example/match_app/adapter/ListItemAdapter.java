@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.R;
+import com.example.match_app.dto.ChatListDTO;
+import com.example.match_app.dto.ChattingDTO;
+import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
 
 import java.util.ArrayList;
@@ -21,8 +24,10 @@ public class ListItemAdapter extends
         RecyclerView.Adapter<ListItemAdapter.ViewHolder>
         implements com.example.match_app.adapter.ListItemOnClickListener {
 
-    private static final String TAG = "main:SingerAdapter";
-
+    private static final String TAG = "ListItemAdapter ";
+    public final static int CHATTINGDTO = 1;
+    public final static int CHATTINGLISTDTO = 2;
+    public final static int POSTDTO = 3;
     // 1. 리스너 선언
     com.example.match_app.adapter.ListItemOnClickListener listener;
 
@@ -30,9 +35,9 @@ public class ListItemAdapter extends
     ArrayList<SuperDTO> dtos;
     Context context;
     LayoutInflater inflater;
-    String dtoType;
+    int dtoType;
 
-    public ListItemAdapter(ArrayList<SuperDTO> dtos, Context context, String dtoType) {
+    public ListItemAdapter(ArrayList<SuperDTO> dtos, Context context, int dtoType) {
         this.dtos = dtos;
         this.context = context;
         this.dtoType = dtoType;
@@ -58,19 +63,16 @@ public class ListItemAdapter extends
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
         holder.setDto(dto);
 
-        // 쓰레기통 클릭하여 항목 삭제하기
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                notifyDataSetChanged();
             }
         });
         holder.textLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                notifyDataSetChanged();
             }
         });
 
@@ -86,12 +88,13 @@ public class ListItemAdapter extends
 
     @Override
     public int getItemCount() {
-        return dtos.size();
+        return dtos==null ? 0: dtos.size();
     }
 
     // ArrayList<SuperDTO>에 dto를 추가할수 있도록 매소드를 만든다
     public void addDto(SuperDTO dto){
         dtos.add(dto);
+        notifyItemInserted(dtos.size()-1);
     }
 
     // ArrayList<SuperDTO>에 특정위치에 dto를 제거할수 있도록 매소드를 만든다
@@ -119,13 +122,11 @@ public class ListItemAdapter extends
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        // singerview에 있는 모든 위젯을 정의한다
         TextView title, contentText;
         ImageView image;
         LinearLayout parentLayout, textLayout;
 
 
-        // singerview에 정의한 아이디와 연결시킨다 (생성자)
         public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.ListItemOnClickListener listener) {
             super(itemView);
 
@@ -148,8 +149,21 @@ public class ListItemAdapter extends
             });
         }
 
-        // 함수를 만들어서 singerview에 데이터를 셋팅시킨다.
         public void setDto(SuperDTO dto){
+            switch (dtoType){
+                case 1 :
+                    ChattingDTO chattingDTO = (ChattingDTO) dto;
+                    //각각 작성
+                    break;
+                case 2 :
+                    ChatListDTO chatListDTO = (ChatListDTO) dto;
+
+                    break;
+                case 3 :
+                    PostDTO postDTO = (PostDTO) dto;
+
+                    break;
+            }
 /*            title.setText(dto.getName());
             contentText.setText(dto.getMobile());
             image.setImageResource(dto.getResId());*/

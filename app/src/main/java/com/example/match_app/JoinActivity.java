@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.match_app.asynctask.member.Login;
+import com.example.match_app.dto.MemberDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -54,7 +54,7 @@ public class JoinActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                            UserAccount account = new UserAccount();
+                            MemberDTO account = new MemberDTO();
                             account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
@@ -63,7 +63,7 @@ public class JoinActivity extends AppCompatActivity {
                             // setValue : database에 insert(삽입) 행위
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
                             Toast.makeText(JoinActivity.this, "회원가입을 성공하셨습니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(JoinActivity.this, Login01Activity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(JoinActivity.this, "회원가입을 실패하셨습니다.", Toast.LENGTH_SHORT).show();

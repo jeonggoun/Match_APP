@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginActivity extends AppCompatActivity {
+public class Login01Activity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;         // 파이어베이스 인증
     private DatabaseReference mDatabaseRef;     // 실시간 데이터베이스
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login01);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -42,16 +42,16 @@ public class LoginActivity extends AppCompatActivity {
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
 
-                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(Login01Activity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 로그인 성공
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(Login01Activity.this, Login02Activity.class);
                             startActivity(intent);
                             finish();   // 현재 액티비티 끄기
                         } else {
-                            Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login01Activity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 회원가입 화면으로 이동
-                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                Intent intent = new Intent(Login01Activity.this, JoinActivity.class);
                 startActivity(intent);
             }
         });
