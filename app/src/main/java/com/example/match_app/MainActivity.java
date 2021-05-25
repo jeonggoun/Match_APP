@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
->>>>>>> ba4209955829d3a133719d27ba6719783dfc8c6f
         });
     }
 
