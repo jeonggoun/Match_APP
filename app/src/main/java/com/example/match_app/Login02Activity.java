@@ -25,6 +25,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -52,7 +53,7 @@ public class Login02Activity extends AppCompatActivity {
         et_auth_enter = findViewById(R.id.et_auth_enter);
 
         auth = FirebaseAuth.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         auth_request.setOnClickListener(new View.OnClickListener() {
             @Override
