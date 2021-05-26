@@ -29,18 +29,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import com.example.match_app.fragment.ChatListFragment.*;
 
 public class ChattingActivity extends AppCompatActivity {
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<ChattingDTO> ChattingDTOList;
     private String userName ;
     private String chat_name;
+    private String path = "matchapp/ChatList";
     private EditText edt_chat;
     private Button btn_send;
-
     private DatabaseReference myRef;
     private DatabaseReference toRef;
     @Override
@@ -91,8 +91,8 @@ public class ChattingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference(userName).child(chat_name);
-        toRef = database.getReference(chat_name).child(userName);
+        myRef = database.getReference(path+userName).child(chat_name);
+        toRef = database.getReference(path+chat_name).child(userName);
 
       /*  ChattingDTO dto = new ChattingDTO();
         dto.setNickname(nick);

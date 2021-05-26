@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.match_app.ChattingActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
+import com.example.match_app.dto.MemberDTO;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ChatListFragment extends Fragment {
     private ListView chat_list;
     private String user ;
+    private MemberDTO member;
+    public final static String path = "matchapp/ChatList";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private DatabaseReference databaseReference;// = firebaseDatabase.getReference(path);
     MainActivity mainActivity;
     @Nullable
     @Override
@@ -34,9 +37,9 @@ public class ChatListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
         mainActivity = (MainActivity) getActivity();
-    //    user = intent.getStringExtra("name");/////////////////////////////////////////////////////////////
-        databaseReference = firebaseDatabase.getReference(user);
-        chat_list = mainActivity.findViewById(R.id.chat_list);
+        user = member.getEmailId();
+        databaseReference = firebaseDatabase.getReference(path+user);
+        chat_list = viewGroup.findViewById(R.id.chat_list);
         showChatList();
         return viewGroup;
     }
@@ -47,14 +50,14 @@ public class ChatListFragment extends Fragment {
         // 리스트 어댑터 생성 및 세팅
         final ArrayAdapter<String> adapter
 
-                = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1);
+                = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_list_item_1, android.R.id.text1);
         chat_list.setAdapter(adapter);
 
         chat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext() , ChattingActivity.class);
-                if (user.trim().length() < 1 || user.isEmpty()){
+                if ( user ==null || user.isEmpty()||user.trim().length() < 1){
                     Toast.makeText(getContext(),"유저명 확인 불가", Toast.LENGTH_SHORT).show();
                     return;
                 }
