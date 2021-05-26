@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +14,20 @@
 
 
         <LinearLayout
-            android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/text_list"
-                android:text="친구 목록"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:layout_marginBottom="20dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="친구 목록"
+                android:textSize="20dp" />
+
             <ListView
                 android:id="@+id/chat_list"
                 android:layout_width="match_parent"
@@ -33,7 +35,20 @@
 
             </ListView>
         </LinearLayout>
+
     </LinearLayout>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        app:itemBackground="@android:color/holo_blue_dark"
+        app:itemIconTint="@drawable/item_color"
+        app:itemTextColor="@drawable/item_color"
+        app:menu="@menu/menu_bottom">
 
-</RelativeLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</LinearLayout>

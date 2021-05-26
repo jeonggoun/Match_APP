@@ -13,6 +13,10 @@ public class MemberDTO {
     public MemberDTO() {
     }
 
+    public MemberDTO( String emailId) {
+        this.emailId = emailId;
+    }
+
     public String getIdToken() {
         return idToken;
     }

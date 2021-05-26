@@ -36,11 +36,14 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
+
+        member = new MemberDTO("aaa@naver.com");
+
         mainActivity = (MainActivity) getActivity();
-        user = member.getEmailId();
-        databaseReference = firebaseDatabase.getReference(path+user);
+        /*user = member.getEmailId();
+        databaseReference = firebaseDatabase.getReference(path+user);*/
         chat_list = viewGroup.findViewById(R.id.chat_list);
-        showChatList();
+        //showChatList();
         return viewGroup;
     }
 
