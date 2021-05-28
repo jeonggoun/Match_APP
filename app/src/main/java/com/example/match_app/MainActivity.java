@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "IntroActivity MAIN : ";
-    private Button button;
+    private Button button;//
     private FirebaseAuth mAuth;
     ChatListFragment chatListFragment;
 
@@ -36,19 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(MainActivity.this, IntroActivity.class));
-                finish();
-            }
-
-
-
-
-        });
 
         fragment1 = new HomeFragment();
         fragment2 = new SearchFragment();
