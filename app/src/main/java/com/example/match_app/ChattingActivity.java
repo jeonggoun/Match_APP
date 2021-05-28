@@ -91,8 +91,8 @@ public class ChattingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference(path+userName).child(chat_name);
-        toRef = database.getReference(path+chat_name).child(userName);
+        myRef = database.getReference(path+"/"+userName).child(chat_name);
+        toRef = database.getReference(path+"/"+chat_name).child(userName);
 
       /*  ChattingDTO dto = new ChattingDTO();
         dto.setNickname(nick);
@@ -147,7 +147,7 @@ public class ChattingActivity extends AppCompatActivity {
         }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
 
