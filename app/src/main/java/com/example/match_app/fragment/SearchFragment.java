@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.dto.ListItemDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
+import com.example.match_app.post.PostWriteActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
@@ -36,15 +38,33 @@ public class SearchFragment extends Fragment {
     private String path = "matchapp/post";
     MainActivity activity;
 
+    //글쓰기 버튼
+   Button btnWrite;
+
     //ListItem용
     RecyclerView recyclerView;
     ListItemAdapter adapter;
     ArrayList<ListItemDTO> dtos;
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
         databaseReference = firebaseDatabase.getReference(path);
+
+        //글쓰기 버튼 찾고 PostWriteActivity로 넘기기
+        btnWrite = viewGroup.findViewById(R.id.btnWrite);
+        btnWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PostWriteActivity.class); //this 대신 getActivity()
+                startActivity(intent);
+            }
+        });
 
         activity = (MainActivity) getActivity();
         ////////ListItem용
