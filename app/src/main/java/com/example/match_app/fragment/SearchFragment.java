@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private String path = "matchapp/post";
-
+    MainActivity activity;
 
     //ListItem용
     RecyclerView recyclerView;
@@ -46,30 +46,28 @@ public class SearchFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
         databaseReference = firebaseDatabase.getReference(path);
 
-
+        activity = (MainActivity) getActivity();
         ////////ListItem용
         // 반드시 생성해서 어댑터에 넘겨야 함
         dtos = new ArrayList<>();
 
-        recyclerView = container.findViewById(R.id.recyclerView);
-
-        // 리사이클러뷰에서 반드시 초기화 시켜야함
+        recyclerView = viewGroup.findViewById(R.id.recyclerView);
+//
+//        // 리사이클러뷰에서 반드시 초기화 시켜야함
         LinearLayoutManager layoutManager = new LinearLayoutManager(
-                getContext(), RecyclerView.VERTICAL, false
+                activity, RecyclerView.VERTICAL, false
         );
         recyclerView.setLayoutManager(layoutManager);
-
-        // 어댑터 객체를 생성한다
+//
+//        // 어댑터 객체를 생성한다
         adapter = new ListItemAdapter(dtos, getContext());
-
-        // 어댑터에 있는 ArrayList에 dto를 5개 추가한다
+//
+//        // 어댑터에 있는 ArrayList에 dto를 5개 추가한다
         adapter.addDto(new ListItemDTO(0, "테니스", "테니스 치실 분", "2021/5/26", "농성테니스장", "무료", "#"));    //어디 DTO 받아올 건지 물어볼 예정
-
-        // 만든 어댑터를 리스트뷰에 붙인다
-        recyclerView.setAdapter(adapter);
+//
+//        // 만든 어댑터를 리스트뷰에 붙인다
+//        recyclerView.setAdapter(adapter);
         ////////
-
-
         showPostList();
         return viewGroup;
     }
@@ -79,6 +77,7 @@ public class SearchFragment extends Fragment {
 //     리스트 어댑터 생성 및 세팅
         final ListItemAdapter adapter
                 = new ListItemAdapter(dtos, getContext());
+
         recyclerView.setAdapter(adapter);
 //        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override

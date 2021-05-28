@@ -14,13 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.R;
-import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.dto.ListItemDTO;
+import com.example.match_app.post.PostDetailActivity;
 
 import java.util.ArrayList;
 
-public class ListItemAdapter extends
-        RecyclerView.Adapter<ListItemAdapter.ViewHolder>
+public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>
         implements com.example.match_app.adapter.ListItemOnClickListener {
     //cardView 어댑터 보고 여기 채워넣기?(태그 찾아놓고 글 집어넣고)
 
@@ -47,6 +46,7 @@ public class ListItemAdapter extends
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.item_list_view,
                 parent, false);
+        Log.d(TAG, "onCreateViewHolder: ");
         return new ViewHolder(itemView, this);
     }
 
@@ -62,7 +62,7 @@ public class ListItemAdapter extends
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context , PostDetail.class);
+                Intent intent = new Intent(context , PostDetailActivity.class);
 
                 intent.putExtra("post", getItem(position));
                 context.startActivity(intent);
@@ -115,12 +115,13 @@ public class ListItemAdapter extends
         public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.ListItemOnClickListener listener) {
             super(itemView);
 
+            Log.d(TAG, "onGenerateViewHolder: " );
             parentLayout = itemView.findViewById(R.id.parentLayout);
-            tvTitle = itemView.findViewById(R.id.title);
-            imageLayout = itemView.findViewById(R.id.imageLayout); /*이미지 들어가는*/
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+//            imageLayout = itemView.findViewById(R.id.imageLayout); /*이미지 들어가는*/
             image = itemView.findViewById(R.id.image);
             tvGame = itemView.findViewById(R.id.tvGame);
-            tvTime = itemView.findViewById(R.id.time);
+            tvTime = itemView.findViewById(R.id.tvTime);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             tvFee = itemView.findViewById(R.id.tvFee);
 
