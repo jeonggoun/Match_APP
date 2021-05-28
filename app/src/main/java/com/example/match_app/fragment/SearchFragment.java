@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,9 +19,11 @@ import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.ListItemAdapter;
 import com.example.match_app.asynctask.post.PostDetail;
+import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.ListItemDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
+import com.example.match_app.post.PostWriteActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +43,8 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView;
     ListItemAdapter adapter;
     ArrayList<ListItemDTO> dtos;
+
+    Button btnWrite;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,6 +74,19 @@ public class SearchFragment extends Fragment {
 //        recyclerView.setAdapter(adapter);
         ////////
         showPostList();
+
+        //글작성 버튼 클릭시 화면전환
+        btnWrite = viewGroup.findViewById(R.id.btnWrite);
+        btnWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PostWriteActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         return viewGroup;
     }
 

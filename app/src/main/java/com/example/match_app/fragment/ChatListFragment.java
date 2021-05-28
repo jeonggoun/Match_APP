@@ -40,7 +40,7 @@ public class ChatListFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
         context = container.getContext();
         member = new MemberDTO("aaa@naver.com");
-        member.setIdToken("친구1");
+        member.setIdToken("1234");
         mainActivity = (MainActivity) getActivity();
         user = member.getIdToken();
         databaseReference = firebaseDatabase.getReference(path+"/"+user);
@@ -57,7 +57,8 @@ public class ChatListFragment extends Fragment {
 
                 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1);
         chat_list.setAdapter(adapter);
-        adapter.add("1234");
+        adapter.add("친구1");
+        adapter.add("12345");
         Toast.makeText(context,"유저명", Toast.LENGTH_SHORT).show();
         chat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
