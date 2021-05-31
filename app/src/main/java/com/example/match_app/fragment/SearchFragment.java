@@ -24,6 +24,7 @@ import com.example.match_app.adapter.ListItemAdapter;
 import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.ListItemDTO;
+import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
 import com.example.match_app.post.PostWriteActivity;
@@ -51,14 +52,13 @@ public class SearchFragment extends Fragment {
 
     //콤보박스용 items
     String[] items = {"테니스", "축구", "야구", "이스포츠"};
-    TextView tvSelectGame;
     Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
-        databaseReference = firebaseDatabase.getReference(path);
+        databaseReference = firebaseDatabase.getInstance().getReference("matchapp");
 
         activity = (MainActivity) getActivity();
         ////////ListItem용
@@ -82,7 +82,6 @@ public class SearchFragment extends Fragment {
 //        // 만든 어댑터를 리스트뷰에 붙인다
 //        recyclerView.setAdapter(adapter);
         ////////
-        showPostList();
 
         //글작성 버튼 클릭시 화면전환
         btnWrite = viewGroup.findViewById(R.id.btnWrite);
@@ -97,9 +96,6 @@ public class SearchFragment extends Fragment {
         //스피너 찾아주기
         spinner = viewGroup.findViewById(R.id.spinner);
 
-        //스피너로 선택된 항목 나타낼 텍스트뷰 찾기
-        tvSelectGame = getActivity().findViewById(R.id.tvSelectGame);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(
@@ -108,19 +104,22 @@ public class SearchFragment extends Fragment {
         //스피너에 어댑터 설정
         spinner.setAdapter(adapter);
 
-        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                tvSelectGame.setText(items[position]);
+                //tvSelectGame.setText(items[position]);
+                // 받은 어댑터에서 야구만 있는 어댑터를 만들어서 그어댑터를 setAdapter ?!
+
             }
             //////////////////왜 안 될까
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                tvSelectGame.setText("");
+
             }
         });
-*/
+
+        showPostList();
 
         return viewGroup;
     }
