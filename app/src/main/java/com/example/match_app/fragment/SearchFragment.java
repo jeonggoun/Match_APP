@@ -25,6 +25,7 @@ import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.ListItemDTO;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.MetaDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
 import com.example.match_app.post.PostWriteActivity;
@@ -51,7 +52,7 @@ public class SearchFragment extends Fragment {
     Button btnWrite;
 
     //콤보박스용 items
-    String[] items = {"테니스", "축구", "야구", "이스포츠"};
+    String[] items = {"전체", "테니스", "축구", "야구", "이스포츠"};
     Spinner spinner;
 
     @Override
@@ -152,8 +153,10 @@ public class SearchFragment extends Fragment {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ListItemDTO dto = dataSnapshot.getValue(ListItemDTO.class);
-                adapter.addDto(dto);
+                /*ListItemDTO dto = dataSnapshot.getValue(ListItemDTO.class);
+                adapter.addDto(dto);*/
+                //오류남ㅁㅁ
+                /////////////////////////////////////////////////////////////////////////
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {            }
