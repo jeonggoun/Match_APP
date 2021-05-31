@@ -29,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.example.match_app.fragment.ChatListFragment.*;
 
 public class ChattingActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -39,10 +38,13 @@ public class ChattingActivity extends AppCompatActivity {
     private String userName ;
     private String chat_name;
     private String path = "matchapp/ChatList";
+    private String metaPath = "matchapp/ChatMeta";
     private EditText edt_chat;
     private Button btn_send;
     private DatabaseReference myRef;
     private DatabaseReference toRef;
+    private DatabaseReference myRefMeta;
+    private DatabaseReference toRefMeta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,6 @@ public class ChattingActivity extends AppCompatActivity {
         checkDangerousPermissions();
 
         Intent intent = getIntent();
-        //nick = "nick1";
         userName = intent.getStringExtra("userName");
         chat_name = intent.getStringExtra("chatName");
 
@@ -74,6 +75,7 @@ public class ChattingActivity extends AppCompatActivity {
                     SimpleDateFormat simpleDate = new SimpleDateFormat("hh:mm:aa");
                     String getTime = simpleDate.format(mDate);
                     dto.setDate(getTime);
+                    toRefMeta.setValue(dto);
                     myRef.push().setValue(dto);
                     toRef.push().setValue(dto);
                     edt_chat.setText("");
@@ -91,19 +93,17 @@ public class ChattingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference(path+"/"+userName).child(chat_name);
-        toRef = database.getReference(path+"/"+chat_name).child(userName);
+        myRef = database.getReference(path+"/"+userName+"/"+chat_name);
+        toRef = database.getReference(path+"/"+chat_name+"/"+userName);
+        toRefMeta = database.getReference(metaPath+"/"+chat_name+"/"+userName+"/recent");
 
-      /*  ChattingDTO dto = new ChattingDTO();
-        dto.setNickname(nick);
-        dto.setMsg("hi");
-        myRef.setValue(dto);*/
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ChattingDTO dto = snapshot.getValue(ChattingDTO.class);
                 ((ChatAdpter) mAdapter).addChat(dto);
+
             }
 
             @Override
