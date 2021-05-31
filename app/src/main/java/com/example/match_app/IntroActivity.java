@@ -88,7 +88,7 @@ public class IntroActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "사용자 정보 없음", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(IntroActivity.this, Login02Activity.class));
+            startActivity(new Intent(IntroActivity.this, Login01Activity.class));
             finish();
         } else {
             Toast.makeText(this, "사용자 정보 있음", Toast.LENGTH_SHORT).show();

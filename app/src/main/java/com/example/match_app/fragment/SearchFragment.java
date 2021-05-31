@@ -2,12 +2,15 @@ package com.example.match_app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -33,7 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
-
+    private static final String TAG = "main: SearchFragment";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private String path = "matchapp/post";
@@ -45,6 +48,12 @@ public class SearchFragment extends Fragment {
     ArrayList<ListItemDTO> dtos;
 
     Button btnWrite;
+
+    //콤보박스용 items
+    String[] items = {"테니스", "축구", "야구", "이스포츠"};
+    TextView tvSelectGame;
+    Spinner spinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,14 +91,50 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PostWriteActivity.class);
                 startActivity(intent);
-
             }
         });
 
+        //스피너 찾아주기
+        spinner = viewGroup.findViewById(R.id.spinner);
+
+        //스피너로 선택된 항목 나타낼 텍스트뷰 찾기
+        tvSelectGame = getActivity().findViewById(R.id.tvSelectGame);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+
+        //스피너에 어댑터 설정
+        spinner.setAdapter(adapter);
+
+        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                tvSelectGame.setText(items[position]);
+            }
+            //////////////////왜 안 될까
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                tvSelectGame.setText("");
+            }
+        });
+*/
 
         return viewGroup;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        addItemsOnSpinner();
+    }
+
+    public void addItemsOnSpinner() {
+
+    }
 
     private void showPostList() {
 //     리스트 어댑터 생성 및 세팅
