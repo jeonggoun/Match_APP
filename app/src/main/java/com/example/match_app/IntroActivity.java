@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,17 +23,13 @@ public class IntroActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
         mAuth = FirebaseAuth.getInstance();
-
     }
-
-
 
     private void checkDangerousPermissions() {
         String[] permissions = {
@@ -82,13 +79,14 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     // 사용자 정보가 없으면 Login02로 바로 가게끔, 있으면 main으로 가게끔
+
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "사용자 정보 없음", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(IntroActivity.this, Login01Activity.class));
+            startActivity(new Intent(IntroActivity.this, Login00Activity.class));
             finish();
         } else {
             Toast.makeText(this, "사용자 정보 있음", Toast.LENGTH_SHORT).show();
