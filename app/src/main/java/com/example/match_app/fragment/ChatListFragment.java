@@ -1,5 +1,6 @@
 package com.example.match_app.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,14 +32,18 @@ public class ChatListFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;// = firebaseDatabase.getReference(path);
     MainActivity mainActivity;
+    Context context;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
+        context = container.getContext();
+        member = new MemberDTO("aaa@naver.com");
+        member.setIdToken("1234");
         mainActivity = (MainActivity) getActivity();
-        user = member.getEmailId();
-        databaseReference = firebaseDatabase.getReference(path+user);
+        user = member.getIdToken();
+        databaseReference = firebaseDatabase.getReference(path+"/"+user);
         chat_list = viewGroup.findViewById(R.id.chat_list);
         showChatList();
         return viewGroup;
@@ -50,18 +55,21 @@ public class ChatListFragment extends Fragment {
         // 리스트 어댑터 생성 및 세팅
         final ArrayAdapter<String> adapter
 
-                = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_list_item_1, android.R.id.text1);
+                = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1);
         chat_list.setAdapter(adapter);
-
+        adapter.add("친구1");
+        adapter.add("12345");
+        Toast.makeText(context,"유저명", Toast.LENGTH_SHORT).show();
         chat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext() , ChattingActivity.class);
+                Intent intent = new Intent(getActivity(), ChattingActivity.class);
                 if ( user ==null || user.isEmpty()||user.trim().length() < 1){
-                    Toast.makeText(getContext(),"유저명 확인 불가", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"유저명 확인 불가"+user, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intent.putExtra("chatName", adapter.getItem(position).toString());
+                Toast.makeText(getContext(),"유저명 확인", Toast.LENGTH_SHORT).show();
+                intent.putExtra("chatName", adapter.getItem(position));
                 intent.putExtra("userName", user);
                 startActivity(intent);
 

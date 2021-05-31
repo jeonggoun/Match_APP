@@ -1,6 +1,7 @@
 package com.example.match_app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,34 +14,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.R;
-import com.example.match_app.dto.ChatListDTO;
-import com.example.match_app.dto.ChattingDTO;
-import com.example.match_app.dto.PostDTO;
-import com.example.match_app.dto.SuperDTO;
+import com.example.match_app.dto.ListItemDTO;
+import com.example.match_app.post.PostDetailActivity;
 
 import java.util.ArrayList;
 
-public class ListItemAdapter extends
-        RecyclerView.Adapter<ListItemAdapter.ViewHolder>
+public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>
         implements com.example.match_app.adapter.ListItemOnClickListener {
+    //cardView 어댑터 보고 여기 채워넣기?(태그 찾아놓고 글 집어넣고)
 
     private static final String TAG = "ListItemAdapter ";
-    public final static int CHATTINGDTO = 1;
-    public final static int CHATTINGLISTDTO = 2;
-    public final static int POSTDTO = 3;
+
     // 1. 리스너 선언
     com.example.match_app.adapter.ListItemOnClickListener listener;
 
     // 메인에서 넘겨 받는것
-    ArrayList<SuperDTO> dtos;
+    ArrayList<ListItemDTO> dtos;
     Context context;
     LayoutInflater inflater;
-    int dtoType;
 
-    public ListItemAdapter(ArrayList<SuperDTO> dtos, Context context, int dtoType) {
+    public ListItemAdapter(ArrayList<ListItemDTO> dtos, Context context) {
         this.dtos = dtos;
         this.context = context;
-        this.dtoType = dtoType;
         inflater = LayoutInflater.from(this.context);
     }
 
@@ -51,6 +46,7 @@ public class ListItemAdapter extends
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.item_list_view,
                 parent, false);
+        Log.d(TAG, "onCreateViewHolder: ");
         return new ViewHolder(itemView, this);
     }
 
@@ -59,31 +55,20 @@ public class ListItemAdapter extends
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + position);
 
-        SuperDTO dto = dtos.get(position);
+        ListItemDTO dto = dtos.get(position);
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
         holder.setDto(dto);
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context , PostDetailActivity.class);
+
+                intent.putExtra("post", getItem(position));
+                context.startActivity(intent);
 
             }
         });
-        holder.textLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        // 항목을 클릭하여 그 항목 dto를 가져올수 있다
-        /*holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SuperDTO dto1 = dtos.get(position);
-                Toast.makeText(context, "이름 : " + dto1.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     @Override
@@ -92,7 +77,7 @@ public class ListItemAdapter extends
     }
 
     // ArrayList<SuperDTO>에 dto를 추가할수 있도록 매소드를 만든다
-    public void addDto(SuperDTO dto){
+    public void addDto(ListItemDTO dto){
         dtos.add(dto);
         notifyItemInserted(dtos.size()-1);
     }
@@ -103,7 +88,7 @@ public class ListItemAdapter extends
     }
 
     // 6. 메인에서 클릭한 위치에 있는 dto 가져오기
-    public SuperDTO getItem(int position){
+    public ListItemDTO getItem(int position){
         return dtos.get(position);
     }
 
@@ -122,7 +107,7 @@ public class ListItemAdapter extends
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView title, contentText;
+        TextView tvTitle, imageLayout, tvGame, tvTime, tvPlace, tvFee;
         ImageView image;
         LinearLayout parentLayout, textLayout;
 
@@ -130,11 +115,15 @@ public class ListItemAdapter extends
         public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.ListItemOnClickListener listener) {
             super(itemView);
 
+            Log.d(TAG, "onGenerateViewHolder: " );
             parentLayout = itemView.findViewById(R.id.parentLayout);
-            title = itemView.findViewById(R.id.title);
-            contentText = itemView.findViewById(R.id.contentText);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+//            imageLayout = itemView.findViewById(R.id.imageLayout); /*이미지 들어가는*/
             image = itemView.findViewById(R.id.image);
-            textLayout = itemView.findViewById(R.id.textLayout);
+            tvGame = itemView.findViewById(R.id.tvGame);
+            tvTime = itemView.findViewById(R.id.tvTime);
+            tvPlace = itemView.findViewById(R.id.tvPlace);
+            tvFee = itemView.findViewById(R.id.tvFee);
 
             // 3. 클릭리스너를 달아준다
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -149,24 +138,26 @@ public class ListItemAdapter extends
             });
         }
 
-        public void setDto(SuperDTO dto){
-            switch (dtoType){
-                case 1 :
-                    ChattingDTO chattingDTO = (ChattingDTO) dto;
-                    //각각 작성
-                    break;
-                case 2 :
-                    ChatListDTO chatListDTO = (ChatListDTO) dto;
+        public void setDto(ListItemDTO dto){
+            //사진, 이름을 카드 모양에 넣는다
 
-                    break;
-                case 3 :
-                    PostDTO postDTO = (PostDTO) dto;
+            tvTitle.setText(dto.getTitle());
+            tvGame.setText(dto.getGame());
+            tvFee.setText(dto.getFee());
+            tvPlace.setText(dto.getPlace());
+            tvTime.setText(dto.getTime());
 
+            switch (dto.getGame()){
+                case "축구" :
+                    image.setImageResource(R.drawable.bg_custom_button);
                     break;
+                case "농구" :
+                    break;
+                default:    //기본 사진
+                    image.setImageResource(R.drawable.common_full_open_on_phone);
             }
-/*            title.setText(dto.getName());
-            contentText.setText(dto.getMobile());
-            image.setImageResource(dto.getResId());*/
+
+
         }
 
     }
