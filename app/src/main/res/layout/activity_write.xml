@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<!--일시, 장소 추가해야 할 듯-->
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,134 +13,131 @@
     android:orientation="vertical"
     android:weightSum="100">
 
+    <!--완료, 글 작성하기, 닫기 들어가는 줄-->
     <LinearLayout
-        android:id="@+id/contain"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="92"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="10"
+            android:text="완료" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000"
-                app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="글 작성하기"
+            android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/next"
-                android:layout_width="65dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="완료"
-                app:backgroundTint="@android:color/holo_blue_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="10"
+            android:text="닫기" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:text="글 작성하기"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/next"
-                app:layout_constraintStart_toEndOf="@+id/cansel"
-                app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/cansel"
-                android:layout_width="65dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:text="닫기"
-                app:backgroundTint="@android:color/holo_blue_dark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <!--구분선-->
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="109dp"
-            android:layout_height="96dp"
-            android:layout_gravity="left"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_camera"
-            tools:layout_editor_absoluteY="37dp" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="109dp"
+        android:layout_height="96dp"
+        android:layout_gravity="left"
+        android:layout_margin="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:layout_editor_absoluteY="37dp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/etTitle"
             android:layout_width="380dp"
             android:layout_height="42dp"
             android:layout_margin="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="글 제목"
+            android:hint="글 제목"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="153dp" />
 
-        <LinearLayout
+    <!--종목 선택, 참가비 항목-->
+
+    <LinearLayout
+        android:layout_width="380dp"
+        android:layout_height="wrap_content">
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="종목" />
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="264dp"
-                android:layout_height="42dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_margin="8dp"
-                android:text="카테고리 선택"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.492"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="234dp" />
+        <!--종목 선택-->
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="참가비 없음"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteX="266dp"
-                tools:layout_editor_absoluteY="318dp" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="참가비" />
 
         <EditText
-            android:id="@+id/editText3"
-            android:layout_width="383dp"
-            android:layout_height="383dp"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="장소 혹은 날짜를 정확하게 작성해주시면 좋습니다."
-            android:inputType="textMultiLine|text|textImeMultiLine"
-            android:selectAllOnFocus="false"
-            android:singleLine="false"
-            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="참가비 입력" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="참가비 없음"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="384dp" />
-
-
-
+            tools:layout_editor_absoluteX="266dp"
+            tools:layout_editor_absoluteY="318dp" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="383dp"
+        android:layout_height="383dp"
+        android:layout_margin="8dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="장소 혹은 날짜를 정확하게 작성해주시면 좋습니다."
+        android:inputType="textMultiLine|text|textImeMultiLine"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="384dp" />
 
 </LinearLayout>
