@@ -1,8 +1,5 @@
 package com.example.match_app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.dto.MemberDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +35,7 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        // 39번줄
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         mEtEmail = findViewById(R.id.et_email);
@@ -54,6 +55,8 @@ public class JoinActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
+                            //
                             MemberDTO account = new MemberDTO();
                             account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
                             account.setEmailId(firebaseUser.getEmail());
@@ -61,6 +64,7 @@ public class JoinActivity extends AppCompatActivity {
 
                             Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
                             // setValue : database에 insert(삽입) 행위
+                            //66번줄
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
                             Toast.makeText(JoinActivity.this, "회원가입을 성공하셨습니다.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(JoinActivity.this, Login01Activity.class);

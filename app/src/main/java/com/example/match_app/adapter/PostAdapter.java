@@ -14,26 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.R;
-import com.example.match_app.dto.ListItemDTO;
+import com.example.match_app.dto.PostDTO;
 import com.example.match_app.post.PostDetailActivity;
 
 import java.util.ArrayList;
 
-public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>
-        implements com.example.match_app.adapter.ListItemOnClickListener {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
+        implements com.example.match_app.adapter.PostOnClickListener {
     //cardView 어댑터 보고 여기 채워넣기?(태그 찾아놓고 글 집어넣고)
 
     private static final String TAG = "ListItemAdapter ";
 
     // 1. 리스너 선언
-    com.example.match_app.adapter.ListItemOnClickListener listener;
+    com.example.match_app.adapter.PostOnClickListener listener;
 
     // 메인에서 넘겨 받는것
-    ArrayList<ListItemDTO> dtos;
+    ArrayList<PostDTO> dtos;
     Context context;
     LayoutInflater inflater;
 
-    public ListItemAdapter(ArrayList<ListItemDTO> dtos, Context context) {
+    public PostAdapter(ArrayList<PostDTO> dtos, Context context) {
         this.dtos = dtos;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -55,7 +55,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + position);
 
-        ListItemDTO dto = dtos.get(position);
+        PostDTO dto = dtos.get(position);
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
         holder.setDto(dto);
 
@@ -77,7 +77,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     }
 
     // ArrayList<SuperDTO>에 dto를 추가할수 있도록 매소드를 만든다
-    public void addDto(ListItemDTO dto){
+    public void addDto(PostDTO dto){
         dtos.add(dto);
         notifyItemInserted(dtos.size()-1);
     }
@@ -88,12 +88,12 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     }
 
     // 6. 메인에서 클릭한 위치에 있는 dto 가져오기
-    public ListItemDTO getItem(int position){
+    public PostDTO getItem(int position){
         return dtos.get(position);
     }
 
     // 4. 메인에서 클릭리스너를 클릭했을때 어댑터의 리스너와 연결해준다
-    public void setOnItemClickListener(com.example.match_app.adapter.ListItemOnClickListener listener){
+    public void setOnItemClickListener(com.example.match_app.adapter.PostOnClickListener listener){
         this.listener = listener;
     }
 
@@ -112,7 +112,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         LinearLayout parentLayout, textLayout;
 
 
-        public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.ListItemOnClickListener listener) {
+        public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.PostOnClickListener listener) {
             super(itemView);
 
             Log.d(TAG, "onGenerateViewHolder: " );
@@ -138,7 +138,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             });
         }
 
-        public void setDto(ListItemDTO dto){
+        public void setDto(PostDTO dto){
             //사진, 이름을 카드 모양에 넣는다
 
             tvTitle.setText(dto.getTitle());

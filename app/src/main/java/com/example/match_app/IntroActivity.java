@@ -1,27 +1,24 @@
 package com.example.match_app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.example.match_app.Common.GetKeyHash;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class IntroActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
-
     private FirebaseAuth mAuth;
+    private GetKeyHash CommonFunction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +26,8 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         mAuth = FirebaseAuth.getInstance();
+        Log.e("GR_KeyHash",CommonFunction.getKeyHash(this));
+
     }
 
     private void checkDangerousPermissions() {

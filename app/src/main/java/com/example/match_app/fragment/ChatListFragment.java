@@ -49,7 +49,7 @@ public class ChatListFragment extends Fragment {
         context = container.getContext();
 
         member = new MemberDTO("aaa@naver.com");
-        member.setIdToken("친구4");
+        member.setIdToken("user2");
         mainActivity = (MainActivity) getActivity();
         user = member.getIdToken();
         databaseReference = firebaseDatabase.getReference(path+"/"+user);
@@ -74,7 +74,7 @@ public class ChatListFragment extends Fragment {
 //        meta.setGame("축구");
 //        meta.setDate("11월");
 //        ChattingDTO chat = new ChattingDTO();
-//        chat.setNickname("친구4");
+//        chat.setNickname("user2");
 //        meta.setRecent(chat);
 //        dtos.add(meta);
 //        databaseReference.child(meta.getRecent().getNickname()).setValue(meta);
