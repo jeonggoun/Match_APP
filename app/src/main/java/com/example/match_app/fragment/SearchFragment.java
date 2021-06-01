@@ -2,12 +2,15 @@ package com.example.match_app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,8 @@ import com.example.match_app.adapter.ListItemAdapter;
 import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.ListItemDTO;
+import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.MetaDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.SuperDTO;
 import com.example.match_app.post.PostWriteActivity;
@@ -33,7 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
-
+    private static final String TAG = "main: SearchFragment";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private String path = "matchapp/post";
@@ -45,11 +50,16 @@ public class SearchFragment extends Fragment {
     ArrayList<ListItemDTO> dtos;
 
     Button btnWrite;
+
+    //콤보박스용 items
+    String[] items = {"전체", "테니스", "축구", "야구", "이스포츠"};
+    Spinner spinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
-        databaseReference = firebaseDatabase.getReference(path);
+        databaseReference = firebaseDatabase.getInstance().getReference("matchapp");
 
         activity = (MainActivity) getActivity();
         ////////ListItem용
@@ -73,7 +83,6 @@ public class SearchFragment extends Fragment {
 //        // 만든 어댑터를 리스트뷰에 붙인다
 //        recyclerView.setAdapter(adapter);
         ////////
-        showPostList();
 
         //글작성 버튼 클릭시 화면전환
         btnWrite = viewGroup.findViewById(R.id.btnWrite);
@@ -82,14 +91,50 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PostWriteActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //스피너 찾아주기
+        spinner = viewGroup.findViewById(R.id.spinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+
+        //스피너에 어댑터 설정
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                //tvSelectGame.setText(items[position]);
+                // 받은 어댑터에서 야구만 있는 어댑터를 만들어서 그어댑터를 setAdapter ?!
+
+            }
+            //////////////////왜 안 될까
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
+        showPostList();
 
         return viewGroup;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        addItemsOnSpinner();
+    }
+
+    public void addItemsOnSpinner() {
+
+    }
 
     private void showPostList() {
 //     리스트 어댑터 생성 및 세팅
@@ -108,8 +153,10 @@ public class SearchFragment extends Fragment {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ListItemDTO dto = dataSnapshot.getValue(ListItemDTO.class);
-                adapter.addDto(dto);
+                /*ListItemDTO dto = dataSnapshot.getValue(ListItemDTO.class);
+                adapter.addDto(dto);*/
+                //오류남ㅁㅁ
+                /////////////////////////////////////////////////////////////////////////
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {            }

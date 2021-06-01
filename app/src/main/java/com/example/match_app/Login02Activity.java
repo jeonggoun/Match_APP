@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.match_app.Common.TimerView;
 import com.example.match_app.dto.MemberDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +34,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Login02Activity extends AppCompatActivity {
     private static final String TAG = "Login02Activity MAIN : ";
+    private ProgressBar progressBar;
+    private TimerView timerView;
+    private ImageView iv_back;
     private TextView auth_request, auth_retry, auth_finish, tv_auth05;
     private EditText et_phone, et_auth_enter;
     private FirebaseAuth auth;
@@ -51,9 +57,19 @@ public class Login02Activity extends AppCompatActivity {
         auth_finish = findViewById(R.id.auth_finish);
         et_phone = findViewById(R.id.et_phone);
         et_auth_enter = findViewById(R.id.et_auth_enter);
+        iv_back = findViewById(R.id.iv_back);
+        progressBar = findViewById(R.id.progressBar);
+        timerView = findViewById(R.id.timer);
 
         auth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Login02Activity.this, "가입단계 진행 중에는 뒤로 갈 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         auth_request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +79,24 @@ public class Login02Activity extends AppCompatActivity {
                     phoneNumber = "+82"+phone.substring(1,phone.length());
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                             .setPhoneNumber(phoneNumber)
-                            .setTimeout(90L, TimeUnit.SECONDS)
+                            .setTimeout(120L, TimeUnit.SECONDS)
                             .setActivity(Login02Activity.this)
                             .setCallbacks(mCallBacks)
                             .build();
                     PhoneAuthProvider.verifyPhoneNumber(options);
+                    auth_request.setEnabled(false);
+
+                    timerView.start(120000);
+                    timerView.setVisibility(View.VISIBLE);
+
+                    if (timerView.isCertification() == false) {
+                        auth_request.setEnabled(true);
+                        tv_auth05.setText("시간이 만료되어 인증번호를 재요청 하세요.");
+                        tv_auth05.setTextColor(Color.RED);
+                        tv_auth05.setVisibility(View.VISIBLE);
+                    }
+
+                    
                 }else {
                     tv_auth05.setText("전화번호를 입력해주세요");
                     tv_auth05.setTextColor(Color.RED);
@@ -113,7 +142,9 @@ public class Login02Activity extends AppCompatActivity {
                             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(otp, auth_enter);
                             singIn(credential);
                         } else {
-                            Toast.makeText(Login02Activity.this, "인증번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+                            tv_auth05.setText("인증번호를 입력해주세요.");
+                            tv_auth05.setTextColor(Color.RED);
+                            tv_auth05.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -159,4 +190,6 @@ public class Login02Activity extends AppCompatActivity {
             }
         });
     }
+
+
 }
