@@ -1,11 +1,14 @@
 package com.example.match_app.post;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.match_app.R;
@@ -13,6 +16,7 @@ import com.example.match_app.dto.PostDTO;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class PostWriteActivity extends AppCompatActivity {
@@ -23,11 +27,32 @@ public class PostWriteActivity extends AppCompatActivity {
     Button cancel, next;
     private PostDTO dto;
     TextView etTitle, etFee, etContent;
+    DatePicker datePicker;
+    String date = "";
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
+
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
+
+        Date tempDate = new Date();
+        date = new DecimalFormat("0000").format(tempDate.getYear()) + "/" +
+                new DecimalFormat("00").format(tempDate.getMonth() + 1)
+                + "/" + new DecimalFormat("00").format(tempDate.getDay());
+
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+                new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
+                        date = new DecimalFormat("0000").format(year) + "/" +
+                                new DecimalFormat("00").format(month + 1)
+                                + "/" + new DecimalFormat("00").format(day);
+                    }
+                });
 
         dto = new PostDTO();
 
