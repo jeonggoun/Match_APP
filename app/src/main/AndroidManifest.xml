@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.match_app">
+    package="com.example.match_app" >
     <!-- 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -100,11 +100,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
+<<<<<<< HEAD
+        android:usesCleartextTraffic="true" >
+=======
         android:usesCleartextTraffic="true">
         <activity android:name=".Login03Activity"></activity>
+>>>>>>> 7a8ec7c401dedb78f9b2547ccc20a937068a4767
         <activity android:name=".Login00Activity" />
         <activity android:name=".post.PostMapActivity" />
+<<<<<<< HEAD
         <activity android:name=".MainActivity"> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
+=======
+        <activity android:name=".IntroActivity" > <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
+>>>>>>> e693368430495790d4a5e9574d83fecb6067d1b0
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -134,7 +142,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />

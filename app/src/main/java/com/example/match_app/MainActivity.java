@@ -1,6 +1,7 @@
 package com.example.match_app;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -86,5 +87,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, Login02Activity.class));
             finish();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){
+            fragment4.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 }
