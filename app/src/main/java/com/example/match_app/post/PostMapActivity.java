@@ -1,8 +1,8 @@
 package com.example.match_app.post;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.R;
 

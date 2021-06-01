@@ -1,10 +1,10 @@
 package com.example.match_app.post;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.R;
 

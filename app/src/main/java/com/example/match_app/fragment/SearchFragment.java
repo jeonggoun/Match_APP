@@ -2,7 +2,6 @@ package com.example.match_app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,27 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.match_app.ChattingActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.ListItemAdapter;
-import com.example.match_app.asynctask.post.PostDetail;
-import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.ListItemDTO;
-import com.example.match_app.dto.MemberDTO;
-import com.example.match_app.dto.MetaDTO;
-import com.example.match_app.dto.PostDTO;
-import com.example.match_app.dto.SuperDTO;
 import com.example.match_app.post.PostWriteActivity;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

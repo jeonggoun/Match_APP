@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.match_app.IntroActivity;
-import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.google.firebase.auth.FirebaseAuth;
 

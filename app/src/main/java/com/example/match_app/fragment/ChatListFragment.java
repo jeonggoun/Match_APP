@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.ChatListAdapter;
-import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.MetaDTO;
 import com.google.firebase.database.ChildEventListener;
