@@ -79,15 +79,24 @@ public class Login02Activity extends AppCompatActivity {
                     phoneNumber = "+82"+phone.substring(1,phone.length());
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                             .setPhoneNumber(phoneNumber)
-                            .setTimeout(90L, TimeUnit.SECONDS)
+                            .setTimeout(120L, TimeUnit.SECONDS)
                             .setActivity(Login02Activity.this)
                             .setCallbacks(mCallBacks)
                             .build();
                     PhoneAuthProvider.verifyPhoneNumber(options);
+                    auth_request.setEnabled(false);
 
-                    timerView.start(90000);
+                    timerView.start(120000);
+                    timerView.setVisibility(View.VISIBLE);
 
+                    if (timerView.isCertification() == false) {
+                        auth_request.setEnabled(true);
+                        tv_auth05.setText("시간이 만료되어 인증번호를 재요청 하세요.");
+                        tv_auth05.setTextColor(Color.RED);
+                        tv_auth05.setVisibility(View.VISIBLE);
+                    }
 
+                    
                 }else {
                     tv_auth05.setText("전화번호를 입력해주세요");
                     tv_auth05.setTextColor(Color.RED);
@@ -133,7 +142,9 @@ public class Login02Activity extends AppCompatActivity {
                             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(otp, auth_enter);
                             singIn(credential);
                         } else {
-                            Toast.makeText(Login02Activity.this, "인증번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+                            tv_auth05.setText("인증번호를 입력해주세요.");
+                            tv_auth05.setTextColor(Color.RED);
+                            tv_auth05.setVisibility(View.VISIBLE);
                         }
                     }
                 });
