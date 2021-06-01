@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.ChattingActivity;
 import com.example.match_app.R;
-import com.example.match_app.dto.ListItemDTO;
 import com.example.match_app.dto.MetaDTO;
-import com.example.match_app.post.PostDetailActivity;
 
 import java.util.ArrayList;
 
@@ -111,7 +109,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTitle, imageLayout, tvGame, tvTime, tvPlace, tvFee;
+        TextView tvTitle, imageLayout, tvName, tvTime, tvPlace, tvFee;
         ImageView image;
         LinearLayout parentLayout, textLayout;
 
@@ -124,7 +122,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             tvTitle = itemView.findViewById(R.id.chat_tvTitle);
 //            imageLayout = itemView.findViewById(R.id.chat_imageLayout); /*이미지 들어가는*/
             image = itemView.findViewById(R.id.chat_image);
-            tvGame = itemView.findViewById(R.id.chat_tvGame);
+            tvName = itemView.findViewById(R.id.chat_tvName);
             tvTime = itemView.findViewById(R.id.chat_tvTime);
             tvPlace = itemView.findViewById(R.id.chat_tvRecent);
 
@@ -145,7 +143,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             //사진, 이름을 카드 모양에 넣는다
 
             tvTitle.setText(dto.getTitle());
-            tvGame.setText(dto.getGame());
+            tvName.setText(dto.getRecent().getNickname());
             if(dto.getRecent() != null) tvPlace.setText(dto.getRecent().getMsg());
             tvTime.setText(dto.getDate());
 
