@@ -16,7 +16,7 @@ import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.google.firebase.auth.FirebaseAuth;
-
+import static com.example.match_app.MainActivity.ImageUri;
 public class EtcFragment extends Fragment {
 
     private Button button;
@@ -71,6 +71,7 @@ public class EtcFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Uri selectedImageUri = data.getData();
+        ImageUri = selectedImageUri;
         imageView.setImageURI(selectedImageUri);
 
     }

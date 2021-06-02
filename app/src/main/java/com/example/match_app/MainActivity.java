@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.fragment.ChatListFragment;
 import com.example.match_app.fragment.EtcFragment;
 import com.example.match_app.fragment.HomeFragment;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
+    public static MemberDTO user;
     private static final String TAG = "IntroActivity MAIN : ";
     private Button button;//
     private FirebaseAuth mAuth;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     SearchFragment fragment2;
     ChatListFragment fragment3;
     EtcFragment fragment4;
-
+    public static Uri ImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
