@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class PostDTO implements Serializable {
     int postId;
 
-    String game, title, time, place, fee, imgPath, content;
+    String game, title, time, place, fee, imgPath, content, writer, writerToken;
 
 
     public PostDTO() {
@@ -21,6 +21,23 @@ public class PostDTO implements Serializable {
         this.imgPath = imgPath;
         this.postId = postId;
     }
+
+    public String getWriterToken() {
+        return writerToken;
+    }
+
+    public void setWriterToken(String writerToken) {
+        this.writerToken = writerToken;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
     public String getContent() {
         return content;
     }

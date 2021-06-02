@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ChatListFragment extends Fragment {
     private ListView chat_list;
-    private String user , temp;
+    private String userIdToken, userNickName;
     private MemberDTO member;
     public final static String path = "matchapp/ChatMeta";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -50,9 +50,11 @@ public class ChatListFragment extends Fragment {
 
         member = new MemberDTO("aaa@naver.com");
         member.setIdToken("user2");
+        userIdToken = member.getIdToken();
+        userNickName = member.getEmailId();// user nickName으로 수정해야함
+
         mainActivity = (MainActivity) getActivity();
-        user = member.getIdToken();
-        databaseReference = firebaseDatabase.getReference(path+"/"+user);
+        databaseReference = firebaseDatabase.getReference(path+"/"+ userIdToken);
         chat_list = viewGroup.findViewById(R.id.chat_list);
 
 
@@ -88,7 +90,7 @@ public class ChatListFragment extends Fragment {
 
     private void showChatList() {
         // 리스트 어댑터 생성 및 세팅
-        ChatListAdapter adapter = new ChatListAdapter(dtos, context, user);
+        ChatListAdapter adapter = new ChatListAdapter(dtos, context, userNickName);
         recyclerView.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
