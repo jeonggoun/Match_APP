@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //adapter에서 xml으로 이어주기 위해 만든 DTO
 public class PostDTO implements Serializable {
-    int postId;
+    String postKey;
 
     String game, title, time, place, fee, imgPath, content, writer, writerToken;
 
@@ -12,14 +12,14 @@ public class PostDTO implements Serializable {
     public PostDTO() {
     }
 
-    public PostDTO(int postId, String game, String title, String time, String place, String fee, String imgPath) {
+    public PostDTO(String postKey, String game, String title, String time, String place, String fee, String imgPath) {
         this.game = game;
         this.title = title;
         this.time = time;
         this.place = place;
         this.fee = fee;
         this.imgPath = imgPath;
-        this.postId = postId;
+        this.postKey = postKey;
     }
 
     public String getWriterToken() {
@@ -46,12 +46,12 @@ public class PostDTO implements Serializable {
         this.content = content;
     }
 
-    public int getPostId() {
-        return postId;
+    public String getPostKey() {
+        return postKey;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
     }
 
     public String getImgPath() {
