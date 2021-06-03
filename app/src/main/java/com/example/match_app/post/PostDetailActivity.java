@@ -41,18 +41,16 @@ public class PostDetailActivity extends AppCompatActivity {
 
         ivImage = findViewById(R.id.ivImage);
 
-        //사진 불러오려고 고군분투중인것..
         Intent intent = getIntent();
         dto = (PostDTO) intent.getSerializableExtra("post");
 
-//https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F
-// 040ccb4d-ac06-4cf2-80d9-eb744a63ea28.jpg
-// ?alt=media
+        //https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F
+        // 040ccb4d-ac06-4cf2-80d9-eb744a63ea28.jpg
+        // ?alt=media
 
         String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F"+dto.getImgPath()+"?alt=media";
         Glide.with(this).load(filePath).into(ivImage);
 
-        /////////////////
     }
     private void startChatting(PostDTO postDTO){
         MetaDTO meta = new MetaDTO();

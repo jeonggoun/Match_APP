@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment {
     EditText tvSearch;
     //콤보박스용 items
     //String itemString = "전체";
-    String[] items = {"전체", "테니스", "축구", "야구", "이스포츠"};//
+    public static String[] items = {"전체", "테니스", "축구", "야구", "이스포츠"};
     Spinner spinner;
     String item = "전체";
     Context context;

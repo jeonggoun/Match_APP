@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,9 +14,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +40,9 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static com.example.match_app.fragment.SearchFragment.items;
+/*내용 다 입력되도록 공백 체크, 유효성 체크*/
+
 public class PostWriteActivity extends AppCompatActivity {
     private static final String TAG = "로그 PostWriteActivity";
 
@@ -49,14 +56,16 @@ public class PostWriteActivity extends AppCompatActivity {
 
     String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
 
-    Button cancel, next;
+    Button cancel, next, selectDateTime;
 
     private PostDTO dto;
-    TextView etTitle, etFee, etContent;
-    DatePicker datePicker;
-    String date = "";
+    TextView etTitle, etFee, etContent, etPlace, txtResult;
     Uri file;
     String imagePath;
+
+    //스피너
+    Spinner spinnerGame;
+    String selectGame;
 
     //이미지뷰
     ImageView postImage;
@@ -71,26 +80,6 @@ public class PostWriteActivity extends AppCompatActivity {
 
         //memberDTO.setIdToken("test1");
 
-
-
-
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
-
-        Date tempDate = new Date();
-        date = new DecimalFormat("0000").format(tempDate.getYear()) + "/" +
-                new DecimalFormat("00").format(tempDate.getMonth() + 1)
-                + "/" + new DecimalFormat("00").format(tempDate.getDay());
-
-        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
-                new DatePicker.OnDateChangedListener() {
-                    @Override
-                    public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
-                        date = new DecimalFormat("0000").format(year) + "/" +
-                                new DecimalFormat("00").format(month + 1)
-                                + "/" + new DecimalFormat("00").format(day);
-                    }
-                });
-
         dto = new PostDTO();
 
         //버튼 찾기
@@ -99,6 +88,7 @@ public class PostWriteActivity extends AppCompatActivity {
         etTitle = findViewById(R.id.etTitle);
         etFee = findViewById(R.id.etFee);
         etContent = findViewById(R.id.etContent);
+        etPlace = findViewById(R.id.etPlace);
 
         postImage = findViewById(R.id.postImage);
 
@@ -109,8 +99,6 @@ public class PostWriteActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
-
-
             }
         });
 
@@ -126,21 +114,20 @@ public class PostWriteActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dto.setGame("모름");
+                dto.setGame(selectGame);
                 dto.setFee(etFee.getText().toString());
                 dto.setTitle(etTitle.getText().toString());
                 dto.setTime(new Date().toString());
                 //calendar.getDate();
-                dto.setPlace("모름");
+                dto.setPlace(etPlace.getText().toString());
                 dto.setContent(etContent.getText().toString());
-                filename = UUID.randomUUID().toString() + ".jpg";
-                dto.setImgPath(filename);
 
-                //Log.d("유알", String.valueOf(file));
-
-                StorageReference riversRef = storageRef.child(filename);
-                UploadTask uploadTask = riversRef.putFile(file);
-
+                if(file != null) {
+                    filename = UUID.randomUUID().toString() + ".jpg";
+                    dto.setImgPath(filename);
+                    StorageReference riversRef = storageRef.child(filename);
+                    UploadTask uploadTask = riversRef.putFile(file);
+                }
                 // 새로운 프로필 이미지 저장
                 // Register observers to listen for when the download is done or if it fails
 //                uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -164,6 +151,41 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
+        //스피너 찾아주기
+        spinnerGame = findViewById(R.id.spinnerGame);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, items);
+        arrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+
+        //스피너에 어댑터 설정
+        spinnerGame.setAdapter(arrayAdapter);
+
+        spinnerGame.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectGame = items[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //일시 선택 버튼
+        selectDateTime = findViewById(R.id.selectDateTime);
+        txtResult = findViewById(R.id.txtResult);
+
+        selectDateTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PostDateActivity.class);
+                intent.putExtra("data", "Test Popup");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -174,5 +196,13 @@ public class PostWriteActivity extends AppCompatActivity {
                 file = data.getData();
                 postImage.setImageURI(file);
             }
+
+        if(requestCode==1){
+            if(resultCode==RESULT_OK){
+                //데이터 받기
+                String result = data.getStringExtra("result");
+                txtResult.setText(result);
+            }
+        }
     }
 }
