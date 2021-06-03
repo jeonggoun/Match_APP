@@ -29,33 +29,30 @@ public class PostDetailActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
-    ImageView imageView;
+    ImageView ivImage;
     PostDTO dto;
 
     public final static String path = "matchapp/ChatMeta";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-        imageView = findViewById(R.id.imageView);
+        ivImage = findViewById(R.id.ivImage);
 
         //사진 불러오려고 고군분투중인것..
-//        Intent intent = getIntent();
-//        dto = (PostDTO) intent.getSerializableExtra("post");
-//
-//        String imagePath = "https://" + dto.getImgPath().replace("content://", "");
-//        Log.d(TAG, "onCreate: " + imagePath);
-//
-//        Glide.with(this).load(imagePath).into(imageView);
-        //imageView.setImageURI(Uri.parse(dto.getImgPath()));
+        Intent intent = getIntent();
+        dto = (PostDTO) intent.getSerializableExtra("post");
 
 //https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F
 // 040ccb4d-ac06-4cf2-80d9-eb744a63ea28.jpg
 // ?alt=media
-        String ss = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F040ccb4d-ac06-4cf2-80d9-eb744a63ea28.jpg?alt=media";
-        Glide.with(this).load(ss).into(imageView);
 
+        String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F"+dto.getImgPath()+"?alt=media";
+        Glide.with(this).load(filePath).into(ivImage);
+
+        /////////////////
     }
     private void startChatting(PostDTO postDTO){
         MetaDTO meta = new MetaDTO();
