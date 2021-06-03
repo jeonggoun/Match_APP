@@ -6,7 +6,6 @@ public class MemberDTO {
     private String emailId;
     private String password;
     private String phoneNumber;
-
     // FireBase에서는 빈 생성자 필수
 
 

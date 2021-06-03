@@ -89,7 +89,7 @@ public class IntroActivity extends AppCompatActivity {
             finish();
         } else {
             Toast.makeText(this, "사용자 정보 있음", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            startActivity(new Intent(IntroActivity.this, Login03Activity.class));
             finish();
         }
     }

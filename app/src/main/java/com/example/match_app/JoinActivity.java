@@ -56,10 +56,10 @@ public class JoinActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
 
-                            //
                             MemberDTO account = new MemberDTO();
                             account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
                             account.setEmailId(firebaseUser.getEmail());
+
                             account.setPassword(strPwd);
 
                             Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
