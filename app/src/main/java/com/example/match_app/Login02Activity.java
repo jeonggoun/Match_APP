@@ -155,13 +155,13 @@ public class Login02Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            sendToMain();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser != null) {
+            sendToNext();
         }
     }
 
-    private void sendToMain() {
+    private void sendToNext() {
         Intent mainIntent = new Intent(Login02Activity.this, Login03Activity.class);
         startActivity(mainIntent);
         finish();
@@ -180,7 +180,7 @@ public class Login02Activity extends AppCompatActivity {
                     Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
                     // setValue : database에 insert(삽입) 행위
                     mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
-                    sendToMain();
+                    sendToNext();
                 } else {
                     tv_auth05.setText(task.getException().getMessage());
                     tv_auth05.setTextColor(Color.RED);

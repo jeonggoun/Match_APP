@@ -21,27 +21,18 @@ tools:layout_editor_absoluteX="0dp">
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtList01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="내 동네"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/txtResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="내 위치정보 가져오기"/>
+            android:text="내가 사는 동네 찾기"
+            android:gravity="center"
+            android:layout_margin="30dp"
+            android:textColor="#1865C4"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtList02"
-            android:text="근처 동네"
+            android:text="근처 동네 리스트"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"
@@ -50,7 +41,9 @@ tools:layout_editor_absoluteX="0dp">
         <ListView
             android:id="@+id/addr_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent">
+
+        </ListView>
     </LinearLayout>
 </LinearLayout>
 

@@ -29,10 +29,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,13 +50,13 @@ import javax.crypto.spec.GCMParameterSpec;
 
 
 public class Login03Activity extends AppCompatActivity {
-    private Button button1;
-    private TextView txtResult;
+    private TextView button1;
     private ListView addr_list;
     double longitude = 0, latitude = 0;
     List<Address> address = null;
     ArrayList<String> addrList = null;
     private DatabaseReference mDatabaseRef;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +64,11 @@ public class Login03Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login03);
         checkDangerousPermissions();
         button1 = findViewById(R.id.button1);
-        txtResult = findViewById(R.id.txtResult);
         addr_list = findViewById(R.id.addr_list);
         addrList = new ArrayList<>();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +88,11 @@ public class Login03Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selItem = (String) parent.getItemAtPosition(position);
+
+                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("latitude").setValue(latitude);
+                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("longitude").setValue(longitude);
+                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").setValue(selItem);
+                sendToNext();
             }
         });
     }
@@ -107,6 +117,11 @@ public class Login03Activity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void sendToNext() {
+        Intent mainIntent = new Intent(Login03Activity.this, Login04Activity.class);
+        startActivity(mainIntent);
+        finish();
     }
     private void getAddress() {
         Geocoder geocoder = new Geocoder(this);
