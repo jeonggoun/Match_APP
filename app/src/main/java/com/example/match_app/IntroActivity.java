@@ -3,18 +3,26 @@ package com.example.match_app;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.match_app.Common.GetKeyHash;
+import com.example.match_app.dto.MemberDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import static com.example.match_app.MainActivity.user;
 public class IntroActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
     private FirebaseAuth mAuth;
@@ -89,8 +97,32 @@ public class IntroActivity extends AppCompatActivity {
             finish();
         } else {
             Toast.makeText(this, "사용자 정보 있음", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(IntroActivity.this, Login03Activity.class));
-            finish();
+            String token = currentUser.getUid();
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference("matchapp/UserAccount");
+            databaseReference.addChildEventListener(new ChildEventListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    MemberDTO dto = dataSnapshot.getValue(MemberDTO.class);
+                    if(dto.getIdToken().equals(token)) {
+                        user = dto;
+                        startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                        // 찾은 다음에 MainActivity를 띄워줌
+                        finish();
+                    }
+                }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {            }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {            }
+            });
+//            startActivity(new Intent(IntroActivity.this, Login03Activity.class)); //원래 이동처
+
         }
     }
 }

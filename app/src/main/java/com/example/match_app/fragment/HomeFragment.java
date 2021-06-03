@@ -13,7 +13,10 @@ import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 
+
+import static com.example.match_app.MainActivity.user;
 import static com.example.match_app.MainActivity.ImageUri;
+
 public class HomeFragment extends Fragment {
 
     ImageView imageView;
@@ -23,12 +26,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
-        MemberDTO memberDTO = new MemberDTO();
-
+        textView = viewGroup.findViewById(R.id.home_user_email);
         imageView = viewGroup.findViewById(R.id.homeImage);
         if (ImageUri != null)
             imageView.setImageURI(ImageUri);
-        textView.setText(memberDTO.getEmailId());
+        textView.setText(user.getEmailId());
         return viewGroup;
     }
 }

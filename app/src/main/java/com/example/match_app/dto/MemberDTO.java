@@ -7,13 +7,21 @@ public class MemberDTO {
     private String password;
     private String phoneNumber;
     // FireBase에서는 빈 생성자 필수
-
+    private String nickName;
 
     public MemberDTO() {
     }
 
     public MemberDTO( String emailId) {
         this.emailId = emailId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getIdToken() {
