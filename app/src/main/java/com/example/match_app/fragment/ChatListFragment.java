@@ -68,7 +68,7 @@ public class ChatListFragment extends Fragment {
                 activity, RecyclerView.VERTICAL, false
         );
         recyclerView.setLayoutManager(layoutManager);
-//// 12356
+//// 채팅창 테스트 생성
 //        MetaDTO meta = new MetaDTO();
 //        meta.setTitle("축구 모집");
 //        meta.setGame("축구");
@@ -76,10 +76,11 @@ public class ChatListFragment extends Fragment {
 //        ChattingDTO chat = new ChattingDTO();
 //        chat.setNickname("user2");
 //        meta.setRecent(chat);
-//        meta.setChatToken("4sUjLGXt65gmjeGUk2wi90fFaJt2");
+//        meta.setChatToken("4sUjLGXt65gmjeGUk2wi90fFaJt2"); // 토큰값
 //        dtos.add(meta);
 //        databaseReference.child(meta.getChatToken()).setValue(meta);
 //        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getChatToken());
+//        meta.setChatToken(userIdToken);
 //        databaseReference2.child(user.getIdToken()).setValue(meta);
         showChatList();
         return viewGroup;
