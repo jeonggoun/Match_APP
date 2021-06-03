@@ -6,7 +6,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ListActivity;
+import android.app.blob.BlobStoreManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,9 +22,17 @@ import android.os.Bundle;
 import android.telephony.CarrierConfigManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,11 +49,11 @@ import javax.crypto.spec.GCMParameterSpec;
 public class Login03Activity extends AppCompatActivity {
     private Button button1;
     private TextView txtResult;
+    private ListView addr_list;
     double longitude = 0, latitude = 0;
     List<Address> address = null;
-    HashSet<String> addr = new HashSet<>(50);
-
-
+    ArrayList<String> addrList = null;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +62,30 @@ public class Login03Activity extends AppCompatActivity {
         checkDangerousPermissions();
         button1 = findViewById(R.id.button1);
         txtResult = findViewById(R.id.txtResult);
+        addr_list = findViewById(R.id.addr_list);
+        addrList = new ArrayList<>();
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addrList.clear();
                 startLocationService();
                 getAddress();
-
-                Iterator<String> iter = addr.iterator();
-                while(iter.hasNext()){
-                    txtResult.append(iter.next()+"\n");
-                }
+                getListView();
             }
         });
     }
-
+    private void getListView() {
+        final ArrayAdapter<String> adapter
+                = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addrList);
+        addr_list.setAdapter(adapter);
+        addr_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selItem = (String) parent.getItemAtPosition(position);
+            }
+        });
+    }
     private void startLocationService() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         GPSListener gpsListener = new GPSListener();
@@ -91,8 +110,21 @@ public class Login03Activity extends AppCompatActivity {
     }
     private void getAddress() {
         Geocoder geocoder = new Geocoder(this);
-        for (int i=0; i<7; i++) {
+        try {
+            address = geocoder.getFromLocation(latitude, longitude, 1);
+            if (address.get(0).getSubLocality() == null) {
+                String msg = address.get(0).getAdminArea() + " " + address.get(0).getThoroughfare();
+                addrList.add(msg.toString());
+            } else {
+                String msg = address.get(0).getAdminArea() + " " + address.get(0).getSubLocality() + " " + address.get(0).getThoroughfare();
+                addrList.add(msg.toString());
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i=0; i<7; i++) {
             for (int j=0; j<7; j++) {
                 try {
 /*                 address = geocoder.getFromLocation(latitude, longitude, 1);
@@ -100,24 +132,44 @@ public class Login03Activity extends AppCompatActivity {
                  txtResult.append(msg);*/
                     double latitudeA = latitude;
                     double longitudeA = longitude;
-
                     latitudeA = (latitudeA - 0.01*(3-i));
                     longitudeA = (longitudeA - 0.01*(3-j));
 
-                    txtResult.append(longitudeA+","+latitudeA+"\n");
-
+                    try {
                     address = geocoder.getFromLocation(latitudeA, longitudeA, 1);
-                    String msg = address.get(0).getAdminArea() + " " + address.get(0).getSubLocality() + " " + address.get(0).getThoroughfare();
-
-
-                    addr.add(msg.toString());
-                } catch (IOException e) {
+                        int state = 0;
+                        if (address.get(0).getSubLocality() == null) {
+                            String msg = address.get(0).getAdminArea() + " " + address.get(0).getThoroughfare();
+                            for (String addr : addrList) {
+                                if (addr.equals(msg.toString())) {
+                                    state = 1;
+                                    break;
+                                }
+                            }
+                            if(state == 0){
+                                addrList.add(msg.toString());
+                            }
+                        } else {
+                            String msg = address.get(0).getAdminArea() + " " + address.get(0).getSubLocality() + " " + address.get(0).getThoroughfare();
+                            for (String addr : addrList) {
+                                if (addr.equals(msg.toString())) {
+                                    state = 1;
+                                    break;
+                                }
+                            }
+                            if(state == 0){
+                                addrList.add(msg.toString());
+                            }
+                        }
+                    } catch (Exception e) {
+                     e.printStackTrace();
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     } //getAddress()
-
     private class GPSListener implements LocationListener{
 
         @Override
