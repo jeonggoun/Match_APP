@@ -91,6 +91,11 @@ public class ChatListFragment extends Fragment {
     private void showChatList() {
         // 리스트 어댑터 생성 및 세팅
         ChatListAdapter adapter = new ChatListAdapter(dtos, context, userNickName);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
@@ -100,7 +105,6 @@ public class ChatListFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 MetaDTO dto = dataSnapshot.getValue(MetaDTO.class);
                 adapter.addDto(dto);
-
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {            }

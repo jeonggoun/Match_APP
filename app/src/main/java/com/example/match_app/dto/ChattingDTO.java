@@ -1,6 +1,6 @@
 package com.example.match_app.dto;
 
-public class ChattingDTO extends SuperDTO {
+public class ChattingDTO{
     private String msg;
     private String nickname;
     private String date;

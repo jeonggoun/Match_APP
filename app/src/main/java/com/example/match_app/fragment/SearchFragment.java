@@ -1,5 +1,6 @@
 package com.example.match_app.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,10 +54,12 @@ public class SearchFragment extends Fragment {
     String[] items = {"전체", "테니스", "축구", "야구", "이스포츠"};//
     Spinner spinner;
     String item = "전체";
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+        context = container.getContext();
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
 //        databaseReference2 = firebaseDatabase.getReference("matchapp/Game");
         //itemString = "전체";
@@ -151,6 +154,11 @@ public class SearchFragment extends Fragment {
     private void showPostList() {
 //     리스트 어댑터 생성 및 세팅
         postAdapter = new PostAdapter(dtos, getContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
