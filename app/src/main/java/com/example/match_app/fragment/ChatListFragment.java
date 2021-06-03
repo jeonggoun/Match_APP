@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.ChatListAdapter;
+import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.MetaDTO;
 import com.google.firebase.database.ChildEventListener;
@@ -26,11 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
+import static com.example.match_app.MainActivity.user;
 public class ChatListFragment extends Fragment {
     private ListView chat_list;
     private String userIdToken, userNickName;
-    private MemberDTO member;
     public final static String path = "matchapp/ChatMeta";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;// = firebaseDatabase.getReference(path);
@@ -48,10 +48,8 @@ public class ChatListFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
         context = container.getContext();
 
-        member = new MemberDTO("aaa@naver.com");
-        member.setIdToken("user2");
-        userIdToken = member.getIdToken();
-        userNickName = member.getEmailId();// user nickName으로 수정해야함
+        userIdToken = user.getIdToken();
+        userNickName = user.getEmailId();// user nickName으로 수정해야함
 
         mainActivity = (MainActivity) getActivity();
         databaseReference = firebaseDatabase.getReference(path+"/"+ userIdToken);
@@ -78,10 +76,11 @@ public class ChatListFragment extends Fragment {
 //        ChattingDTO chat = new ChattingDTO();
 //        chat.setNickname("user2");
 //        meta.setRecent(chat);
+//        meta.setChatToken("4sUjLGXt65gmjeGUk2wi90fFaJt2");
 //        dtos.add(meta);
-//        databaseReference.child(meta.getRecent().getNickname()).setValue(meta);
-//        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getRecent().getNickname());
-//        databaseReference2.child(user).setValue(meta);
+//        databaseReference.child(meta.getChatToken()).setValue(meta);
+//        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getChatToken());
+//        databaseReference2.child(user.getIdToken()).setValue(meta);
         showChatList();
         return viewGroup;
     }

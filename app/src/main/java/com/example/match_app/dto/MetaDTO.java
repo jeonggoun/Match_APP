@@ -1,8 +1,16 @@
 package com.example.match_app.dto;
 
 public class MetaDTO {
-    String title, game, date;
+    String title, game, date, chatToken;
     ChattingDTO recent;
+
+    public String getChatToken() {
+        return chatToken;
+    }
+
+    public void setChatToken(String chatToken) {
+        this.chatToken = chatToken;
+    }
 
     public ChattingDTO getRecent() {
         return recent;

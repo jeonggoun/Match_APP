@@ -29,21 +29,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import static com.example.match_app.MainActivity.user;
 public class ChattingActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<ChattingDTO> ChattingDTOList;
-    private String userName ;
-    private String chat_name;
+    private String userName ,userToken;
+    private String chat_name , chatToken;
     private String path = "matchapp/ChatList";
     private String metaPath = "matchapp/ChatMeta";
     private EditText edt_chat;
     private Button btn_send;
     private DatabaseReference myRef;
     private DatabaseReference toRef;
-    private DatabaseReference myRefMeta;
     private DatabaseReference toRefMeta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,9 @@ public class ChattingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chating);
 
         checkDangerousPermissions();
-
+        userToken = user.getIdToken();
         Intent intent = getIntent();
+        chatToken = intent.getStringExtra("chatToken");
         userName = intent.getStringExtra("userName");
         chat_name = intent.getStringExtra("chatName");
 
@@ -93,9 +93,9 @@ public class ChattingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference(path+"/"+userName+"/"+chat_name);
-        toRef = database.getReference(path+"/"+chat_name+"/"+userName);
-        toRefMeta = database.getReference(metaPath+"/"+chat_name+"/"+userName+"/recent");
+        myRef = database.getReference(path+"/"+userToken+"/"+chatToken);
+        toRef = database.getReference(path+"/"+chatToken+"/"+userToken);
+        toRefMeta = database.getReference(metaPath+"/"+chatToken+"/"+userToken+"/recent");
 
 
         myRef.addChildEventListener(new ChildEventListener() {

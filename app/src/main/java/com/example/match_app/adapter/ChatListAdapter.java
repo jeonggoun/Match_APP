@@ -64,7 +64,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context , ChattingActivity.class);
-
+                intent.putExtra("chatToken", dto.getChatToken());
                 intent.putExtra("userName", user);
                 intent.putExtra("chatName", dto.getRecent().getNickname());
                 context.startActivity(intent);
