@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.match_app.MainActivity.user;
-import static com.example.match_app.adapter.ChatListAdapter.dto;
 public class ChattingActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -58,7 +57,7 @@ public class ChattingActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;
     private DatabaseReference toRef;
-    private DatabaseReference toRefMeta, userMeta;
+    private DatabaseReference toRefMeta, userMeta, post;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,25 +77,25 @@ public class ChattingActivity extends AppCompatActivity {
         matchConfirm = findViewById(R.id.chat_activity_match_confirm);
         matchCancel = findViewById(R.id.chat_activity_match_cancel);
         matchConfirm.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                matchCancel.setVisibility(View.VISIBLE);
-                matchConfirm.setVisibility(View.GONE);
+                buttonChange("disable");
                 setPost("disable");
             }
         });
         matchCancel.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                matchConfirm.setVisibility(View.VISIBLE);
-                matchCancel.setVisibility(View.GONE);
+                buttonChange("enable");
                 setPost("enable");
             }
         });
-        if(chatMeta.getPostConfirm().equals("disable")){
-            matchCancel.setVisibility(View.VISIBLE);
-            matchConfirm.setVisibility(View.GONE);
-        }
+//        if(chatMeta.getPostConfirm().equals("disable")){
+//            matchCancel.setVisibility(View.VISIBLE);
+//            matchConfirm.setVisibility(View.GONE);
+//        }
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +135,7 @@ public class ChattingActivity extends AppCompatActivity {
         userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
 
 
+        post = database.getReference("matchapp/Post/"+chatMeta.getPostToken());
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -151,29 +151,18 @@ public class ChattingActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {            }
         });
-    }
-
-    private void setPost(String set) {
-        DatabaseReference post = database.getReference("matchapp/Post");
         post.addChildEventListener(new ChildEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.getKey().equals(chatMeta.getPostToken())){
-                    ArrayMap<String,String> map2 = new ArrayMap<>();
-                    map2.put("matchConfirm" , set);
-                    post.child(chatMeta.getPostToken()).updateChildren(Collections.unmodifiableMap(map2));
-                    map2.clear();
-                    map2.put("postConfirm" , set);
-                    toRefMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
-                    userMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
-                    dto.setPostConfirm(set);
-                    Toast.makeText(context, set, Toast.LENGTH_SHORT).show();
+                if(snapshot.getKey().equals("matchConfirm")){
+                    buttonChange((String) snapshot.getValue());
                 }
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                if(snapshot.getKey().equals("matchConfirm")){
+                    buttonChange((String) snapshot.getValue());
+                }
             }
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
@@ -188,6 +177,30 @@ public class ChattingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void setPost(String set) {
+        ArrayMap<String,String> map2 = new ArrayMap<>();
+        map2.put("matchConfirm" , set);
+        post.updateChildren(Collections.unmodifiableMap(map2));
+//        map2.clear();
+//        map2.put("postConfirm" , set);
+//        toRefMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
+//        userMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
+//        dto.setPostConfirm(set);
+        Toast.makeText(context, set, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void buttonChange(String set){
+        if (set.equals("enable")){
+            matchConfirm.setVisibility(View.VISIBLE);
+            matchCancel.setVisibility(View.GONE);
+        }else if (set.equals("disable")){
+            matchConfirm.setVisibility(View.GONE);
+            matchCancel.setVisibility(View.VISIBLE);
+        }
     }
 
 

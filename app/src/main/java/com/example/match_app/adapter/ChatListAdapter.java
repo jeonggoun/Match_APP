@@ -29,7 +29,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     // 메인에서 넘겨 받는것
     ArrayList<MetaDTO> dtos;
-    public static MetaDTO dto;
+    MetaDTO dto;
     Context context;
     LayoutInflater inflater;
     String user;
