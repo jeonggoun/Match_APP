@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.DatePicker;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 public class PostDateActivity extends AppCompatActivity {
+    private static final String TAG = "main: PostDateActivity";
     DatePicker datePicker;
     TimePicker timePicker;
     String date = "";
@@ -34,9 +36,8 @@ public class PostDateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String data = intent.getStringExtra("data");
 
-        //datePicker.setText(data);
-
-
+        //현재 시간 이전은 선택할 수 없도록 지정
+        datePicker.setMinDate(System.currentTimeMillis());
 
         Date tempDate = new Date();
         date = new DecimalFormat("0000").format(tempDate.getYear()) + "/" +
@@ -47,22 +48,34 @@ public class PostDateActivity extends AppCompatActivity {
                     new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
+
                 date = new DecimalFormat("0000").format(year) + "/" +
                         new DecimalFormat("00").format(month + 1)
                         + "/" + new DecimalFormat("00").format(day);
+
             }
+
         });
+
+
+
     }
 
     //확인 버튼 클릭
     public void mOnClose(View v){
         //데이터 전달하기
         Intent intent = new Intent();
-        intent.putExtra("result", "Close Popup");
+        intent.putExtra("result", date);
         setResult(RESULT_OK, intent);
-
+        Log.d(TAG, "mOnClose: " + date);
         //액티비티(팝업) 닫기
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //안드로이드 백버튼 막기
+        return;
     }
 }
 

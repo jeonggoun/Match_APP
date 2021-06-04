@@ -78,6 +78,7 @@ public class PostWriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write);
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
 
+
         //memberDTO.setIdToken("test1");
 
         dto = new PostDTO();
@@ -91,6 +92,10 @@ public class PostWriteActivity extends AppCompatActivity {
         etPlace = findViewById(R.id.etPlace);
 
         postImage = findViewById(R.id.postImage);
+
+        //일시 선택 버튼
+        selectDateTime = findViewById(R.id.selectDateTime);
+        txtResult = findViewById(R.id.txtResult);
 
         //사진 불러올 수 있게 하기
         postImage.setOnClickListener(new View.OnClickListener() {
@@ -174,16 +179,12 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
-        //일시 선택 버튼
-        selectDateTime = findViewById(R.id.selectDateTime);
-        txtResult = findViewById(R.id.txtResult);
-
         selectDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PostDateActivity.class);
                 intent.putExtra("data", "Test Popup");
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -203,6 +204,10 @@ public class PostWriteActivity extends AppCompatActivity {
                 String result = data.getStringExtra("result");
                 txtResult.setText(result);
             }
+        }
+
+        if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){
+            onActivityResult(requestCode, resultCode, data);
         }
     }
 }
