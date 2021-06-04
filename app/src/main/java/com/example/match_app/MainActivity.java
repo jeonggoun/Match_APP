@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;//
     private FirebaseAuth mAuth;
     MemberDTO dto;
-    ChatListFragment chatListFragment;
+    TextView tv_fragTitle;
 
     HomeFragment fragment1;
     SearchFragment fragment2;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_fragTitle = findViewById(R.id.tv_fragTitle);
         dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         mAuth = FirebaseAuth.getInstance();
 
@@ -57,21 +59,25 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab1:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contain, fragment1).commit();
+                        tv_fragTitle.setText("모모 홈");
                         break;
 
                     case R.id.tab2:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contain, fragment2).commit();
+                        tv_fragTitle.setText("모모 게임");
                         break;
 
                     case R.id.tab3:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contain, fragment3).commit();
+                        tv_fragTitle.setText("모모 채팅");
                         break;
 
                     case R.id.tab4:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contain, fragment4).commit();
+                        tv_fragTitle.setText("나의 모모");
                         break;
                 }
 
