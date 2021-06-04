@@ -20,7 +20,7 @@ public class Login00Activity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login00Activity.this, Login02Activity.class);
+                Intent intent = new Intent(Login00Activity.this, Login03Activity.class);
                 startActivity(intent);
                 finish();   // 현재 액티비티 끄기
             }

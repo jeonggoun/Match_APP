@@ -44,12 +44,13 @@ public class Login02Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private String otp;
     private String phoneNumber = null;
+    MemberDTO dto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login02);
-
+        dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         tv_auth05 = findViewById(R.id.tv_auth05);
         auth_request = findViewById(R.id.auth_request);
         auth_retry = findViewById(R.id.auth_retry);
@@ -161,25 +162,21 @@ public class Login02Activity extends AppCompatActivity {
         }
     }
 
-    private void sendToNext() {
-        Intent mainIntent = new Intent(Login02Activity.this, Login03Activity.class);
-        startActivity(mainIntent);
-        finish();
-    }
-
     private void singIn(PhoneAuthCredential credential) {
         auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
-                    MemberDTO account = new MemberDTO();
-                    account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
-                    account.setPhoneNumber(phoneNumber);
+                    dto.setIdToken(firebaseUser.getUid());
+                    dto.setPhoneNumber(phoneNumber);
 
-                    Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
+                    /*mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("latitude").setValue(latitude);
+                    mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("longitude").setValue(longitude);
+                    mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").setValue(address);*/
+
                     // setValue : database에 insert(삽입) 행위
-                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
+                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(dto);
                     sendToNext();
                 } else {
                     tv_auth05.setText(task.getException().getMessage());
@@ -190,5 +187,18 @@ public class Login02Activity extends AppCompatActivity {
         });
     }
 
+    private void sendToNext() {
+        Intent nextIntent = new Intent(Login02Activity.this, IntroActivity.class);
+/*
+        MemberDTO dto = new MemberDTO();
+        dto.setNickName(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("nickName").get().toString());
+        dto.setPhoneNumber(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("phoneNumber").get().toString());
+        dto.setAddress(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").get().toString());
+        mainIntent.putExtra("dto", dto);
+*/
+        nextIntent.putExtra("dto", dto);
+        startActivity(nextIntent);
+        finish();
+    }
 
 }

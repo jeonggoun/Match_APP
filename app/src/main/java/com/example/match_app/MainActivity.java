@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
     private Button button;//
     private FirebaseAuth mAuth;
+    MemberDTO dto;
     ChatListFragment chatListFragment;
 
     HomeFragment fragment1;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         mAuth = FirebaseAuth.getInstance();
 
         fragment1 = new HomeFragment();

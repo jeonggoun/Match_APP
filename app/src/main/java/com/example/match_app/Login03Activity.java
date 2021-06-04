@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.match_app.dto.MemberDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -55,8 +56,10 @@ public class Login03Activity extends AppCompatActivity {
     double longitude = 0, latitude = 0;
     List<Address> address = null;
     ArrayList<String> addrList = null;
+    String addr;
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +90,7 @@ public class Login03Activity extends AppCompatActivity {
         addr_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selItem = (String) parent.getItemAtPosition(position);
-
-                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("latitude").setValue(latitude);
-                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("longitude").setValue(longitude);
-                mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").setValue(selItem);
+                addr = (String) parent.getItemAtPosition(position);
                 sendToNext();
             }
         });
@@ -119,8 +118,16 @@ public class Login03Activity extends AppCompatActivity {
         }
     }
     private void sendToNext() {
-        Intent mainIntent = new Intent(Login03Activity.this, Login04Activity.class);
-        startActivity(mainIntent);
+        Intent nextIntent = new Intent(Login03Activity.this, Login04Activity.class);
+
+        MemberDTO dto = new MemberDTO();
+        dto.setLatitude(latitude);
+        dto.setLongitude(longitude);
+        dto.setAddress(addr);
+        dto.setEmailId("das");
+
+        nextIntent.putExtra("dto", dto);
+        startActivity(nextIntent);
         finish();
     }
     private void getAddress() {

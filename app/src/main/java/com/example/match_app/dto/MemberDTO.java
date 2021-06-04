@@ -10,7 +10,6 @@ public class MemberDTO implements Serializable {
     private String emailId;
     private String password;
     private String phoneNumber;
-    // FireBase에서는 빈 생성자 필수
     private String nickName;
     private double latitude, longitude;
     private String address;
