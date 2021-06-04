@@ -6,7 +6,26 @@
     tools:context=".ChattingActivity"
     android:orientation="vertical"
     android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/chat_activity_match_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="경기확정" />
+
+        <Button
+            android:id="@+id/chat_activity_match_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="경기취소"
+            android:visibility="gone" />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcview"
         android:layout_width="match_parent"

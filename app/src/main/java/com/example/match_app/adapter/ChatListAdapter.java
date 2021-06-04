@@ -29,6 +29,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     // 메인에서 넘겨 받는것
     ArrayList<MetaDTO> dtos;
+    public static MetaDTO dto;
     Context context;
     LayoutInflater inflater;
     String user;
@@ -56,7 +57,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + position);
 
-        MetaDTO dto = dtos.get(position);
+        dto = dtos.get(position);
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
         holder.setDto(dto);
 
@@ -64,9 +65,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context , ChattingActivity.class);
-                intent.putExtra("chatToken", dto.getChatToken());
+                intent.putExtra("meta", dto);
                 intent.putExtra("userName", user);
-                intent.putExtra("chatName", dto.getRecent().getNickname());
                 context.startActivity(intent);
 
             }

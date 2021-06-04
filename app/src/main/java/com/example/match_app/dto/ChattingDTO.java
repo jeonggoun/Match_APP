@@ -1,6 +1,8 @@
 package com.example.match_app.dto;
 
-public class ChattingDTO{
+import java.io.Serializable;
+
+public class ChattingDTO implements Serializable {
     private String msg;
     private String nickname;
     private String date;

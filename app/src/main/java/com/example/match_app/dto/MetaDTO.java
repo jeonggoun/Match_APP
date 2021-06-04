@@ -1,8 +1,26 @@
 package com.example.match_app.dto;
 
-public class MetaDTO {
-    String title, game, date, chatToken;
+import java.io.Serializable;
+
+public class MetaDTO implements Serializable {
+    String title, game, date, chatToken, postToken, postConfirm;
     ChattingDTO recent;
+
+    public String getPostToken() {
+        return postToken;
+    }
+
+    public String getPostConfirm() {
+        return postConfirm;
+    }
+
+    public void setPostConfirm(String postConfirm) {
+        this.postConfirm = postConfirm;
+    }
+
+    public void setPostToken(String postToken) {
+        this.postToken = postToken;
+    }
 
     public String getChatToken() {
         return chatToken;

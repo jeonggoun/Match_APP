@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //adapter에서 xml으로 이어주기 위해 만든 DTO
 public class PostDTO implements Serializable {
-    String postKey;
+    String postKey, matchConfirm;
 
     String game, title, time, place, fee, imgPath, content, writer, writerToken;
 
@@ -20,6 +20,14 @@ public class PostDTO implements Serializable {
         this.fee = fee;
         this.imgPath = imgPath;
         this.postKey = postKey;
+    }
+
+    public String getMatchConfirm() {
+        return matchConfirm;
+    }
+
+    public void setMatchConfirm(String matchConfirm) {
+        this.matchConfirm = matchConfirm;
     }
 
     public String getWriterToken() {

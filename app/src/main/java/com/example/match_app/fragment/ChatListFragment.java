@@ -70,13 +70,15 @@ public class ChatListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 //// 채팅창 테스트 생성
 //        MetaDTO meta = new MetaDTO();
-//        meta.setTitle("축구 모집");
-//        meta.setGame("축구");
+//        meta.setTitle("테니스 모집");
+//        meta.setGame("테니스");
 //        meta.setDate("11월");
 //        ChattingDTO chat = new ChattingDTO();
-//        chat.setNickname("user2");
+//        chat.setNickname("진월동오징어");
 //        meta.setRecent(chat);
-//        meta.setChatToken("4sUjLGXt65gmjeGUk2wi90fFaJt2"); // 토큰값
+//        meta.setChatToken("wFzhLRasuOam8Yg8wK5ij6nUFw73"); // 토큰값
+//        meta.setPostToken("-MbFvpBs-cydJ-Soa8Og");
+//        meta.setPostConfirm("enable");
 //        dtos.add(meta);
 //        databaseReference.child(meta.getChatToken()).setValue(meta);
 //        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getChatToken());
