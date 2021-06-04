@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match_app.Common.CommonMethod;
+import com.example.match_app.IntroActivity;
+import com.example.match_app.Login02Activity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
@@ -41,7 +43,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import static com.example.match_app.fragment.SearchFragment.items;
-/*내용 다 입력되도록 공백 체크, 유효성 체크*/
+/*내용 다 입력되도록 공백 체크*/
 
 public class PostWriteActivity extends AppCompatActivity {
     private static final String TAG = "로그 PostWriteActivity";
@@ -59,7 +61,7 @@ public class PostWriteActivity extends AppCompatActivity {
     Button cancel, next, selectDateTime;
 
     private PostDTO dto;
-    TextView etTitle, etFee, etContent, etPlace, txtResult;
+    TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle;
     Uri file;
     String imagePath;
 
@@ -97,6 +99,9 @@ public class PostWriteActivity extends AppCompatActivity {
         selectDateTime = findViewById(R.id.selectDateTime);
         txtResult = findViewById(R.id.txtResult);
 
+        //경고창
+        alertTitle = findViewById(R.id.alertTitle);
+
         //사진 불러올 수 있게 하기
         postImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,19 +124,24 @@ public class PostWriteActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dto.setGame(selectGame);
-                dto.setFee(etFee.getText().toString());
-                dto.setTitle(etTitle.getText().toString());
-                dto.setTime(new Date().toString());
-                //calendar.getDate();
-                dto.setPlace(etPlace.getText().toString());
-                dto.setContent(etContent.getText().toString());
+                if(etTitle.getText().toString().trim().length() > 0){
+                    dto.setGame(selectGame);
+                    dto.setFee(etFee.getText().toString());
+                    dto.setTitle(etTitle.getText().toString());
+                    dto.setTime(new Date().toString());
+                    //calendar.getDate();
+                    dto.setPlace(etPlace.getText().toString());
+                    dto.setContent(etContent.getText().toString());
 
-                if(file != null) {
-                    filename = UUID.randomUUID().toString() + ".jpg";
-                    dto.setImgPath(filename);
-                    StorageReference riversRef = storageRef.child(filename);
-                    UploadTask uploadTask = riversRef.putFile(file);
+                    if(file != null) {
+                        filename = UUID.randomUUID().toString() + ".jpg";
+                        dto.setImgPath(filename);
+                        StorageReference riversRef = storageRef.child(filename);
+                        UploadTask uploadTask = riversRef.putFile(file);
+                    }//file 있을 때
+                }else{
+                    alertTitle.setText("제목을 입력해주세요");
+                    return;
                 }
                 // 새로운 프로필 이미지 저장
                 // Register observers to listen for when the download is done or if it fails

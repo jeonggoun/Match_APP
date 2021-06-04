@@ -51,6 +51,18 @@
         android:layout_height="1dp"
         android:background="#000000" />
 
+    <TextView
+        android:id="@+id/alertTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint=""
+        android:inputType="textPersonName"
+        android:textColor="#FF0000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="153dp" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

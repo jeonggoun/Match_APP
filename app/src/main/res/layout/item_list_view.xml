@@ -33,7 +33,6 @@
                     android:layout_height="match_parent"
                     android:background="#FFFFFF"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="종목"
                     android:textSize="15sp" />
 
                 <TextView
@@ -41,7 +40,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="글 제목"
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -100,7 +98,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:hint="일시"
                         android:textSize="14sp"
                         android:textStyle="normal|bold" />
 
@@ -110,7 +107,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:hint="장소"
                         android:textSize="14sp"
                         android:textStyle="normal|bold" />
 
@@ -120,7 +116,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:hint="참가비"
                         android:textSize="14sp"
                         android:textStyle="normal|bold" />
                 </LinearLayout>
