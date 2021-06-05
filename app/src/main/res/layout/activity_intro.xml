@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroActivity">
+    tools:context=".IntroActivity"
+    android:background="#70E9FF">
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_kit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/iv_momo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:SpinKit_Color="#1865C4" />
+
+    <ImageView
+        android:id="@+id/iv_momo"
+        android:layout_width="391dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/momo" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="인트로 화면"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/spin_kit"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:layout_marginTop="150dp"
+        android:text="한울 202-A" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
