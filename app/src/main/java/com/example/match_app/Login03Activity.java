@@ -19,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.CarrierConfigManager;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +27,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match_app.dto.MemberDTO;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -60,7 +65,6 @@ public class Login03Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +77,29 @@ public class Login03Activity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.spin_kit);
+        Wave wave = new Wave();
+        progressBar.setIndeterminateDrawable(wave);
+        progressBar.setVisibility(View.INVISIBLE);
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                addr_list.setVisibility(View.GONE);
                 addrList.clear();
                 startLocationService();
                 getAddress();
                 getListView();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        addr_list.setVisibility(View.VISIBLE);
+                    }
+                },4000);
             }
         });
     }

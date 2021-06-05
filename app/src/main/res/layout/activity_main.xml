@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:weightSum="100"
     android:orientation="vertical">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/top_navi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/tv_fragTitle"
@@ -29,15 +30,15 @@
         android:id="@+id/contain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="92">
+        android:layout_weight="98">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navi"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_height="50dp"
+        android:layout_weight="1"
         app:itemBackground="@android:color/holo_blue_dark"
         app:itemIconTint="@drawable/item_color"
         app:itemTextColor="@drawable/item_color"

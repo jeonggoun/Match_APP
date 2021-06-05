@@ -95,8 +95,6 @@ public class Login02Activity extends AppCompatActivity {
                         tv_auth05.setTextColor(Color.RED);
                         tv_auth05.setVisibility(View.VISIBLE);
                     }
-
-                    
                 }else {
                     tv_auth05.setText("전화번호를 입력해주세요");
                     tv_auth05.setTextColor(Color.RED);
@@ -170,11 +168,6 @@ public class Login02Activity extends AppCompatActivity {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     dto.setIdToken(firebaseUser.getUid());
                     dto.setPhoneNumber(phoneNumber);
-
-                    /*mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("latitude").setValue(latitude);
-                    mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("longitude").setValue(longitude);
-                    mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").setValue(address);*/
-
                     // setValue : database에 insert(삽입) 행위
                     mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(dto);
                     sendToNext();
@@ -186,19 +179,10 @@ public class Login02Activity extends AppCompatActivity {
             }
         });
     }
-
     private void sendToNext() {
         Intent nextIntent = new Intent(Login02Activity.this, IntroActivity.class);
-/*
-        MemberDTO dto = new MemberDTO();
-        dto.setNickName(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("nickName").get().toString());
-        dto.setPhoneNumber(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("phoneNumber").get().toString());
-        dto.setAddress(mDatabaseRef.child("UserAccount").child(firebaseAuth.getUid()).child("address").get().toString());
-        mainIntent.putExtra("dto", dto);
-*/
         nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }
-
 }
