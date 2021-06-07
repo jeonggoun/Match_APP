@@ -7,38 +7,68 @@
     android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/profilebutton"
-            android:layout_width="134dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="프로필 설정" />
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/click">
+            </de.hdodenhof.circleimageview.CircleImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_nick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임 들어갈 공간"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tv_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지역토큰 들어갈 공간"/>
+            </LinearLayout>
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_profile"
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="프로필 보기" />
+
+
+
+        <Button
+            android:id="@+id/btn_logout"
             android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
             android:text="임시로그아웃버튼" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="168dp"
-            android:layout_height="152dp"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/click">
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/gridView"
+            android:numColumns="3" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
-        </de.hdodenhof.circleimageview.CircleImageView>
     </LinearLayout>
+
 
 </LinearLayout>

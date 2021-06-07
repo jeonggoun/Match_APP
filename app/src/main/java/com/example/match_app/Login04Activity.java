@@ -16,9 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Login04Activity extends AppCompatActivity {
-    Button btn01;
+    TextView auth_finish;
     EditText et_01;
-    TextView textView;
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
     MemberDTO dto = new MemberDTO();
@@ -28,16 +27,14 @@ public class Login04Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login04);
         dto = (MemberDTO) getIntent().getSerializableExtra("dto");
-        textView = findViewById(R.id.textView);
         et_01 = findViewById(R.id.et_01);
-        btn01 = findViewById(R.id.button);
-
+        auth_finish = findViewById(R.id.auth_finish);
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
 
 
-        btn01.setOnClickListener(new View.OnClickListener() {
+        auth_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nickName = et_01.getText().toString();

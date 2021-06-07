@@ -4,66 +4,57 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.app.ListActivity;
-import android.app.blob.BlobStoreManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.CarrierConfigManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match_app.dto.MemberDTO;
-import com.github.ybq.android.spinkit.SpinKitView;
-import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Wave;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import javax.crypto.spec.GCMParameterSpec;
 
 
-public class Login03Activity extends AppCompatActivity {
+public class Login03Activity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView button1;
     private ListView addr_list;
-    double longitude = 0, latitude = 0;
-    List<Address> address = null;
-    ArrayList<String> addrList = null;
-    String addr;
+    private double longitude=0, latitude = 0;
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
+    private List<Address> address = null;
+    private ArrayList<String> addrList = null;
+    private String addr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +65,10 @@ public class Login03Activity extends AppCompatActivity {
         addr_list = findViewById(R.id.addr_list);
         addrList = new ArrayList<>();
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
@@ -81,6 +76,7 @@ public class Login03Activity extends AppCompatActivity {
         Wave wave = new Wave();
         progressBar.setIndeterminateDrawable(wave);
         progressBar.setVisibility(View.INVISIBLE);
+        mapFragment.getView().setVisibility(View.INVISIBLE);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +86,18 @@ public class Login03Activity extends AppCompatActivity {
                 addr_list.setVisibility(View.GONE);
                 addrList.clear();
                 startLocationService();
-                getAddress();
-                getListView();
+                mapFragment.getMapAsync(Login03Activity.this::onMapReady);
+                mapFragment.getView().setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getAddress();
+                        getListView();
+                    }
+                }, 1000);
+
+
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -99,10 +105,11 @@ public class Login03Activity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         addr_list.setVisibility(View.VISIBLE);
                     }
-                },4000);
+                }, 4000);
             }
         });
     }
+
     private void getListView() {
         final ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addrList);
@@ -115,6 +122,7 @@ public class Login03Activity extends AppCompatActivity {
             }
         });
     }
+
     private void startLocationService() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         GPSListener gpsListener = new GPSListener();
@@ -127,9 +135,9 @@ public class Login03Activity extends AppCompatActivity {
             }
 
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
-            Location lastLocation=manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            if(lastLocation != null){
+            if (lastLocation != null) {
                 latitude = lastLocation.getLatitude();  // 위도
                 longitude = lastLocation.getLongitude();  // 경도
             }
@@ -137,6 +145,7 @@ public class Login03Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void sendToNext() {
         Intent nextIntent = new Intent(Login03Activity.this, Login04Activity.class);
 
@@ -150,6 +159,7 @@ public class Login03Activity extends AppCompatActivity {
         startActivity(nextIntent);
         finish();
     }
+
     private void getAddress() {
         Geocoder geocoder = new Geocoder(this);
         try {
@@ -166,21 +176,37 @@ public class Login03Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        for (int i=0; i<7; i++) {
-            for (int j=0; j<7; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 try {
 /*                 address = geocoder.getFromLocation(latitude, longitude, 1);
                  String msg = address.get(0).getAdminArea()+" "+address.get(0).getSubLocality()+" "+address.get(0).getThoroughfare();
                  txtResult.append(msg);*/
                     double latitudeA = latitude;
                     double longitudeA = longitude;
-                    latitudeA = (latitudeA - 0.01*(3-i));
-                    longitudeA = (longitudeA - 0.01*(3-j));
+                    latitudeA = (latitudeA - 0.01 * (2 - i));
+                    longitudeA = (longitudeA - 0.01 * (2 - j));
 
                     try {
-                    address = geocoder.getFromLocation(latitudeA, longitudeA, 1);
+                        address = geocoder.getFromLocation(latitudeA, longitudeA, 1);
+
                         int state = 0;
-                        if (address.get(0).getSubLocality() == null) {
+                        String msg = address.get(0).getAdminArea() + " " + address.get(0).getSubLocality() + " " + address.get(0).getThoroughfare();
+                        String msg2 = msg.replaceAll("null", "").trim();
+
+                        for (String addr : addrList) {
+                            if (addr.equals(msg2.toString())) {
+                                state = 1;
+                                break;
+                            }
+                        }
+
+                        if ( state ==0 ) {
+                            addrList.add(msg2.toString());
+                        }
+
+/*                        int state = 0;
+                        if (address.get(0).getAdminArea() == null) {
                             String msg = address.get(0).getAdminArea() + " " + address.get(0).getThoroughfare();
                             for (String addr : addrList) {
                                 if (addr.equals(msg.toString())) {
@@ -188,7 +214,7 @@ public class Login03Activity extends AppCompatActivity {
                                     break;
                                 }
                             }
-                            if(state == 0){
+                            if (state == 0) {
                                 addrList.add(msg.toString());
                             }
                         } else {
@@ -199,12 +225,12 @@ public class Login03Activity extends AppCompatActivity {
                                     break;
                                 }
                             }
-                            if(state == 0){
+                            if (state == 0) {
                                 addrList.add(msg.toString());
                             }
-                        }
+                        }*/
                     } catch (Exception e) {
-                     e.printStackTrace();
+                        e.printStackTrace();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -212,6 +238,17 @@ public class Login03Activity extends AppCompatActivity {
             }
         }
     } //getAddress()
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng location = new LatLng(latitude, longitude);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title("내 위치");
+        markerOptions.position(location);
+        googleMap.addMarker(markerOptions);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+    }
+
     private class GPSListener implements LocationListener{
 
         @Override
