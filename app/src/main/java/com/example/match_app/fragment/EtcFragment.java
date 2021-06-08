@@ -41,7 +41,7 @@ public class EtcFragment extends Fragment {
         iconAdapter.addItem(new IconDTO("모임목록", R.drawable.etcf1));
         iconAdapter.addItem(new IconDTO("동네인증", R.drawable.etcf2));
         iconAdapter.addItem(new IconDTO("선호목록", R.drawable.etcf3));
-
+        gv.setAdapter(iconAdapter);
         return  viewGroup;
     }
 
@@ -67,8 +67,12 @@ public class EtcFragment extends Fragment {
 
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
+            context = parent.getContext();
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.icon_item, parent, false);
+            }
 
-            convertView = inflater.inflate(R.layout.icon_item, null);
             ImageView imageView = convertView.findViewById(R.id.iv_icon);
             TextView textView = convertView.findViewById(R.id.tv_icon);
 

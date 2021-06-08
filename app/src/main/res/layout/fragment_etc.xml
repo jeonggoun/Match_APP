@@ -48,6 +48,13 @@
             android:text="프로필 보기" />
 
 
+        <GridView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/gridView"
+            android:numColumns="3" />
 
         <Button
             android:id="@+id/btn_logout"
@@ -55,13 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10px"
             android:text="임시로그아웃버튼" />
-
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:id="@+id/gridView"
-            android:numColumns="3" />
 
         <ListView
             android:layout_width="match_parent"
