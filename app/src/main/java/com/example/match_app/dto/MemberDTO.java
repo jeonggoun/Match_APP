@@ -17,6 +17,10 @@ public class MemberDTO implements Serializable {
     public MemberDTO() {
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }

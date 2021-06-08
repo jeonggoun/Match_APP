@@ -68,7 +68,7 @@ public class ChattingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         chatMeta = (MetaDTO) intent.getSerializableExtra("meta");
         chatToken = chatMeta.getChatToken();
-        userName = intent.getStringExtra("userName");
+        userName = user.getNickName();
         chat_name = chatMeta.getRecent().getNickname();
 
         btn_send = findViewById(R.id.btn_send);
