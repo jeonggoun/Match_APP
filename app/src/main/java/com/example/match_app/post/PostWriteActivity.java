@@ -58,16 +58,16 @@ public class PostWriteActivity extends AppCompatActivity {
 
     String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
 
-    Button cancel, next, selectDateTime;
+    Button cancel, next, selectDateTime, selectPlace;
 
     private PostDTO dto;
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle;
     Uri file;
-    String imagePath;
+    String imagePath, latitude, longitude;
 
     //스피너
     Spinner spinnerGame;
-    String selectGame;
+    String selectGame , result="";
 
     //이미지뷰
     ImageView postImage;
@@ -99,6 +99,7 @@ public class PostWriteActivity extends AppCompatActivity {
         selectDateTime = findViewById(R.id.selectDateTime);
         txtResult = findViewById(R.id.txtResult);
 
+        selectPlace = findViewById(R.id.selectPlace);
         //경고창
         alertTitle = findViewById(R.id.alertTitle);
 
@@ -124,11 +125,27 @@ public class PostWriteActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etTitle.getText().toString().trim().length() > 0){
+                if(etTitle.getText().toString().trim().length() < 1){
+                    alertTitle.setText("제목을 입력해주세요");
+                    return;
+                }else if(selectGame.equals("전체")){
+                    alertTitle.setText("종목을 선택해주세요");
+                    return;
+                }else if(etContent.getText().toString().trim().length() < 1){
+                    alertTitle.setText("내용을 입력해주세요");
+                    return;
+                }else if(result.length() < 1){
+                    alertTitle.setText("일시를 선택해주세요");
+                    return;
+                }else{
+                    if(etFee.getText().toString().trim().length() < 1 ||
+                            Integer.parseInt(etFee.getText().toString()) < 1){
+                        etFee.setText("0");
+                    }
                     dto.setGame(selectGame);
                     dto.setFee(etFee.getText().toString());
                     dto.setTitle(etTitle.getText().toString());
-                    dto.setTime(new Date().toString());
+                    dto.setTime(txtResult.getText().toString());
                     //calendar.getDate();
                     dto.setPlace(etPlace.getText().toString());
                     dto.setContent(etContent.getText().toString());
@@ -139,9 +156,6 @@ public class PostWriteActivity extends AppCompatActivity {
                         StorageReference riversRef = storageRef.child(filename);
                         UploadTask uploadTask = riversRef.putFile(file);
                     }//file 있을 때
-                }else{
-                    alertTitle.setText("제목을 입력해주세요");
-                    return;
                 }
                 // 새로운 프로필 이미지 저장
                 // Register observers to listen for when the download is done or if it fails
@@ -197,6 +211,13 @@ public class PostWriteActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+        selectPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PostMapActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
     }
 
     @Override
@@ -211,9 +232,11 @@ public class PostWriteActivity extends AppCompatActivity {
         if(requestCode==1){
             if(resultCode==RESULT_OK){
                 //데이터 받기
-                String result = data.getStringExtra("result");
+                result = data.getStringExtra("result");
                 txtResult.setText(result);
             }
+        }else if(requestCode==2){
+//            latitude = data.getStringExtra("result");
         }
 
         if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){

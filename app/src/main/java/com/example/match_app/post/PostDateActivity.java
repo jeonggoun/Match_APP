@@ -1,8 +1,10 @@
 package com.example.match_app.post;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,9 +22,10 @@ public class PostDateActivity extends AppCompatActivity {
     private static final String TAG = "main: PostDateActivity";
     DatePicker datePicker;
     TimePicker timePicker;
-    String date = "";
+    String date = "", time = "";
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +51,20 @@ public class PostDateActivity extends AppCompatActivity {
                     new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
-
                 date = new DecimalFormat("0000").format(year) + "/" +
                         new DecimalFormat("00").format(month + 1)
                         + "/" + new DecimalFormat("00").format(day);
-
             }
-
         });
-
-
+        time = new DecimalFormat("00").format(timePicker.getHour())+":"+
+                new DecimalFormat("00").format(timePicker.getMinute());
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                time = new DecimalFormat("00").format(hourOfDay) + ":" +
+                        new DecimalFormat("00").format(minute);
+            }
+        });
 
     }
 
@@ -65,7 +72,7 @@ public class PostDateActivity extends AppCompatActivity {
     public void mOnClose(View v){
         //데이터 전달하기
         Intent intent = new Intent();
-        intent.putExtra("result", date);
+        intent.putExtra("result", date+" "+time);
         setResult(RESULT_OK, intent);
         Log.d(TAG, "mOnClose: " + date);
         //액티비티(팝업) 닫기

@@ -11,9 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 진동 권한 -->
-    <!-- 카카오 맵 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera2"
@@ -101,6 +98,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
+        <meta-data
+        android:name="com.google.android.maps.v2.API_KEY"
+        android:value="AIzaSyDX5ZInNPI2acRkjhvlSApMI50BvN6zPSM"/>
+
         <activity android:name=".post.PostDateActivity"></activity>
         <activity android:name=".Login03Activity" />
         <activity android:name=".Login04Activity" />

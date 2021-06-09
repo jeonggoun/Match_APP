@@ -126,9 +126,10 @@
                     android:id="@+id/etFee"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="80"
                     android:gravity="center"
                     android:hint="￦ 참가비 (선택사항)"
-                    android:layout_weight="80"/>
+                    android:inputType="number" />
 
                 <CheckBox
                     android:id="@+id/checkBox"

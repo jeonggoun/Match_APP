@@ -149,12 +149,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
             switch (dto.getGame()){
                 case "축구" :
-                    image.setImageResource(R.drawable.bg_custom_button);
+                    image.setImageResource(R.drawable.soccer_ball);
                     break;
                 case "농구" :
+                    image.setImageResource(R.drawable.soccer_ball);
                     break;
                 default:    //기본 사진
-                    image.setImageResource(R.drawable.common_full_open_on_phone);
+                    image.setImageResource(R.drawable.soccer_ball);
             }
 
 

@@ -7,6 +7,7 @@ public class PostDTO implements Serializable {
     String postKey, matchConfirm;
 
     String game, title, time, place, fee, imgPath, content, writer, writerToken;
+    String latitude, longitude;
 
 
     public PostDTO() {
@@ -20,6 +21,22 @@ public class PostDTO implements Serializable {
         this.fee = fee;
         this.imgPath = imgPath;
         this.postKey = postKey;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getMatchConfirm() {
