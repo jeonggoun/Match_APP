@@ -32,12 +32,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     MetaDTO dto;
     Context context;
     LayoutInflater inflater;
-    String user;
 
-    public ChatListAdapter(ArrayList<MetaDTO> dtos, Context context, String user) {
+    public ChatListAdapter(ArrayList<MetaDTO> dtos, Context context) {
         this.dtos = dtos;
         this.context = context;
-        this.user = user;
         inflater = LayoutInflater.from(this.context);
     }
 
@@ -66,7 +64,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(context , ChattingActivity.class);
                 intent.putExtra("meta", dto);
-                intent.putExtra("userName", user);
                 context.startActivity(intent);
 
             }
@@ -120,7 +117,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             Log.d(TAG, "onGenerateViewHolder: " );
             parentLayout = itemView.findViewById(R.id.chat_parentLayout);
             tvTitle = itemView.findViewById(R.id.chat_tvTitle);
-//            imageLayout = itemView.findViewById(R.id.chat_imageLayout); /*이미지 들어가는*/
             image = itemView.findViewById(R.id.chat_image);
             tvName = itemView.findViewById(R.id.chat_tvName);
             tvTime = itemView.findViewById(R.id.chat_tvTime);
@@ -147,7 +143,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             if(dto.getRecent() != null) tvPlace.setText(dto.getRecent().getMsg());
             tvTime.setText(dto.getDate());
 
-            switch (dto.getGame()){
+            switch (dto.getGame()){//todo game종류에 따라 사진 넣어야 함
                 case "축구" :
                     image.setImageResource(R.drawable.soccer_ball);
                     break;

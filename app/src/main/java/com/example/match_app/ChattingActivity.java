@@ -92,10 +92,6 @@ public class ChattingActivity extends AppCompatActivity {
                 setPost("enable");
             }
         });
-//        if(chatMeta.getPostConfirm().equals("disable")){
-//            matchCancel.setVisibility(View.VISIBLE);
-//            matchConfirm.setVisibility(View.GONE);
-//        }
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,11 +128,12 @@ public class ChattingActivity extends AppCompatActivity {
         myRef = database.getReference(path+"/"+userToken+"/"+chatToken);
         toRef = database.getReference(path+"/"+chatToken+"/"+userToken);
         toRefMeta = database.getReference(metaPath+"/"+chatToken+"/"+userToken);
-        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
-
+//        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
+        //userMeta.removeValue(); 사용시 더이상 채팅방이 목록에서 나타나지 않음
+        //상대는 채팅방 목록에 남아있으나, 말을 해도 더이상 상대에게 전달되지 않음
 
         post = database.getReference("matchapp/Post/"+chatMeta.getPostToken());
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.addChildEventListener(new ChildEventListener() { //채팅 가져오기
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ChattingDTO dto = snapshot.getValue(ChattingDTO.class);
@@ -151,7 +148,7 @@ public class ChattingActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {            }
         });
-        post.addChildEventListener(new ChildEventListener() {
+        post.addChildEventListener(new ChildEventListener() {//경기확정 버튼 반응
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.getKey().equals("matchConfirm")){
@@ -184,11 +181,6 @@ public class ChattingActivity extends AppCompatActivity {
         ArrayMap<String,String> map2 = new ArrayMap<>();
         map2.put("matchConfirm" , set);
         post.updateChildren(Collections.unmodifiableMap(map2));
-//        map2.clear();
-//        map2.put("postConfirm" , set);
-//        toRefMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
-//        userMeta.updateChildren(Collections.unmodifiableMap(map2));//"postConfirm" : set
-//        dto.setPostConfirm(set);
         Toast.makeText(context, set, Toast.LENGTH_SHORT).show();
 
     }
@@ -221,7 +213,6 @@ public class ChattingActivity extends AppCompatActivity {
         }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            //Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
 
