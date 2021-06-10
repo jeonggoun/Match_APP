@@ -121,9 +121,9 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="eea6cbe263225c8d7cdb10f46fc6d119" />
-        <meta-data
+<!--        <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBRdHiOG2-fqy-YQkHkvzDK1tlQ9aLZd_g"/>
+            android:value="AIzaSyBRdHiOG2-fqy-YQkHkvzDK1tlQ9aLZd_g"/>-->
 
         <uses-library
             android:name="org.apache.http.legacy"

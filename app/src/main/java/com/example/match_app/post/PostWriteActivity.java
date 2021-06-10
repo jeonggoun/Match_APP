@@ -43,7 +43,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import static com.example.match_app.fragment.SearchFragment.items;
-/*내용 다 입력되도록 공백 체크*/
 
 public class PostWriteActivity extends AppCompatActivity {
     private static final String TAG = "로그 PostWriteActivity";

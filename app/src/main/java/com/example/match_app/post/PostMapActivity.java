@@ -2,6 +2,7 @@ package com.example.match_app.post;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,7 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class PostMapActivity extends AppCompatActivity {
 
     SupportMapFragment mapFragment;
     GoogleMap map;
-    EditText editText;
+    EditText etAddr;
 
     MarkerOptions myMarker;
 
@@ -45,13 +46,11 @@ public class PostMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_post_map);
 
-        checkDangerousPermissions();
+        etAddr = findViewById(R.id.etAddr);
 
-        editText = findViewById(R.id.editText);
-
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.postMap);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -73,33 +72,32 @@ public class PostMapActivity extends AppCompatActivity {
                         showMyLocationMarker(targetLocation);
                     }
                 });
-
             }
         });
 
         // 구글맵 초기화
         MapsInitializer.initialize(this);
 
-        // 내위치 찾기
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestMyLocation();
-
-            }
-        });
-
         // 한글주소를 지도로 보여주기
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnSearchMap).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText.getText().toString().length() > 0){
+                if(etAddr.getText().toString().length() > 0){
                     Location location = getLocationFromAddress
-                            (getApplicationContext(), editText.getText().toString());
+                            (getApplicationContext(), etAddr.getText().toString());
 
                     showCurrentLocation(location);
                 }
             }
+        });
+
+        findViewById(R.id.btnSubmitMap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostMapActivity.this, PostWriteActivity.class);
+                startActivity(intent);
+                finish();
+            }//todo
         });
 
     }
