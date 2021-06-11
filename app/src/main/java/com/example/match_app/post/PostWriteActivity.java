@@ -30,6 +30,7 @@ import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +44,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import static com.example.match_app.fragment.SearchFragment.items;
-
+import static com.example.match_app.MainActivity.user;
 public class PostWriteActivity extends AppCompatActivity {
     private static final String TAG = "로그 PostWriteActivity";
 
@@ -62,8 +63,9 @@ public class PostWriteActivity extends AppCompatActivity {
     private PostDTO dto;
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle;
     Uri file;
-    String imagePath, latitude, longitude;
-
+    String imagePath;
+    Double longitude=0.0;
+    Double latitude=0.0;
     //스피너
     Spinner spinnerGame;
     String selectGame , result="";
@@ -148,6 +150,10 @@ public class PostWriteActivity extends AppCompatActivity {
                     //calendar.getDate();
                     dto.setPlace(etPlace.getText().toString());
                     dto.setContent(etContent.getText().toString());
+                    dto.setLatitude(latitude.toString());
+                    dto.setLongitude(longitude.toString());
+                    dto.setWriter(user.getNickName());
+                    dto.setWriterToken(user.getIdToken());
 
                     if(file != null) {
                         filename = UUID.randomUUID().toString() + ".jpg";
@@ -170,6 +176,8 @@ public class PostWriteActivity extends AppCompatActivity {
 //                    }
 //                });
                 databaseReference.push().setValue(dto);
+//                databaseReference.child(dto.getPostKey()).setValue(dto);  //글 수정시
+//                databaseReference.child(dto.getPostKey()).removeValue();  //글 삭제시
 
                 finish();
 
@@ -214,6 +222,8 @@ public class PostWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PostMapActivity.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivityForResult(intent, 2);
             }
         });
@@ -223,23 +233,27 @@ public class PostWriteActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
             Log.d(TAG, "onClick: ");
-            if(data != null) {
-                file = data.getData();
-                postImage.setImageURI(file);
+
+        if(resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                if (resultCode == RESULT_OK) {
+                    //데이터 받기
+                    result = data.getStringExtra("result");
+                    txtResult.setText(result);
+                }
+            } else if (requestCode == 2) {
+                longitude = data.getDoubleExtra("long", 0);
+                latitude = data.getDoubleExtra("lati", 0);
+
             }
 
-        if(requestCode==1){
-            if(resultCode==RESULT_OK){
-                //데이터 받기
-                result = data.getStringExtra("result");
-                txtResult.setText(result);
+            if (requestCode == 200 && resultCode == RESULT_OK && data.getData() != null) {
+//                onActivityResult(requestCode, resultCode, data);
+                if(data != null) {
+                    file = data.getData();
+                    postImage.setImageURI(file);
+                }
             }
-        }else if(requestCode==2){
-//            latitude = data.getStringExtra("result");
-        }
-
-        if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){
-            onActivityResult(requestCode, resultCode, data);
         }
     }
 }

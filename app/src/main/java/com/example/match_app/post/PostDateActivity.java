@@ -36,8 +36,8 @@ public class PostDateActivity extends AppCompatActivity {
         timePicker = (TimePicker) findViewById(R.id.timePicker);
 
         //데이터 가져오기
-        Intent intent = getIntent();
-        String data = intent.getStringExtra("data");
+//        Intent intent = getIntent();
+//        String data = intent.getStringExtra("data");
 
         //현재 시간 이전은 선택할 수 없도록 지정
         datePicker.setMinDate(System.currentTimeMillis());

@@ -1,24 +1,19 @@
 package com.example.match_app.post;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.match_app.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,8 +35,7 @@ public class PostMapActivity extends AppCompatActivity {
     EditText etAddr;
 
     MarkerOptions myMarker;
-
-    LatLng myLoc, markerLoc, result;
+    LatLng myLoc, result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +44,16 @@ public class PostMapActivity extends AppCompatActivity {
 
         etAddr = findViewById(R.id.etAddr);
 
+        Intent getIntent = getIntent();
+        Double lat = getIntent.getDoubleExtra("latitude", 0), lon = getIntent.getDoubleExtra("longitude", 0);
+
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.postMap);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.R)
+            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
-//                Log.d(TAG, "onMapReady: Google Map is Ready !!!" );
 
                 map = googleMap;
                 try{
@@ -72,6 +71,20 @@ public class PostMapActivity extends AppCompatActivity {
                         showMyLocationMarker(targetLocation);
                     }
                 });
+
+                if(lat !=0 && lon != 0){
+                    result = new LatLng(lat, lon); // 찍어진좌표 보관
+
+                    Location targetLocation = new Location("");
+                    targetLocation.setLatitude(result.latitude);
+                    targetLocation.setLongitude(result.longitude); //이동하고 찍을 좌표 설정
+                    showMyLocationMarker(targetLocation);  //마커찍기
+                    showCurrentLocation(targetLocation);  //위치로 이동
+                }else{
+                    LocationManager manager =
+                            (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    showCurrentLocation(manager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+                }
             }
         });
 
@@ -94,10 +107,12 @@ public class PostMapActivity extends AppCompatActivity {
         findViewById(R.id.btnSubmitMap).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostMapActivity.this, PostWriteActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent();
+                intent.putExtra("lati", result.latitude);
+                intent.putExtra("long", result.longitude);
+                setResult(RESULT_OK, intent);
                 finish();
-            }//todo
+            }
         });
 
     }
@@ -121,50 +136,12 @@ public class PostMapActivity extends AppCompatActivity {
         return resLocation;
     }
 
-    private void requestMyLocation() {
-        LocationManager manager =
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        try{
-            long minTime = 0;
-            float minDistance = 0;
-
-            manager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    minTime,
-                    minDistance,
-                    new LocationListener() {
-                        @Override
-                        public void onLocationChanged(@NonNull Location location) {
-                            showCurrentLocation(location);
-                        }
-                    }
-            );//todo 반복되므로 해제해줘야함
-
-            Location lastLocation =
-                    manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(lastLocation != null){
-                String msg = "Latitude : " + lastLocation.getLatitude()
-                        + "\nLongitude : " + lastLocation.getLongitude();
-            }
-
-        }catch (SecurityException e){
-
-        }
-
-    }
-
     private void showCurrentLocation(Location location) {
         LatLng curPoint =
                 new LatLng(location.getLatitude(), location.getLongitude());
         // 현재 내위치 전역변수에 넣음
         myLoc = curPoint;
-
-        String msg = "Latitude : " + curPoint.latitude
-                + "\nLongitude : " + curPoint.longitude;
-
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 18));
-
     }
     private void showMyLocationMarker(Location location){
 
@@ -172,52 +149,16 @@ public class PostMapActivity extends AppCompatActivity {
             myMarker = new MarkerOptions();
             myMarker.position(
                     new LatLng(location.getLatitude(), location.getLongitude()));
-            myMarker.title("위치\n");
+            myMarker.title("위치");
             myMarker.icon
                     (BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
             map.addMarker(myMarker);
-            myMarker = null;
+        }else{
+            myMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            map.clear();
+            map.addMarker(myMarker);
         }
 
-    }
-    private void checkDangerousPermissions() {
-        String[] permissions = {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        };
-
-        int permissionCheck = PackageManager.PERMISSION_GRANTED;
-        for (int i = 0; i < permissions.length; i++) {
-            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
-            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                break;
-            }
-        }
-
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
-            } else {
-                ActivityCompat.requestPermissions(this, permissions, 1);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1) {
-            for (int i = 0; i < permissions.length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
     }
 
 }

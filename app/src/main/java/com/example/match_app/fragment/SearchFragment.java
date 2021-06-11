@@ -166,6 +166,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PostDTO dto = dataSnapshot.getValue(PostDTO.class);
+                dto.setPostKey(dataSnapshot.getKey());
                 boolean check = true;
                 if(!item.isEmpty() && !item.equals("전체")){
                     if (!item.equals(dto.getGame()))
