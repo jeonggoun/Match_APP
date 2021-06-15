@@ -66,6 +66,12 @@ public class PostDateActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.dateRes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     //확인 버튼 클릭
@@ -78,6 +84,8 @@ public class PostDateActivity extends AppCompatActivity {
         //액티비티(팝업) 닫기
         finish();
     }
+
+
 
     @Override
     public void onBackPressed() {

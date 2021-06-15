@@ -1,5 +1,11 @@
 package com.example.match_app.post;
 
+//todo detail 참가비 불러오기 → 0인 경우 참가비 없음으로 뜨도록 하기
+//todo detail 지도 있는 경우 보이고 없으면 안 보이게 하기
+//todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
+//todo map, 장소 따로 입력해야 하는 상황 ▶ 어떻게 하면 좋을지 팀원들 조언 구하기
+//todo 다 구현 되면 글 삭제 ▶ 글 수정 구현
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -61,7 +67,7 @@ public class PostWriteActivity extends AppCompatActivity {
     Button cancel, next, selectDateTime, selectPlace;
 
     private PostDTO dto;
-    TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle;
+    TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
     String imagePath;
     Double longitude=0.0;
@@ -80,7 +86,6 @@ public class PostWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
-
 
         //memberDTO.setIdToken("test1");
 
@@ -103,6 +108,7 @@ public class PostWriteActivity extends AppCompatActivity {
         selectPlace = findViewById(R.id.selectPlace);
         //경고창
         alertTitle = findViewById(R.id.alertTitle);
+        mapResult = findViewById(R.id.mapResult);
 
         //사진 불러올 수 있게 하기
         postImage.setOnClickListener(new View.OnClickListener() {
@@ -127,18 +133,27 @@ public class PostWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(etTitle.getText().toString().trim().length() < 1){
+                    alertTitle.setVisibility(View.VISIBLE);
                     alertTitle.setText("제목을 입력해주세요");
                     return;
                 }else if(selectGame.equals("전체")){
+                    alertTitle.setVisibility(View.VISIBLE);
                     alertTitle.setText("종목을 선택해주세요");
                     return;
-                }else if(etContent.getText().toString().trim().length() < 1){
-                    alertTitle.setText("내용을 입력해주세요");
-                    return;
                 }else if(result.length() < 1){
+                    alertTitle.setVisibility(View.VISIBLE);
                     alertTitle.setText("일시를 선택해주세요");
                     return;
+                }else if(etPlace.getText().toString().trim().length() < 1){
+                    alertTitle.setVisibility(View.VISIBLE);
+                    alertTitle.setText("장소를 입력해주세요");
+                    return;
+                }else if(etContent.getText().toString().trim().length() < 1){
+                    alertTitle.setVisibility(View.VISIBLE);
+                    alertTitle.setText("내용을 입력해주세요");
+                    return;
                 }else{
+                    alertTitle.setVisibility(View.GONE);
                     if(etFee.getText().toString().trim().length() < 1 ||
                             Integer.parseInt(etFee.getText().toString()) < 1){
                         etFee.setText("0");
@@ -218,6 +233,7 @@ public class PostWriteActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
         selectPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,6 +243,12 @@ public class PostWriteActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
+
+        if(latitude > 1) {
+            mapResult.setText("장소가 입력되었습니다");
+            Log.d(TAG, "latitude: " + latitude);
+        }
+
     }
 
     @Override

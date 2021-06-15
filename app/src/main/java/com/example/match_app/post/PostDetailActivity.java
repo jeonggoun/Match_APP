@@ -1,5 +1,7 @@
 package com.example.match_app.post;
 
+
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -94,8 +96,6 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailPlace.setText(dto.getPlace());
         tvDetailTime.setText(dto.getTime());
 
-
-
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.detailMap);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @RequiresApi(api = Build.VERSION_CODES.R)
@@ -121,6 +121,11 @@ public class PostDetailActivity extends AppCompatActivity {
         // 구글맵 초기화
         MapsInitializer.initialize(this);
 
+        // 이미지 없으면
+        if(filePath == null) {
+            ivDetailImage.setVisibility(View.GONE);
+        }
+
 
     }
     private void startChatting(PostDTO postDTO){
@@ -143,6 +148,7 @@ public class PostDetailActivity extends AppCompatActivity {
         intent.putExtra("meta", meta);
         startActivity(intent);
     }
+
     private void showCurrentLocation(Location location) {
         LatLng curPoint =
                 new LatLng(location.getLatitude(), location.getLongitude());
@@ -150,6 +156,7 @@ public class PostDetailActivity extends AppCompatActivity {
         myLoc = curPoint;
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 18));
     }
+
     private void showMyLocationMarker(Location location){
 
         if(myMarker == null){
