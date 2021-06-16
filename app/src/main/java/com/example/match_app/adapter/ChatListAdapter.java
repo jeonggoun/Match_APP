@@ -143,14 +143,37 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             if(dto.getRecent() != null) tvPlace.setText(dto.getRecent().getMsg());
             tvTime.setText(dto.getDate());
 
-            switch (dto.getGame()){//todo game종류에 따라 사진 넣어야 함
+            //"전체", "축구", "농구", "테니스", "야구", "배구", "배드민턴", "볼링", "당구", "이스포츠", "기타"
+            switch (dto.getGame()){
                 case "축구" :
-                    image.setImageResource(R.drawable.soccer_ball);
+                    image.setImageResource(R.drawable.soccer);
                     break;
                 case "농구" :
+                    image.setImageResource(R.drawable.basketball);
+                    break;
+                case "테니스" :
+                    image.setImageResource(R.drawable.tennis);
+                    break;
+                case "야구" :
+                    image.setImageResource(R.drawable.baseball);
+                    break;
+                case "배구" :
+                    image.setImageResource(R.drawable.volleyball);
+                    break;
+                case "배드민턴" :
+                    image.setImageResource(R.drawable.badminton);
+                    break;
+                case "볼링" :
+                    image.setImageResource(R.drawable.bowling);
+                    break;
+                case "당구" :
+                    image.setImageResource(R.drawable.snooker);
+                    break;
+                case "이스포츠" :
+                    image.setImageResource(R.drawable.computer);
                     break;
                 default:    //기본 사진
-                    image.setImageResource(R.drawable.common_full_open_on_phone);
+                    image.setImageResource(R.drawable.match);
             }
 
 

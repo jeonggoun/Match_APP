@@ -143,19 +143,45 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
             tvTitle.setText(dto.getTitle());
             tvGame.setText(dto.getGame());
-            tvFee.setText(dto.getFee());
+
+            if(dto.getFee().equals("0")) {
+                tvFee.setText("참가비 없음");
+            } else {
+                tvFee.setText(dto.getFee() + "원");
+            }
             tvPlace.setText(dto.getPlace());
             tvTime.setText(dto.getTime());
 
             switch (dto.getGame()){
                 case "축구" :
-                    image.setImageResource(R.drawable.soccer_ball);
+                    image.setImageResource(R.drawable.soccer);
                     break;
                 case "농구" :
-                    image.setImageResource(R.drawable.soccer_ball);
+                    image.setImageResource(R.drawable.basketball);
+                    break;
+                case "테니스" :
+                    image.setImageResource(R.drawable.tennis);
+                    break;
+                case "야구" :
+                    image.setImageResource(R.drawable.baseball);
+                    break;
+                case "배구" :
+                    image.setImageResource(R.drawable.volleyball);
+                    break;
+                case "배드민턴" :
+                    image.setImageResource(R.drawable.badminton);
+                    break;
+                case "볼링" :
+                    image.setImageResource(R.drawable.bowling);
+                    break;
+                case "당구" :
+                    image.setImageResource(R.drawable.snooker);
+                    break;
+                case "이스포츠" :
+                    image.setImageResource(R.drawable.computer);
                     break;
                 default:    //기본 사진
-                    image.setImageResource(R.drawable.soccer_ball);
+                    image.setImageResource(R.drawable.match);
             }
 
 

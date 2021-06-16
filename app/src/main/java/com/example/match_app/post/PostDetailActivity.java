@@ -48,7 +48,7 @@ public class PostDetailActivity extends AppCompatActivity {
     DatabaseReference databaseReference2;
     ImageView ivDetailImage;
     PostDTO dto;
-    TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent;
+    TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent, tvDetailFee;
     SupportMapFragment mapFragment;
     GoogleMap map;
     MarkerOptions myMarker;
@@ -69,6 +69,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailPlace = findViewById(R.id.tvDetailPlace);
         tvDetailTime = findViewById(R.id.tvDetailTime);
         tvDetailContent = findViewById(R.id.tvDetailContent);
+        tvDetailFee = findViewById(R.id.tvDetailFee);
 
         findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +94,13 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailGame.setText(dto.getGame());
         tvDetailContent.setText(dto.getContent());
         tvDetailNickname.setText(dto.getWriter());
-        tvDetailPlace.setText(dto.getPlace());
-        tvDetailTime.setText(dto.getTime());
+        tvDetailPlace.setText("모임장소 : " + dto.getPlace());
+        tvDetailTime.setText("모임일시 : " + dto.getTime());
+
+        if(dto.getFee().equals("0"))
+            tvDetailFee.setText("참가비 없음");
+        else
+            tvDetailFee.setText("참가비 : " + dto.getFee() + "원");
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.detailMap);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -122,7 +128,7 @@ public class PostDetailActivity extends AppCompatActivity {
         MapsInitializer.initialize(this);
 
         // 이미지 없으면
-        if(filePath == null) {
+        if(dto.getImgPath() == null) {
             ivDetailImage.setVisibility(View.GONE);
         }
 

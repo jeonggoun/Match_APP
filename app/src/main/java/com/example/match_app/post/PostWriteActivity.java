@@ -1,6 +1,5 @@
 package com.example.match_app.post;
 
-//todo detail 참가비 불러오기 → 0인 경우 참가비 없음으로 뜨도록 하기
 //todo detail 지도 있는 경우 보이고 없으면 안 보이게 하기
 //todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
 //todo map, 장소 따로 입력해야 하는 상황 ▶ 어떻게 하면 좋을지 팀원들 조언 구하기
