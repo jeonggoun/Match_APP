@@ -63,16 +63,18 @@
             android:weightSum="3">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cr1"
                 android:layout_width="404dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/news_border">
+                android:background="@drawable/news_border"
+                >
 
                 <TextView
                     android:id="@+id/news_title_text1"
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
+                    android:layout_width="326dp"
+                    android:layout_height="26dp"
 
                     android:gravity="center"
                     android:text="TextView"
@@ -111,7 +113,7 @@
 
                 <TextView
                     android:id="@+id/news_title_text2"
-                    android:layout_width="0dp"
+                    android:layout_width="326dp"
                     android:layout_height="25dp"
                     android:gravity="center"
                     android:text="TextView"
@@ -150,7 +152,7 @@
 
                 <TextView
                     android:id="@+id/news_title_text3"
-                    android:layout_width="0dp"
+                    android:layout_width="326dp"
                     android:layout_height="25dp"
                     android:gravity="center"
                     android:text="TextView"

@@ -1,6 +1,8 @@
 package com.example.match_app.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.match_app.R;
 import com.example.match_app.dto.NewsDTO;
+import com.example.match_app.post.PostWriteActivity;
 
 
 import org.jsoup.Jsoup;
@@ -32,6 +37,9 @@ public class HomeFragment extends Fragment {
     ImageView imageView, news_image[] = new ImageView[3];
     TextView textView, news_content_text[] = new TextView[3], news_title_text[] = new TextView[3];
     Context context;
+    ConstraintLayout cr1;
+
+    private String href[] = new String[3];
 
 
 
@@ -64,8 +72,37 @@ public class HomeFragment extends Fragment {
         newsData task = new newsData();
         task.execute();
 
+
+        news_image[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sports.news.naver.com" + href[0]));
+                startActivity(intent);
+            }
+        });
+
+        news_image[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sports.news.naver.com" + href[1]));
+                startActivity(intent);
+            }
+        });
+
+        news_image[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sports.news.naver.com" + href[2]));
+                startActivity(intent);
+            }
+        });
         return viewGroup;
     }
+
+
     private class newsData extends AsyncTask<Void, Void, ArrayList<NewsDTO>> {
         private static final String TAG = "main:newsData";
 
@@ -84,6 +121,7 @@ public class HomeFragment extends Fragment {
                 String  title= "";
                 String content = "";
                 String league = "";
+
                 Log.d(TAG, "doInBackground: arrayListSize => " + doc.size());
                 Log.d(TAG, "doInBackground: arrayListSize => " + doc.toString());
 
@@ -106,7 +144,17 @@ public class HomeFragment extends Fragment {
                     content = doc.get(i).select("p").text();
                     league = doc.get(i).select("span").text();
 
-                    Log.d(TAG, "doInBackground: arrayListSize => " + img + "\n"  + title + "\n" + content + "\n" + league + "\n");
+                    href[j] = doc.get(i).select("a").attr("href");
+
+                    String st[] = league.split(" ");
+                    Log.d(TAG, "doInBackground: img => " + img );
+                    Log.d(TAG, "doInBackground: title => " + title );
+                            Log.d(TAG, "doInBackground: content => " + content);
+                            Log.d(TAG, "doInBackground: league => " + league);
+                    //Log.d(TAG, "doInBackground: a => " + a);
+                    Log.d(TAG, "doInBackground: href => " + href);
+
+
 
                     arrayList.add(new NewsDTO(img, title, content, league ));
 
@@ -115,6 +163,8 @@ public class HomeFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
             return arrayList;
         }
 
@@ -134,7 +184,12 @@ public class HomeFragment extends Fragment {
 
 
         }
+
+
+
+
     }
+
 
 
     }
