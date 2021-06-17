@@ -46,14 +46,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.item_list_view,
                 parent, false);
-        Log.d(TAG, "onCreateViewHolder: ");
         return new ViewHolder(itemView, this);
     }
 
     // 인플레이트 시킨 화면에 데이터를 셋팅시킨다
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: " + position);
 
         PostDTO dto = dtos.get(position);
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
@@ -115,7 +113,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         public ViewHolder(@NonNull View itemView, com.example.match_app.adapter.PostOnClickListener listener) {
             super(itemView);
 
-            Log.d(TAG, "onGenerateViewHolder: " );
             parentLayout = itemView.findViewById(R.id.parentLayout);
             tvTitle = itemView.findViewById(R.id.tvTitle);
 //            imageLayout = itemView.findViewById(R.id.imageLayout); /*이미지 들어가는*/

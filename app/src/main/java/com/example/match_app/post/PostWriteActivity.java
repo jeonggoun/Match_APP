@@ -26,26 +26,16 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.match_app.Common.CommonMethod;
-import com.example.match_app.IntroActivity;
-import com.example.match_app.Login02Activity;
-import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.UUID;
 
 import static com.example.match_app.fragment.SearchFragment.items;
@@ -243,9 +233,12 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
-        if(latitude > 1) {
+        Log.d(TAG, "/nlatitude: " + latitude);
+        Log.d(TAG, "longitude: " + longitude);
+
+        if(latitude != 0.0 || longitude !=0.0) {
+            mapResult.setVisibility(View.VISIBLE);
             mapResult.setText("장소가 입력되었습니다");
-            Log.d(TAG, "latitude: " + latitude);
         }
 
     }
@@ -253,7 +246,6 @@ public class PostWriteActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            Log.d(TAG, "onClick: ");
 
         if(resultCode == RESULT_OK) {
             if (requestCode == 1) {

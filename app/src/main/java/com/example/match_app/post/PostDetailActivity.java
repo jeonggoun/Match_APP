@@ -4,7 +4,10 @@ package com.example.match_app.post;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,16 +16,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.match_app.ChattingActivity;
+import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MemberDTO;
@@ -36,8 +45,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.NotNull;
 
 import static com.example.match_app.MainActivity.user;
 public class PostDetailActivity extends AppCompatActivity {
@@ -46,13 +58,14 @@ public class PostDetailActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
-    ImageView ivDetailImage;
+    ImageView ivDetailImage, ivDetailBack;
     PostDTO dto;
     TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent, tvDetailFee;
     SupportMapFragment mapFragment;
     GoogleMap map;
     MarkerOptions myMarker;
     LatLng myLoc;
+    FragmentTransaction detailMap = getSupportFragmentManager().beginTransaction();
 
     public final static String path = "matchapp/ChatMeta";
 
@@ -62,6 +75,7 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
 
         ivDetailImage = findViewById(R.id.ivDetailImage);
+        ivDetailBack = findViewById(R.id.ivDetailBack);
 
         tvDetailNickname = findViewById(R.id.tvDetailNickname);
         tvDetailTitle = findViewById(R.id.tvDetailTitle);
@@ -132,8 +146,77 @@ public class PostDetailActivity extends AppCompatActivity {
             ivDetailImage.setVisibility(View.GONE);
         }
 
+//        // 선택한 좌표 없으면 프래그먼트 숨기기
+//        Log.d(TAG, "onCreate: " + dto.getLatitude());
+//        Log.d(TAG, "onCreate: " + dto.getLongitude());
+//        if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0"))
 
+        // back 버튼
+        ivDetailBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
+    public void onPopupButtonClick(View button) {
+        //PopupMenu 객체 생성.
+        PopupMenu popup = new PopupMenu(this, button);
+
+        //설정한 popup XML을 inflate.
+        popup.getMenuInflater().inflate(R.menu.menu_post, popup.getMenu());
+
+        //팝업메뉴 클릭 시 이벤트
+        // xml의 onClick 이벤트로 연결해 두었음
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    /*글 수정*/
+                    case R.id.update:
+                        Log.d(TAG, "수정 클릭");
+                        /* update를 선택했을 때 이벤트 실행 코드 작성 */
+                        break;
+
+                    /*글 삭제*/
+                    case R.id.delete:
+                            AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailActivity.this);
+                            builder.setTitle("정말 삭제하시겠습니까?")        // 제목 설정
+                                    .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                                    .setPositiveButton("취소", new DialogInterface.OnClickListener(){
+                                        public void onClick(DialogInterface dialog, int whichButton){
+                                            Log.d(TAG, "취소 클릭");
+                                        }
+                                    })
+                                    .setNegativeButton("확인", new DialogInterface.OnClickListener(){
+                                        public void onClick(DialogInterface dialog, int whichButton){
+                                            Log.d(TAG, "확인 클릭");
+                                            //databaseReference.child(dto.getPostKey()).removeValue();
+//                                            databaseReference.child("Post").child(dto.getPostKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void unused) {
+//                                                    Toast.makeText(PostDetailActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
+//                                                }
+//                                            }).addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//                                                    Toast.makeText(PostDetailActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+//                                                }
+//                                            });
+                                            finish();
+                                        }
+                                    });
+
+                            AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                            dialog.show();    // 알림창 띄우기
+                        break;
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
     private void startChatting(PostDTO postDTO){
         MetaDTO meta = new MetaDTO();
         meta.setTitle(postDTO.getTitle());
@@ -180,6 +263,8 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }
 
