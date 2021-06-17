@@ -185,24 +185,27 @@ public class PostDetailActivity extends AppCompatActivity {
                                     .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
                                     .setPositiveButton("취소", new DialogInterface.OnClickListener(){
                                         public void onClick(DialogInterface dialog, int whichButton){
-                                            Log.d(TAG, "취소 클릭");
+
                                         }
                                     })
                                     .setNegativeButton("확인", new DialogInterface.OnClickListener(){
                                         public void onClick(DialogInterface dialog, int whichButton){
                                             Log.d(TAG, "확인 클릭");
+                                            Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
+                                            Log.d(TAG, "onClick: " + databaseReference.child(dto.getPostKey()));
                                             //databaseReference.child(dto.getPostKey()).removeValue();
-//                                            databaseReference.child("Post").child(dto.getPostKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                @Override
-//                                                public void onSuccess(Void unused) {
-//                                                    Toast.makeText(PostDetailActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            }).addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Toast.makeText(PostDetailActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            });
+                                            //databaseReference.child(dto.getPostKey()).setValue(null);
+                                            databaseReference.child(dto.getPostKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Toast.makeText(PostDetailActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(PostDetailActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                             finish();
                                         }
                                     });
