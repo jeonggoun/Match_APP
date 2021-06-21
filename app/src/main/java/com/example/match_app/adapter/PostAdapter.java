@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.post.PostDetailActivity;
+import com.example.match_app.post.PostUpdateActivity;
 
 import java.util.ArrayList;
 
@@ -65,7 +66,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
                 intent.putExtra("post", getItem(position));
                 ((Activity)context).startActivityForResult(intent, 100); /* 글 삭제 후 새로고침 */
-
             }
         });
     }

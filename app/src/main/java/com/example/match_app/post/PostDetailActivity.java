@@ -184,6 +184,8 @@ public class PostDetailActivity extends AppCompatActivity {
                         Log.d(TAG, "수정 클릭");
                         /* update를 선택했을 때 이벤트 실행 코드 작성 */
                         Intent intent = new Intent(getApplicationContext(), PostUpdateActivity.class);
+                        intent.putExtra("post", dto);
+                        //intent.putExtra("postkey", dto.getPostKey());
                         startActivityForResult(intent, 1);
                         break;
 

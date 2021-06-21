@@ -1,11 +1,12 @@
 package com.example.match_app.post;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
@@ -48,7 +50,7 @@ public class PostUpdateActivity extends AppCompatActivity {
 
     Button cancel, next, selectDateTime, selectPlace;
 
-    PostDTO dto;
+    private PostDTO dto;
 
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
@@ -75,6 +77,8 @@ public class PostUpdateActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         dto = (PostDTO) intent.getSerializableExtra("post");
+        //String postkey = intent.getStringExtra("postkey");
+        //dto = (PostDTO) intent.getSerializableExtra("post");
 
         //버튼 찾기
         cancel = findViewById(R.id.cancel);
@@ -91,6 +95,7 @@ public class PostUpdateActivity extends AppCompatActivity {
         txtResult = findViewById(R.id.txtResult);
 
         selectPlace = findViewById(R.id.selectPlace);
+
         //경고창
         alertTitle = findViewById(R.id.alertTitle);
         mapResult = findViewById(R.id.mapResult);
@@ -104,6 +109,20 @@ public class PostUpdateActivity extends AppCompatActivity {
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
+
+
+
+        // 기존 글 제목 불러오기
+        etTitle.setText(dto.getTitle());
+        etFee.setText(dto.getFee());
+        etContent.setText(dto.getContent());
+        etPlace.setText(dto.getPlace());
+        txtResult.setText(dto.getTime());
+
+        if(dto.getImgPath() != null) {
+            String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F" + dto.getImgPath() + "?alt=media";
+            Glide.with(this).load(filePath).into(postImage);
+        }
 
         //취소 버튼 누르면 update액티비티 끈다
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +144,7 @@ public class PostUpdateActivity extends AppCompatActivity {
                     alertTitle.setVisibility(View.VISIBLE);
                     alertTitle.setText("종목을 선택해주세요");
                     return;
-                }else if(result.length() < 1){
+                }else if(txtResult.toString().trim().length() < 1){
                     alertTitle.setVisibility(View.VISIBLE);
                     alertTitle.setText("일시를 선택해주세요");
                     return;
@@ -163,7 +182,7 @@ public class PostUpdateActivity extends AppCompatActivity {
                     }//file 있을 때
                 }
 
-                firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey()).setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PostUpdateActivity.this, "수정 성공", Toast.LENGTH_SHORT).show();
@@ -219,9 +238,6 @@ public class PostUpdateActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
-
-        Log.d(TAG, "/nlatitude: " + latitude);
-        Log.d(TAG, "longitude: " + longitude);
 
         if(latitude != 0.0 || longitude !=0.0) {
             mapResult.setVisibility(View.VISIBLE);

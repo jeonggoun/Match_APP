@@ -21,6 +21,7 @@ import com.example.match_app.fragment.ChatListFragment;
 import com.example.match_app.fragment.EtcFragment;
 import com.example.match_app.fragment.HomeFragment;
 import com.example.match_app.fragment.SearchFragment;
+import com.example.match_app.login.Login02Activity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
