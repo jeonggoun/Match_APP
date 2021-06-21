@@ -183,6 +183,8 @@ public class PostDetailActivity extends AppCompatActivity {
                     case R.id.update:
                         Log.d(TAG, "수정 클릭");
                         /* update를 선택했을 때 이벤트 실행 코드 작성 */
+                        Intent intent = new Intent(getApplicationContext(), PostUpdateActivity.class);
+                        startActivityForResult(intent, 1);
                         break;
 
                     /*글 삭제*/
@@ -190,12 +192,7 @@ public class PostDetailActivity extends AppCompatActivity {
                             AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailActivity.this);
                             builder.setTitle("정말 삭제하시겠습니까?")        // 제목 설정
                                     .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                                    .setPositiveButton("취소", new DialogInterface.OnClickListener(){
-                                        public void onClick(DialogInterface dialog, int whichButton){
-
-                                        }
-                                    })
-                                    .setNegativeButton("확인", new DialogInterface.OnClickListener(){
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener(){
                                         public void onClick(DialogInterface dialog, int whichButton){
 
                                             Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
@@ -210,7 +207,6 @@ public class PostDetailActivity extends AppCompatActivity {
                                                 public void onSuccess(Void unused) {
                                                     Toast.makeText(PostDetailActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
                                                     finish();
-
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
@@ -218,6 +214,11 @@ public class PostDetailActivity extends AppCompatActivity {
                                                     Toast.makeText(PostDetailActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
+                                        }
+                                    })
+                                    .setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                                        public void onClick(DialogInterface dialog, int whichButton){
+
                                         }
                                     });
 

@@ -1,5 +1,6 @@
 package com.example.match_app.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -63,7 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 Intent intent = new Intent(context , PostDetailActivity.class);
 
                 intent.putExtra("post", getItem(position));
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, 100); /* 글 삭제 후 새로고침 */
 
             }
         });

@@ -1,22 +1,10 @@
 package com.example.match_app.post;
 
-//todo 글 수정 구현
-//todo 글쓴 사람에게만 수정/삭제 나오도록 하기
-//todo 글 삭제 이후 새로고침 되게 하기
-//todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
-//todo map 검색 안 되는 경우 오류처리
-//todo map, 장소 따로 입력해야 하는 상황 ▶ 어떻게 하면 좋을지 팀원들 조언 구하기
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,31 +12,34 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-import static com.example.match_app.fragment.SearchFragment.items;
 import static com.example.match_app.MainActivity.user;
-public class PostWriteActivity extends AppCompatActivity {
-    private static final String TAG = "로그 PostWriteActivity";
+import static com.example.match_app.fragment.SearchFragment.items;
+
+public class PostUpdateActivity extends AppCompatActivity {
+    private static final String TAG = "PostUpdateActivity 로그";
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
 
-    //storage 객체 만들고 참조 => 이미지 저장하려고
     FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
     StorageReference storageRef = storage.getReference("matchapp/postImg");//스토리지를 참조한다
     private MemberDTO memberDTO = new MemberDTO();
@@ -57,7 +48,8 @@ public class PostWriteActivity extends AppCompatActivity {
 
     Button cancel, next, selectDateTime, selectPlace;
 
-    private PostDTO dto;
+    PostDTO dto;
+
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
     String imagePath;
@@ -71,16 +63,18 @@ public class PostWriteActivity extends AppCompatActivity {
     ImageView postImage;
     private final int GET_GALLERY_IMAGE = 200;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write);
+        setContentView(R.layout.activity_post_update);
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
 
-        //memberDTO.setIdToken("test1");
+        //dto = new PostDTO();
 
-        dto = new PostDTO();
+        Intent intent = getIntent();
+        dto = (PostDTO) intent.getSerializableExtra("post");
 
         //버튼 찾기
         cancel = findViewById(R.id.cancel);
@@ -111,7 +105,7 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
-        //취소 버튼 누르면 write액티비티 끈다
+        //취소 버튼 누르면 update액티비티 끈다
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,28 +162,19 @@ public class PostWriteActivity extends AppCompatActivity {
                         UploadTask uploadTask = riversRef.putFile(file);
                     }//file 있을 때
                 }
-                // 새로운 프로필 이미지 저장
-                // Register observers to listen for when the download is done or if it fails
-//                uploadTask.addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                    }
-//                });
-//                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        //Toast.makeText(getParent(), "프로필 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-                databaseReference.push().setValue(dto);
-//                databaseReference.child(dto.getPostKey()).setValue(dto);  //글 수정시
-//                databaseReference.child(dto.getPostKey()).removeValue();  //글 삭제시
 
-                finish();
-
-//        ListItemDTO dto0 = new ListItemDTO(0, "테니스", "테니스 치실 분", "2021/5/26", "농성테니스장", "무료", "#");
-//        adapter.addDto(dto0);    //어디 DTO 받아올 건지 물어볼 예정
-//        databaseReference.push().setValue(dto0);
+                firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(PostUpdateActivity.this, "수정 성공", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NotNull Exception e) {
+                        Toast.makeText(PostUpdateActivity.this, "수정 실패", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -244,6 +229,7 @@ public class PostWriteActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

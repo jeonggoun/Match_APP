@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 진동 권한 -->
-
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" /> <!-- 안드로이드에 카메라가 꼭 있어야 한다 -->
@@ -99,12 +98,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
+        <activity android:name=".post.PostUpdateActivity"></activity>
+
         <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDX5ZInNPI2acRkjhvlSApMI50BvN6zPSM" />
 
-        android:value="AIzaSyDX5ZInNPI2acRkjhvlSApMI50BvN6zPSM"/>
-
-        <activity android:name=".post.PostDateActivity"></activity>
+        <activity android:name=".post.PostDateActivity" />
         <activity android:name=".Login03Activity" />
         <activity android:name=".Login04Activity" />
         <activity android:name=".Login00Activity" />
@@ -117,16 +117,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- 구글맵 api key -->
-<!--        <meta-data
+        <!--
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDB0XrgoJjwtib4j9XQbRnY_3rw1U7bpNY" /> &lt;!&ndash; http로 들어와도 통신 가능하도록 설정 &ndash;&gt;-->
+            android:value="AIzaSyDB0XrgoJjwtib4j9XQbRnY_3rw1U7bpNY" /> &lt;!&ndash; http로 들어와도 통신 가능하도록 설정 &ndash;&gt;
+        -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="eea6cbe263225c8d7cdb10f46fc6d119" />
-<!--        <meta-data
+        <!--
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBRdHiOG2-fqy-YQkHkvzDK1tlQ9aLZd_g"/>-->
-
+            android:value="AIzaSyBRdHiOG2-fqy-YQkHkvzDK1tlQ9aLZd_g"/>
+        -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

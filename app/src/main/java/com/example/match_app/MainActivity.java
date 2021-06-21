@@ -111,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){
+        if(requestCode == 100){
+            fragment2.onActivityResult(requestCode, resultCode, data); /* 글 삭제 후 새로고침 */
+        }else if(requestCode == 200 && resultCode == RESULT_OK && data.getData() != null){
             fragment4.onActivityResult(requestCode, resultCode, data);
         }
 

@@ -192,6 +192,16 @@ public class SearchFragment extends Fragment {
 
     }
 
+    /* 글 삭제 후 새로고침 */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100){
+            getFragmentManager().beginTransaction().detach(SearchFragment.this).attach(SearchFragment.this).commit();
+        }
+    }
+
     /*@Override
     public void onResume() {
         super.onResume();
