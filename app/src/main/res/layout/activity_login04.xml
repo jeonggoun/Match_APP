@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login02Activity">
+    tools:context=".login.Login02Activity">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -15,7 +15,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
 
     <TextView
         android:id="@+id/tv_auth01"
@@ -58,6 +58,7 @@
         android:layout_width="343dp"
         android:layout_height="55dp"
         android:layout_marginTop="8dp"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_auth03" />

@@ -1,10 +1,9 @@
-package com.example.match_app;
+package com.example.match_app.login;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.Common.TimerView;
+import com.example.match_app.IntroActivity;
+import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

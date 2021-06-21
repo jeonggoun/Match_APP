@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class MemberDTO implements Serializable {
     private String idToken;     // Firebase Uid (고유 토큰 정보)
     private String emailId;
-    private String password;
     private String phoneNumber;
     private String nickName;
     private double latitude, longitude;
@@ -67,14 +66,6 @@ public class MemberDTO implements Serializable {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPhoneNumber() {

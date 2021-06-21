@@ -2,7 +2,6 @@ package com.example.match_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.login.Login01Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,9 +60,9 @@ public class JoinActivity extends AppCompatActivity {
                             account.setIdToken(firebaseUser.getUid());      // 토큰정보 고유값
                             account.setEmailId(firebaseUser.getEmail());
 
-                            account.setPassword(strPwd);
+/*                            account.setPassword(strPwd);
 
-                            Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());
+                            Log.d(TAG, account.getEmailId()+account.getPassword()+account.getIdToken());*/
                             // setValue : database에 insert(삽입) 행위
                             //66번줄
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);

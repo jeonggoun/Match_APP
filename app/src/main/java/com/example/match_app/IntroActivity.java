@@ -16,9 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
 import com.example.match_app.Common.GetKeyHash;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.login.Login00Activity;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
