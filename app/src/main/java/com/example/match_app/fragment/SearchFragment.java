@@ -191,7 +191,15 @@ public class SearchFragment extends Fragment {
 
 
     }
-//
+
+    /*@Override
+    public void onResume() {
+        super.onResume();
+
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+*/
+    //
 //    private void spinner(){
 //
 //        // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리

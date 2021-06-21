@@ -1,9 +1,11 @@
 package com.example.match_app.post;
 
-//todo detail 지도 있는 경우 보이고 없으면 안 보이게 하기
+//todo 글 삭제 이후 새로고침 되게 하기
+//todo 글 수정 구현
+//todo 글쓴 사람에게만 수정/삭제 나오도록 하기
 //todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
+//todo map 검색 안 되는 경우 오류처리
 //todo map, 장소 따로 입력해야 하는 상황 ▶ 어떻게 하면 좋을지 팀원들 조언 구하기
-//todo 다 구현 되면 글 삭제 ▶ 글 수정 구현
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

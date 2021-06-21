@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -67,6 +68,8 @@ public class PostDetailActivity extends AppCompatActivity {
     LatLng myLoc;
     FragmentTransaction detailMap = getSupportFragmentManager().beginTransaction();
 
+    FrameLayout frameMap;
+
     public final static String path = "matchapp/ChatMeta";
 
     @Override
@@ -84,6 +87,8 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailTime = findViewById(R.id.tvDetailTime);
         tvDetailContent = findViewById(R.id.tvDetailContent);
         tvDetailFee = findViewById(R.id.tvDetailFee);
+
+        frameMap = findViewById(R.id.frameMap);
 
         findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,10 +151,12 @@ public class PostDetailActivity extends AppCompatActivity {
             ivDetailImage.setVisibility(View.GONE);
         }
 
-//        // 선택한 좌표 없으면 프래그먼트 숨기기
-//        Log.d(TAG, "onCreate: " + dto.getLatitude());
-//        Log.d(TAG, "onCreate: " + dto.getLongitude());
-//        if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0"))
+        // 선택한 좌표 없으면 프래그먼트 숨기기
+        Log.d(TAG, "onCreate: " + dto.getLatitude());
+        Log.d(TAG, "onCreate: " + dto.getLongitude());
+        if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
+            frameMap.setVisibility(View.GONE);
+        }
 
         // back 버튼
         ivDetailBack.setOnClickListener(new View.OnClickListener() {
@@ -192,18 +199,18 @@ public class PostDetailActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int whichButton){
 
                                             Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
-                                            //Log.d(TAG, "onClick: " + databaseReference.child(dto.getPostKey()));
-                                            //Log.d(TAG, "onClick: " + firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ));
+
                                             //선생님1     databaseReference = firebaseDatabase.getReference("matchapp/Post");
                                             //                                            databaseReference.child(dto.getPostKey()).removeValue().
 
                                             //선생님2     firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().
 
-                                            firebaseDatabase.getReference().child(dto.getPostKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Toast.makeText(PostDetailActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
                                                     finish();
+
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override

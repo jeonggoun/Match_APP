@@ -9,7 +9,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,7 +32,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class PostMapActivity extends AppCompatActivity {
-
+    private static final String TAG = "로그로그";
+    
     SupportMapFragment mapFragment;
     GoogleMap map;
     EditText etAddr;
@@ -115,6 +118,13 @@ public class PostMapActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        findViewById(R.id.btnCancleMap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private Location getLocationFromAddress(Context context, String address) {
@@ -125,6 +135,7 @@ public class PostMapActivity extends AppCompatActivity {
         try{
             addresses = geocoder.getFromLocationName(address, 5);
             if((addresses == null) && (addresses.size() == 0)){
+                Log.d(TAG, "address: " + address + ", addresses.size: " + addresses.size());
                 return null;
             }
             Address addressLoc = addresses.get(0);
