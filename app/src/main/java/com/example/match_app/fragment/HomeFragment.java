@@ -29,20 +29,25 @@ import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.example.match_app.MainActivity.user;
 import static com.example.match_app.MainActivity.ImageUri;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "Main:HomeFragment";
 
     ImageView imageView, news_image[] = new ImageView[3];
     TextView textView, news_content_text[] = new TextView[3], news_title_text[] = new TextView[3],
-                match_title[] = new TextView[3], match_time[] = new TextView[3], match_date[] = new TextView[3],
-                match_content[] = new TextView[3];
+            match_title[] = new TextView[3], match_time[] = new TextView[3], match_date[] = new TextView[3],
+            match_content[] = new TextView[3], time[] = new TextView[3];
     Context context;
 
     private String href[] = new String[3];
+
+
 
 
 
@@ -51,6 +56,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
+        time[0] = viewGroup.findViewById(R.id.time01);
+        time[1] = viewGroup.findViewById(R.id.time02);
+        time[2] = viewGroup.findViewById(R.id.time03);
+
+        time[0].setText(getTime());
+        time[1].setText(getTime());
+        time[2].setText(getTime());
 
         context = container.getContext();
 
@@ -88,7 +101,6 @@ public class HomeFragment extends Fragment {
         match_content[0] = viewGroup.findViewById(R.id.match_content1);
         match_content[1] = viewGroup.findViewById(R.id.match_content2);
         match_content[2] = viewGroup.findViewById(R.id.match_content3);
-
 
 
         //뉴스크롤링
@@ -142,13 +154,13 @@ public class HomeFragment extends Fragment {
                 Elements doc2 = document2.select("tbody .start");
 
                 //Elements live_slider = document.select("div.live_slider");
-               // Elements live_card_list = document.select("div.live_card_list div.scroller");
+                // Elements live_card_list = document.select("div.live_card_list div.scroller");
                 //Elements live_box_card = live_card_list.select("div.type_live");
 
-               // Log.d(TAG, "doInBackground: doc => " + doc);
-               // Log.d(TAG, "doInBackground: doc2 => " + doc2);
+                // Log.d(TAG, "doInBackground: doc => " + doc);
+                // Log.d(TAG, "doInBackground: doc2 => " + doc2);
                 String img = "";
-                String  title= "";
+                String title = "";
                 String content = "";
                 String league = "";
 
@@ -162,20 +174,19 @@ public class HomeFragment extends Fragment {
 
 
                 ArrayList<Integer> index = new ArrayList<>();
-                for(int j=0;j<doc.size(); j++ ){
+                for (int j = 0; j < doc.size(); j++) {
                     index.add(j);
                 }
 
 
-
                 int[] index_list = {0, 0, 0};
-                for(int j=0;j<3;j++ ){
-                    int k = (int) Math.floor(Math.random()*index.size());
+                for (int j = 0; j < 3; j++) {
+                    int k = (int) Math.floor(Math.random() * index.size());
                     index_list[j] = index.get(k);
                     index.remove(k);
                 }
 //                int i = (int) Math.floor(Math.random()*5);
-                for(int j=0; j<3; j++) {
+                for (int j = 0; j < 3; j++) {
                     int i = index_list[j];
                     img = doc.get(i).select("img").attr("src");
                     title = doc.get(i).select("strong").text();
@@ -188,26 +199,23 @@ public class HomeFragment extends Fragment {
                     match_content = doc2.get(i).select("td.place").text();
 
 
-
-
                     href[j] = doc.get(i).select("a").attr("href");
 
                     String st[] = league.split(" ");
-                   // Log.d(TAG, "doInBackground: img => " + img );
-                   // Log.d(TAG, "doInBackground: title => " + title );
+                    // Log.d(TAG, "doInBackground: img => " + img );
+                    // Log.d(TAG, "doInBackground: title => " + title );
                     //Log.d(TAG, "doInBackground: content => " + content);
                     //Log.d(TAG, "doInBackground: league => " + league);
                     //Log.d(TAG, "doInBackground: a => " + a);
                     //Log.d(TAG, "doInBackground: href => " + href);
 
                     //Log.d(TAG, "doInBackground: match_title => " + match_title );
-                   // Log.d(TAG, "doInBackground: match_date => " + match_date );
+                    // Log.d(TAG, "doInBackground: match_date => " + match_date );
                     //Log.d(TAG, "doInBackground: match_content => " + match_content);
 
                     //Log.d(TAG, "doInBackground: doc => " + doc);
-                   // Log.d(TAG, "doInBackground: doc2 => " + doc2);
+                    // Log.d(TAG, "doInBackground: doc2 => " + doc2);
                     Log.d(TAG, "doInBackground: arrayList.toString => " + doc2.toString());
-
 
 
                     arrayList.add(new NewsDTO(img, title, content, league, match_title, match_time, match_date, match_content));
@@ -256,31 +264,38 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<NewsDTO> arrayList) {
 
             // doInBackground 완료 후 실행시킬 코드
-            for(int i=0; i<3; i++){
+            for (int i = 0; i < 3; i++) {
                 Glide.with(context).load(arrayList.get(i).getImg()).into(news_image[i]);
-                news_title_text[i].setText(arrayList.get(i).getTitle() + "\n"); ;
-                news_content_text[i].append(arrayList.get(i).getContent()+ "\n") ;
-                news_content_text[i].append(arrayList.get(i).getLeague() + "\n") ;
+                news_title_text[i].setText(arrayList.get(i).getTitle() + "\n");
+                ;
+                news_content_text[i].append(arrayList.get(i).getContent() + "\n");
+                news_content_text[i].append(arrayList.get(i).getLeague() + "\n");
 
-                match_title[i].setText(arrayList.get(i).getMatch_title()+ "\n");
+                match_title[i].setText(arrayList.get(i).getMatch_title() + " 리그\n");
                 match_time[i].setText(arrayList.get(i).getMatch_time() + "\n");
-                match_date[i].setText(arrayList.get(i).getMatch_date()+ "\n");
-                match_content[i].setText(arrayList.get(i).getMatch_content()+ "\n");
+                match_date[i].setText(arrayList.get(i).getMatch_date() + "\n");
+                match_content[i].setText(arrayList.get(i).getMatch_content() + "\n");
 
 
             }
 
 
-
         }
 
 
+    }
 
+    private String getTime(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("★오늘의 경기★\n" + "yyyy" + "년 " + "MM" + "월 " + "dd"+"일 " +
+                                                                    "hh:mm");
+        String getTime = dateFormat.format(date);
 
+        Log.d(TAG, "getTime: " + getTime);
+        return getTime;
 
     }
 
-
-
-    }
+}
 

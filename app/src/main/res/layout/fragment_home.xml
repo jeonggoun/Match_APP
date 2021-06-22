@@ -11,346 +11,452 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="105dp"
-        tools:context=".fragment.HomeFragment">
-
-        <!-- TODO: Update blank fragment layout -->
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/homeImage"
-            android:layout_width="114dp"
-            android:layout_height="108dp"
-            android:layout_gravity="left"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/basic">
-
-        </de.hdodenhof.circleimageview.CircleImageView>
-
-        <TextView
-            android:id="@+id/home_user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:text="TextView"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:text=" 님 반갑습니다!" />
-
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#b0b0b0" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="174dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                tools:context=".fragment.HomeFragment">
+
+                <!-- TODO: Update blank fragment layout -->
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/homeImage"
+                    android:layout_width="114dp"
+                    android:layout_height="108dp"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/basic">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
-                    android:id="@+id/header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="     주목할만한 경기!"
-                    android:textSize="16sp" />
+                    android:id="@+id/home_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="TextView"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/match_title1"
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
+                    android:id="@+id/welcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="리그"
-                    android:textColor="#008EFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:layout_editor_absoluteY="278dp" />
+                    android:text=" 님 반갑습니다!" />
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b0b0b0" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="204dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="7dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <LinearLayout
+                        android:layout_width="404dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_border"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/time01"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_weight="1"
+
+                            android:background="#55C4F6"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="★오늘의경기★\n○○○○년 ○○월 ○○일 ○○:○○"
+                            android:textColor="#FDFDFD"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/match_title1"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radius"
+                            android:gravity="center|center_horizontal|center_vertical|fill_vertical"
+                            android:paddingTop="6dp"
+                            android:text="리그"
+                            android:textColor="#008EFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteY="278dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/match_date1"
+                                android:layout_width="392dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:paddingTop="5dp"
+                                android:text="경기시간"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                tools:layout_editor_absoluteY="278dp" />
+
+                            <TextView
+                                android:id="@+id/match_content1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:paddingTop="5dp"
+                                android:paddingRight="5dp"
+                                android:text="경기예정 혹은 경기결과"
+                                android:textSize="16sp"
+                                tools:layout_editor_absoluteY="278dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/match_time1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="장소"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="404dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_border"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/time02"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_weight="1"
+
+                            android:background="#55C4F6"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="★오늘의경기★\n○○○○년 ○○월 ○○일 ○○:○○"
+                            android:textColor="#FDFDFD"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/match_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radius"
+                            android:gravity="center|center_horizontal|center_vertical|fill_vertical"
+                            android:paddingTop="6dp"
+                            android:text="리그"
+                            android:textColor="#008EFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteY="278dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/match_date2"
+                                android:layout_width="392dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:paddingTop="5dp"
+                                android:text="경기시간"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                tools:layout_editor_absoluteY="278dp" />
+
+                            <TextView
+                                android:id="@+id/match_content2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:paddingTop="5dp"
+                                android:paddingRight="5dp"
+                                android:text="경기예정 혹은 경기결과"
+                                android:textSize="16sp"
+                                tools:layout_editor_absoluteY="278dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/match_time2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="장소"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:layout_width="404dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:background="@drawable/news_border"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/match_date1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:id="@+id/time03"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
+
+                        android:background="#55C4F6"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="일정"
-                        android:textSize="20sp"
+                        android:text="★오늘의경기★\n○○○○년 ○○월 ○○일 ○○:○○"
+                        android:textColor="#FDFDFD"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/match_title3"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius"
+                        android:gravity="center|center_horizontal|center_vertical|fill_vertical"
+                        android:paddingTop="6dp"
+                        android:text="리그"
+                        android:textColor="#008EFF"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         tools:layout_editor_absoluteY="278dp" />
 
-                    <TextView
-                        android:id="@+id/match_content1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="52dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
                         android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/match_date3"
+                            android:layout_width="392dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:paddingTop="5dp"
+                            android:text="경기시간"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteY="278dp" />
+
+                        <TextView
+                            android:id="@+id/match_content3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:paddingTop="5dp"
+                            android:paddingRight="5dp"
+                            android:text="경기예정 혹은 경기결과"
+                            android:textSize="16sp"
+                            tools:layout_editor_absoluteY="278dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/match_time3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
                         android:text="장소"
-                        android:textSize="16sp"
-                        tools:layout_editor_absoluteY="278dp" />
+                        android:textSize="14sp" />
+
+
                 </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/match_time1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="시간"
-                    android:textSize="16sp" />
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="432dp">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="404dp"
+                        android:layout_height="371dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_border">
 
+                        <TextView
+                            android:id="@+id/news_title_text1"
+                            android:layout_width="326dp"
+                            android:layout_height="26dp"
 
-            </LinearLayout>
+                            android:gravity="center"
+                            android:text="TextView"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border"
-                android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/news_image1"
+                            android:layout_width="398dp"
+                            android:layout_height="203dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_title_text1" />
 
+                        <TextView
+                            android:id="@+id/news_content_text1"
+                            android:layout_width="330dp"
+                            android:layout_height="113dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.527"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_image1"
+                            app:layout_constraintVertical_bias="1.0" />
 
-                <TextView
-                    android:id="@+id/match_title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="리그"
-                    tools:layout_editor_absoluteY="278dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-               <TextView
-                    android:id="@+id/match_date2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="일정"
-                    tools:layout_editor_absoluteY="278dp" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="404dp"
+                        android:layout_height="371dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_border">
 
-                <TextView
-                    android:id="@+id/match_content2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="장소"
-                    tools:layout_editor_absoluteY="278dp" />
+                        <TextView
+                            android:id="@+id/news_title_text2"
+                            android:layout_width="326dp"
+                            android:layout_height="26dp"
 
-                <TextView
-                    android:id="@+id/match_time2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="시간" />
+                            android:gravity="center"
+                            android:text="TextView"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <ImageView
+                            android:id="@+id/news_image2"
+                            android:layout_width="398dp"
+                            android:layout_height="203dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_title_text2" />
 
+                        <TextView
+                            android:id="@+id/news_content_text2"
+                            android:layout_width="330dp"
+                            android:layout_height="113dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.527"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_image2"
+                            app:layout_constraintVertical_bias="1.0" />
 
-            </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border"
-                android:orientation="vertical">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="404dp"
+                        android:layout_height="371dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_border">
 
-                <TextView
-                    android:id="@+id/match_title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="리그"
-                    tools:layout_editor_absoluteY="278dp" />
+                        <TextView
+                            android:id="@+id/news_title_text3"
+                            android:layout_width="326dp"
+                            android:layout_height="26dp"
 
-               <TextView
-                    android:id="@+id/match_date3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="일정"
-                    tools:layout_editor_absoluteY="278dp" />
+                            android:gravity="center"
+                            android:text="TextView"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <ImageView
+                            android:id="@+id/news_image3"
+                            android:layout_width="398dp"
+                            android:layout_height="203dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_title_text3" />
 
-                <TextView
-                    android:id="@+id/match_content3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="장소"
-                    tools:layout_editor_absoluteY="278dp" />
+                        <TextView
+                            android:id="@+id/news_content_text3"
+                            android:layout_width="330dp"
+                            android:layout_height="113dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.527"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/news_image3"
+                            app:layout_constraintVertical_bias="1.0" />
 
-                <TextView
-                    android:id="@+id/match_time3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="시간" />
-            </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="303dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border">
-
-                <TextView
-                    android:id="@+id/news_title_text1"
-                    android:layout_width="326dp"
-                    android:layout_height="26dp"
-
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/news_image1"
-                    android:layout_width="300dp"
-                    android:layout_height="120dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_title_text1" />
-
-                <TextView
-                    android:id="@+id/news_content_text1"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_image1" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border">
-
-                <TextView
-                    android:id="@+id/news_title_text2"
-                    android:layout_width="326dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/news_image2"
-                    android:layout_width="300dp"
-                    android:layout_height="120dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_title_text2" />
-
-                <TextView
-                    android:id="@+id/news_content_text2"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_image2" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="404dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/news_border">
-
-                <TextView
-                    android:id="@+id/news_title_text3"
-                    android:layout_width="326dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/news_image3"
-                    android:layout_width="300dp"
-                    android:layout_height="120dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_title_text3" />
-
-                <TextView
-                    android:id="@+id/news_content_text3"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_image3" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
 
         </LinearLayout>
-    </HorizontalScrollView>
+    </ScrollView>
 
 </LinearLayout>
 
