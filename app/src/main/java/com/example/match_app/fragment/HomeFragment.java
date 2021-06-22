@@ -24,6 +24,8 @@ import com.example.match_app.post.PostWriteActivity;
 
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -35,9 +37,10 @@ import static com.example.match_app.MainActivity.ImageUri;
 public class HomeFragment extends Fragment {
 
     ImageView imageView, news_image[] = new ImageView[3];
-    TextView textView, news_content_text[] = new TextView[3], news_title_text[] = new TextView[3];
+    TextView textView, news_content_text[] = new TextView[3], news_title_text[] = new TextView[3],
+                match_title[] = new TextView[3], match_time[] = new TextView[3], match_date[] = new TextView[3],
+                match_content[] = new TextView[3];
     Context context;
-    ConstraintLayout cr1;
 
     private String href[] = new String[3];
 
@@ -53,6 +56,7 @@ public class HomeFragment extends Fragment {
 
         textView = viewGroup.findViewById(R.id.home_user_email);
         imageView = viewGroup.findViewById(R.id.homeImage);
+
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
         news_image[2] = viewGroup.findViewById(R.id.news_image3);
@@ -67,6 +71,25 @@ public class HomeFragment extends Fragment {
         news_title_text[0] = viewGroup.findViewById(R.id.news_title_text1);
         news_title_text[1] = viewGroup.findViewById(R.id.news_title_text2);
         news_title_text[2] = viewGroup.findViewById(R.id.news_title_text3);
+
+        ///
+        match_title[0] = viewGroup.findViewById(R.id.match_title1);
+        match_title[1] = viewGroup.findViewById(R.id.match_title2);
+        match_title[2] = viewGroup.findViewById(R.id.match_title3);
+
+        match_time[0] = viewGroup.findViewById(R.id.match_time1);
+        match_time[1] = viewGroup.findViewById(R.id.match_time2);
+        match_time[2] = viewGroup.findViewById(R.id.match_time3);
+
+        match_date[0] = viewGroup.findViewById(R.id.match_date1);
+        match_date[1] = viewGroup.findViewById(R.id.match_date2);
+        match_date[2] = viewGroup.findViewById(R.id.match_date3);
+
+        match_content[0] = viewGroup.findViewById(R.id.match_content1);
+        match_content[1] = viewGroup.findViewById(R.id.match_content2);
+        match_content[2] = viewGroup.findViewById(R.id.match_content3);
+
+
 
         //뉴스크롤링
         newsData task = new newsData();
@@ -114,22 +137,37 @@ public class HomeFragment extends Fragment {
             try {
                 /* Jsoup을 이용해 데이터 가져오기 */
                 Document document = Jsoup.connect("https://sports.news.naver.com/index.nhn").get();
+                Document document2 = Jsoup.connect("https://sports.news.naver.com/scoreboard/index.nhn").get();
                 Elements doc = document.select("a.link_today");
+                Elements doc2 = document2.select("tbody .start");
 
-                int region_num = 0;
+                //Elements live_slider = document.select("div.live_slider");
+               // Elements live_card_list = document.select("div.live_card_list div.scroller");
+                //Elements live_box_card = live_card_list.select("div.type_live");
+
+               // Log.d(TAG, "doInBackground: doc => " + doc);
+               // Log.d(TAG, "doInBackground: doc2 => " + doc2);
                 String img = "";
                 String  title= "";
                 String content = "";
                 String league = "";
 
-                Log.d(TAG, "doInBackground: arrayListSize => " + doc.size());
-                Log.d(TAG, "doInBackground: arrayListSize => " + doc.toString());
+                String match_title = "";
+                String match_time = "";
+                String match_date = "";
+                String match_content = "";
+
+                //Log.d(TAG, "doInBackground: arrayListSize => " + doc.size());
+                //Log.d(TAG, "doInBackground: arrayList.toString => " + doc.toString());
 
 
                 ArrayList<Integer> index = new ArrayList<>();
-                for(int j=0;j<doc.size();j++ ){
+                for(int j=0;j<doc.size(); j++ ){
                     index.add(j);
                 }
+
+
+
                 int[] index_list = {0, 0, 0};
                 for(int j=0;j<3;j++ ){
                     int k = (int) Math.floor(Math.random()*index.size());
@@ -144,21 +182,67 @@ public class HomeFragment extends Fragment {
                     content = doc.get(i).select("p").text();
                     league = doc.get(i).select("span").text();
 
+                    match_title = doc2.get(i).select("td.game").text();
+                    match_time = doc2.get(i).select("td.time").text();
+                    match_date = doc2.get(i).select("td.state").text();
+                    match_content = doc2.get(i).select("td.place").text();
+
+
+
+
                     href[j] = doc.get(i).select("a").attr("href");
 
                     String st[] = league.split(" ");
-                    Log.d(TAG, "doInBackground: img => " + img );
-                    Log.d(TAG, "doInBackground: title => " + title );
-                            Log.d(TAG, "doInBackground: content => " + content);
-                            Log.d(TAG, "doInBackground: league => " + league);
+                   // Log.d(TAG, "doInBackground: img => " + img );
+                   // Log.d(TAG, "doInBackground: title => " + title );
+                    //Log.d(TAG, "doInBackground: content => " + content);
+                    //Log.d(TAG, "doInBackground: league => " + league);
                     //Log.d(TAG, "doInBackground: a => " + a);
-                    Log.d(TAG, "doInBackground: href => " + href);
+                    //Log.d(TAG, "doInBackground: href => " + href);
+
+                    //Log.d(TAG, "doInBackground: match_title => " + match_title );
+                   // Log.d(TAG, "doInBackground: match_date => " + match_date );
+                    //Log.d(TAG, "doInBackground: match_content => " + match_content);
+
+                    //Log.d(TAG, "doInBackground: doc => " + doc);
+                   // Log.d(TAG, "doInBackground: doc2 => " + doc2);
+                    Log.d(TAG, "doInBackground: arrayList.toString => " + doc2.toString());
 
 
 
-                    arrayList.add(new NewsDTO(img, title, content, league ));
+                    arrayList.add(new NewsDTO(img, title, content, league, match_title, match_time, match_date, match_content));
 
                 }
+
+                //여기서부터 데일리매치
+
+
+
+                /*for(int r=0; r< doc2.size(); r++){
+                    index.add(r);
+                }
+                for(int r=0;r<3;r++ ){
+                    int k = (int) Math.floor(Math.random()*index.size());
+                    index_list[r] = index.get(k);
+                    index.remove(k);
+                }
+
+                for(int r=0; r<3; r++){
+                    int i = index_list[r];
+                    *//*match_title = doc2.get(i).select("th").text();
+                    match_date = doc2.get(i).select("td.state").text();
+                    match_content = doc2.get(i).select("td.place").text();
+*//*
+                    Log.d(TAG, "doInBackground: doc2 => " + doc2 );
+                    Log.d(TAG, "doInBackground: match_title => " + match_title );
+                    Log.d(TAG, "doInBackground: match_date => " + match_date );
+                    Log.d(TAG, "doInBackground: match_content => " + match_content);
+
+                   // Log.d(TAG, "doInBackground: doc => " + doc);
+                   // Log.d(TAG, "doInBackground: doc2 => " + doc2);
+
+                    arrayList.add(new NewsDTO(img, title, content, league, match_title, match_date, match_title));
+                }*/
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -178,12 +262,18 @@ public class HomeFragment extends Fragment {
                 news_content_text[i].append(arrayList.get(i).getContent()+ "\n") ;
                 news_content_text[i].append(arrayList.get(i).getLeague() + "\n") ;
 
+                match_title[i].setText(arrayList.get(i).getMatch_title()+ "\n");
+                match_time[i].setText(arrayList.get(i).getMatch_time() + "\n");
+                match_date[i].setText(arrayList.get(i).getMatch_date()+ "\n");
+                match_content[i].setText(arrayList.get(i).getMatch_content()+ "\n");
+
 
             }
 
 
 
         }
+
 
 
 
