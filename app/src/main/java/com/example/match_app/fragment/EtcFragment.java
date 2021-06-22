@@ -1,5 +1,6 @@
 package com.example.match_app.fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.MetaDTO;
+import com.example.match_app.etc.EtcProfile;
+import com.example.match_app.login.Login02Activity;
+import com.example.match_app.login.Login04Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,27 +89,19 @@ public class EtcFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {            }
         });
 
-        lL_favoritelist.setOnClickListener(new View.OnClickListener() {
+        btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        });
-
-        lL_locationAuth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        lL_matchlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                sendToNext();
             }
         });
 
         return  viewGroup;
+    }
+
+    private void sendToNext() {
+        Intent nextIntent = new Intent(getActivity(), EtcProfile.class);
+        nextIntent.putExtra("dto", dto);
+        startActivity(nextIntent);
     }
 }

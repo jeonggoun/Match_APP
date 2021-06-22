@@ -105,9 +105,9 @@
             android:value="AIzaSyDX5ZInNPI2acRkjhvlSApMI50BvN6zPSM" />
 
         <activity android:name=".post.PostDateActivity" />
-        <activity android:name=".Login03Activity" />
-        <activity android:name=".Login04Activity" />
-        <activity android:name=".Login00Activity" />
+        <activity android:name=".login.Login03Activity" />
+        <activity android:name=".login.Login04Activity" />
+        <activity android:name=".login.Login00Activity" />
         <activity android:name=".post.PostMapActivity" />
         <activity android:name=".MainActivity" /> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
         <activity android:name=".IntroActivity"> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
@@ -138,8 +138,8 @@
         <activity android:name=".post.PostDetailActivity" />
         <activity android:name=".post.PostWriteActivity" />
         <activity android:name=".JoinActivity" />
-        <activity android:name=".Login02Activity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
-        <activity android:name=".Login01Activity" />
+        <activity android:name=".login.Login02Activity" /> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
+        <activity android:name=".login.Login01Activity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
