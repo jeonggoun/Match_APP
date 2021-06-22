@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +39,7 @@ import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.MetaDTO;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.fragment.SearchFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -72,10 +74,14 @@ public class PostDetailActivity extends AppCompatActivity {
 
     public final static String path = "matchapp/ChatMeta";
 
+    public static Context postDetailActivityContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
+
+        postDetailActivityContext = this;
 
         ivDetailImage = findViewById(R.id.ivDetailImage);
         ivDetailBack = findViewById(R.id.ivDetailBack);
@@ -165,6 +171,8 @@ public class PostDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent intent65=new Intent(this.getIntent());
     }
 
     public void onPopupButtonClick(View button) {
@@ -281,7 +289,22 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
 
 
+    }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 65) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+    }*/
 }
 

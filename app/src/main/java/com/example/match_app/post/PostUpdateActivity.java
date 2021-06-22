@@ -2,6 +2,7 @@ package com.example.match_app.post;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.match_app.R;
+import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -111,7 +113,6 @@ public class PostUpdateActivity extends AppCompatActivity {
         });
 
 
-
         // 기존 글 제목 불러오기
         etTitle.setText(dto.getTitle());
         etFee.setText(dto.getFee());
@@ -186,6 +187,12 @@ public class PostUpdateActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PostUpdateActivity.this, "수정 성공", Toast.LENGTH_SHORT).show();
+                        //todo 여기 하는 중 → PostUpdateActivity(수정 화면) 닫으면 PostDetailActivity 새로고침 시키기
+
+                        Intent intent = new Intent(getApplicationContext(), PostDetailActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -243,7 +250,6 @@ public class PostUpdateActivity extends AppCompatActivity {
             mapResult.setVisibility(View.VISIBLE);
             mapResult.setText("장소가 입력되었습니다");
         }
-
     }
 
 
@@ -272,5 +278,12 @@ public class PostUpdateActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
     }
 }
