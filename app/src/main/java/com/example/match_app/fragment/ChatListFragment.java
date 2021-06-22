@@ -64,22 +64,24 @@ public class ChatListFragment extends Fragment {
                 activity, RecyclerView.VERTICAL, false
         );
         recyclerView.setLayoutManager(layoutManager);
-//// 채팅창 테스트 생성
-//        private DatabaseReference databaseReference2;
-//        MetaDTO meta = new MetaDTO();
-//        meta.setTitle("테니스 모집");
-//        meta.setGame("축구");       //경기종류
-//        meta.setDate("11월");
-//        ChattingDTO chat = new ChattingDTO();
-//        chat.setNickname("화순오리불고기");      //닉네임
-//        meta.setRecent(chat);
-//        meta.setChatToken("JMGLHcdmxuTph9bEXk8klROt8lq1"); // 토큰값
-//        meta.setPostToken("-MbFvpBs-cydJ-Soa8Og");
-//        dtos.add(meta);
-//        databaseReference.child(meta.getChatToken()).setValue(meta);  //유저의 채팅목록창에 방을 추가
-//        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getChatToken());  //상대의 채팅목록을 가져옴
-//        meta.setChatToken(userIdToken);
-//        databaseReference2.child(user.getIdToken()).setValue(meta);   //상대의 채팅목록창에 방을 추가
+
+// 채팅창 테스트 생성
+/*        DatabaseReference databaseReference2;
+        MetaDTO meta = new MetaDTO();
+        meta.setTitle("테니스 모집");
+        meta.setGame("축구");       //경기종류
+        meta.setDate("11월");
+        ChattingDTO chat = new ChattingDTO();
+        chat.setNickname("화순오리불고기");      //닉네임
+        meta.setRecent(chat);
+        meta.setChatToken("JMGLHcdmxuTph9bEXk8klROt8lq1"); // 토큰값
+        meta.setPostToken("-MbFvpBs-cydJ-Soa8Og");
+        dtos.add(meta);
+        databaseReference.child(meta.getChatToken()).setValue(meta);  //유저의 채팅목록창에 방을 추가
+        databaseReference2 = firebaseDatabase.getReference(path+"/"+meta.getChatToken());  //상대의 채팅목록을 가져옴
+        meta.setChatToken(userIdToken);
+        databaseReference2.child(user.getIdToken()).setValue(meta);   //상대의 채팅목록창에 방을 추가*/
+
         showChatList();
         return viewGroup;
     }

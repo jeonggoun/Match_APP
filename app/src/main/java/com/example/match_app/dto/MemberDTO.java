@@ -1,8 +1,11 @@
 package com.example.match_app.dto;
 
+import android.net.Uri;
+
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
+import java.net.URI;
 
 // 사용자 계정 정보 모델 클래스
 public class MemberDTO implements Serializable {
@@ -12,8 +15,26 @@ public class MemberDTO implements Serializable {
     private String nickName;
     private double latitude, longitude;
     private String address;
+    private String fileName, filePath;
+
 
     public MemberDTO() {
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getNickName() {
