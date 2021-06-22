@@ -3,24 +3,17 @@ package com.example.match_app.fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
-import com.example.match_app.dto.MetaDTO;
-import com.example.match_app.etc.EtcProfile;
-import com.example.match_app.login.Login02Activity;
-import com.example.match_app.login.Login04Activity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.match_app.etc.EtcProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -100,7 +93,7 @@ public class EtcFragment extends Fragment {
     }
 
     private void sendToNext() {
-        Intent nextIntent = new Intent(getActivity(), EtcProfile.class);
+        Intent nextIntent = new Intent(getActivity(), EtcProfileActivity.class);
         nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
     }

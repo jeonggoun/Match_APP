@@ -96,8 +96,6 @@ public class IntroActivity extends AppCompatActivity {
         }
     }
 
-    // 사용자 정보가 없으면 Login02로 바로 가게끔, 있으면 main으로 가게끔
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -124,7 +122,6 @@ public class IntroActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 startActivity(new Intent(IntroActivity.this, MainActivity.class));
-                                // 찾은 다음에 MainActivity를 띄워줌
                                 finish();
                             }
                         },4000);
@@ -139,8 +136,6 @@ public class IntroActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {            }
             });
-//            startActivity(new Intent(IntroActivity.this, Login03Activity.class)); //원래 이동처
-
         }
     }
 }

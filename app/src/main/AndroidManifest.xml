@@ -98,7 +98,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
-        <activity android:name=".post.PostUpdateActivity"></activity>
+        <activity android:name=".etc.EtcProfileActivity"></activity>
+        <activity android:name=".post.PostUpdateActivity" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
