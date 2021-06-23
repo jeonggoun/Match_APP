@@ -9,73 +9,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="horizontal">
 
+        <!--뒤로가기 버튼-->
         <ImageView
             android:id="@+id/ivDetailBack"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/tvDetailNickname"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_weight="90"
-            android:gravity="center_vertical"
-            android:hint="닉네임"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btnChat"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_weight="5"
-            android:text="채팅으로 모임 요청"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <!-- 시도중 -->
-        <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:orientation="vertical">
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24"
+            android:layout_gravity="left"/>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <!-- 팝업 버튼 넣을 LinearLayout -->
+        <LinearLayout
+            android:id="@+id/popupLayout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_gravity="right"
+            android:visibility="gone">
+
+            <!--팝업 버튼-->
             <ImageButton
                 android:id="@+id/ib_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="right"
                 android:background="#FFFFFF"
+                android:onClick="onPopupButtonClick"
                 android:padding="5dp"
                 android:scaleType="fitXY"
-                android:onClick="onPopupButtonClick"
                 app:srcCompat="@drawable/menu" />
-
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000000" />
-
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="164dp"
-        android:layout_height="wrap_content">
+        tools:layout_editor_absoluteX="164dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
@@ -206,4 +188,41 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--닉네임-->
+        <TextView
+            android:id="@+id/tvDetailNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="90"
+            android:gravity="center_vertical"
+            android:hint="닉네임"
+            android:textSize="20sp" />
+
+        <!--채팅 버튼-->
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:text="채팅으로 모임 요청"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
 </LinearLayout>

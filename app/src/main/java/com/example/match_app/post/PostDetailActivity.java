@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ public class PostDetailActivity extends AppCompatActivity {
     FragmentTransaction detailMap = getSupportFragmentManager().beginTransaction();
 
     FrameLayout frameMap;
+    LinearLayout popupLayout;
 
     public final static String path = "matchapp/ChatMeta";
 
@@ -99,6 +101,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailFee = findViewById(R.id.tvDetailFee);
 
         frameMap = findViewById(R.id.frameMap);
+        popupLayout = findViewById(R.id.popupLayout);
 
         findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +180,13 @@ public class PostDetailActivity extends AppCompatActivity {
         if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
             frameMap.setVisibility(View.GONE);
         }
+
+        // 내 글일 때만 수정/삭제 팝업 나타날 수 있게 하기
+        if(user.getIdToken().equals(dto.getWriterToken())) {
+            popupLayout.setVisibility(View.VISIBLE);
+        }
+        Log.d(TAG, "아이디토큰: " + user.getIdToken());
+        Log.d(TAG, "라이터토큰: " + dto.getWriterToken());
 
     }
 

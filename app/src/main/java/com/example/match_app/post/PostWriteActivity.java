@@ -1,9 +1,7 @@
 package com.example.match_app.post;
 
-//todo 글쓴 사람에게만 수정/삭제 나오도록 하기
-//todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
-//todo map 검색 안 되는 경우 오류처리
-//todo map, 장소 따로 입력해야 하는 상황 ▶ 어떻게 하면 좋을지 팀원들 조언 구하기
+//todo 맵 없ㅇㅐ기
+//todo 글 작성 후 새로고침
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
