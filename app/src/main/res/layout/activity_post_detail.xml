@@ -154,7 +154,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-            <!--지도-->
+            <!--맵
             <FrameLayout
                 android:id="@+id/frameMap"
                 android:layout_width="380dp"
@@ -169,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-            </FrameLayout>
+            </FrameLayout>-->
 
             <TextView
                 android:id="@+id/tvDetailContent"

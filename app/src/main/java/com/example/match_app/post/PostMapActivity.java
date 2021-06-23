@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class PostMapActivity extends AppCompatActivity {
+
+    /*
     private static final String TAG = "로그로그";
     
     SupportMapFragment mapFragment;
@@ -172,5 +174,6 @@ public class PostMapActivity extends AppCompatActivity {
         }
 
     }
+*/
 
 }

@@ -66,13 +66,16 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageView ivDetailImage, ivDetailBack;
     PostDTO dto;
     TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent, tvDetailFee;
+
+    /*맵
     SupportMapFragment mapFragment;
     GoogleMap map;
     MarkerOptions myMarker;
     LatLng myLoc;
     FragmentTransaction detailMap = getSupportFragmentManager().beginTransaction();
 
-    FrameLayout frameMap;
+    FrameLayout frameMap;*/
+
     LinearLayout popupLayout;
 
     public final static String path = "matchapp/ChatMeta";
@@ -100,7 +103,9 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailContent = findViewById(R.id.tvDetailContent);
         tvDetailFee = findViewById(R.id.tvDetailFee);
 
-        frameMap = findViewById(R.id.frameMap);
+        /*맵
+        frameMap = findViewById(R.id.frameMap);*/
+
         popupLayout = findViewById(R.id.popupLayout);
 
         findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
@@ -144,10 +149,13 @@ public class PostDetailActivity extends AppCompatActivity {
         else
             tvDetailFee.setText("참가비 : " + dto.getFee() + "원");
 
+        /*            맵
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.detailMap);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @RequiresApi(api = Build.VERSION_CODES.R)
             @SuppressLint("MissingPermission")
+
+
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
@@ -162,24 +170,26 @@ public class PostDetailActivity extends AppCompatActivity {
                 targetLocation.setLongitude(Double.parseDouble(dto.getLongitude())); //이동하고 찍을 좌표 설정
                 showMyLocationMarker(targetLocation);  //마커찍기
                 showCurrentLocation(targetLocation);  //위치로 이동
-
             }
         });
 
         // 구글맵 초기화
         MapsInitializer.initialize(this);
+*/
+
 
         // 이미지 없으면
         if(dto.getImgPath() == null) {
             ivDetailImage.setVisibility(View.GONE);
         }
 
+        /*맵
         // 선택한 좌표 없으면 프래그먼트 숨기기
 //        Log.d(TAG, "onCreate: " + dto.getLatitude());
 //        Log.d(TAG, "onCreate: " + dto.getLongitude());
         if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
             frameMap.setVisibility(View.GONE);
-        }
+        }*/
 
         // 내 글일 때만 수정/삭제 팝업 나타날 수 있게 하기
         if(user.getIdToken().equals(dto.getWriterToken())) {
@@ -278,6 +288,7 @@ public class PostDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+/*    맵
     private void showCurrentLocation(Location location) {
         LatLng curPoint =
                 new LatLng(location.getLatitude(), location.getLongitude());
@@ -302,7 +313,7 @@ public class PostDetailActivity extends AppCompatActivity {
             map.addMarker(myMarker);
         }
 
-    }
+    }*/
 
 
 }

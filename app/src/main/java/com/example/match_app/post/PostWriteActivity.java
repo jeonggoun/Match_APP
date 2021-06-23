@@ -1,6 +1,5 @@
 package com.example.match_app.post;
 
-//todo 맵 없ㅇㅐ기
 //todo 글 작성 후 새로고침
 
 import androidx.annotation.NonNull;
@@ -58,9 +57,9 @@ public class PostWriteActivity extends AppCompatActivity {
     private PostDTO dto;
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
-    String imagePath;
+    /*맵
     Double longitude=0.0;
-    Double latitude=0.0;
+    Double latitude=0.0;*/
     //스피너
     Spinner spinnerGame;
     String selectGame , result="";
@@ -94,10 +93,14 @@ public class PostWriteActivity extends AppCompatActivity {
         selectDateTime = findViewById(R.id.selectDateTime);
         txtResult = findViewById(R.id.txtResult);
 
-        selectPlace = findViewById(R.id.selectPlace);
+        /*맵
+        selectPlace = findViewById(R.id.selectPlace);*/
+
         //경고창
         alertTitle = findViewById(R.id.alertTitle);
-        mapResult = findViewById(R.id.mapResult);
+
+        /*맵
+        mapResult = findViewById(R.id.mapResult);*/
 
         //사진 불러올 수 있게 하기
         postImage.setOnClickListener(new View.OnClickListener() {
@@ -154,8 +157,9 @@ public class PostWriteActivity extends AppCompatActivity {
                     //calendar.getDate();
                     dto.setPlace(etPlace.getText().toString());
                     dto.setContent(etContent.getText().toString());
+                    /*맵
                     dto.setLatitude(latitude.toString());
-                    dto.setLongitude(longitude.toString());
+                    dto.setLongitude(longitude.toString());*/
                     dto.setWriter(user.getNickName());
                     dto.setWriterToken(user.getIdToken());
 
@@ -223,6 +227,8 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
+/*
+        맵
         selectPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,13 +239,14 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
-//        Log.d(TAG, "/nlatitude: " + latitude);
-//        Log.d(TAG, "longitude: " + longitude);
+        Log.d(TAG, "/nlatitude: " + latitude);
+        Log.d(TAG, "longitude: " + longitude);
 
         if(latitude != 0.0 || longitude !=0.0) {
             mapResult.setVisibility(View.VISIBLE);
             mapResult.setText("장소가 입력되었습니다");
         }
+        */
 
     }
 
@@ -254,10 +261,12 @@ public class PostWriteActivity extends AppCompatActivity {
                     result = data.getStringExtra("result");
                     txtResult.setText(result);
                 }
-            } else if (requestCode == 2) {
+            }
+            /*맵
+            else if (requestCode == 2) {
                 longitude = data.getDoubleExtra("long", 0);
                 latitude = data.getDoubleExtra("lati", 0);
-            }
+            }*/
 
             if (requestCode == 200 && resultCode == RESULT_OK && data.getData() != null) {
 //                onActivityResult(requestCode, resultCode, data);

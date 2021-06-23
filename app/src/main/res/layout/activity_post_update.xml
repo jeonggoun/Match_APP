@@ -172,6 +172,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="153dp" />
 
+<!--
+            맵
             <Button
                 android:id="@+id/selectPlace"
                 android:layout_width="380dp"
@@ -197,6 +199,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="153dp" />
+-->
 
             <EditText
                 android:id="@+id/etContent"
