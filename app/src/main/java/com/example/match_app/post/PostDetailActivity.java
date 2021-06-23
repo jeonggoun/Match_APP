@@ -76,10 +76,13 @@ public class PostDetailActivity extends AppCompatActivity {
 
     public static Context postDetailActivityContext;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
+
+
 
         postDetailActivityContext = this;
 
@@ -139,12 +142,12 @@ public class PostDetailActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     /*글 수정*/
                     case R.id.update:
-                        Log.d(TAG, "수정 클릭");
                         /* update를 선택했을 때 이벤트 실행 코드 작성 */
-                        Intent intent = new Intent(getApplicationContext(), PostUpdateActivity.class);
+                        Intent intent = new Intent(PostDetailActivity.this, PostUpdateActivity.class);
+                        startActivity(intent);
                         intent.putExtra("post", dto);
-                        //intent.putExtra("postkey", dto.getPostKey());
-                        startActivityForResult(intent, 1);
+                        startActivityForResult(intent, 123);
+
                         break;
 
                     /*글 삭제*/
@@ -243,12 +246,13 @@ public class PostDetailActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-
+        //print();
     }
 
-    void print(){
+    /* 정보 뿌려주는 코드 독립 시킨 함수 */
+    public void print(){
 
-        String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F"+dto.getImgPath()+"?alt=media";
+        String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F" + dto.getImgPath() + "?alt=media";
         Glide.with(this).load(filePath).into(ivDetailImage);
 
         tvDetailTitle.setText(dto.getTitle());
@@ -299,6 +303,25 @@ public class PostDetailActivity extends AppCompatActivity {
         if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
             frameMap.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 123) {
+            finish();
+
+            /*Intent intent = getIntent();
+            dto = (PostDTO) intent.getSerializableExtra("update");
+            Log.d(TAG, "우웩: " + dto);*/
+            //print();
+        }
+    }
+//todo
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }
 

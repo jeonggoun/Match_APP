@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.example.match_app.dto.MemberDTO;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +19,8 @@ public class CommonMethod {
     /*public static String  ipConfig = "http://192.168.200.151:8989";*/
     public static String ipConfig = "http://121.179.5.202:8989";
     //public static String ipConfig = "http://121.148.239.200:80";
+
+    public static MemberDTO memberDTO = null;
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {

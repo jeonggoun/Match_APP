@@ -33,26 +33,27 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.example.match_app.MainActivity.user;
 import static com.example.match_app.fragment.SearchFragment.items;
 
 public class PostUpdateActivity extends AppCompatActivity {
-    private static final String TAG = "PostUpdateActivity 로그";
+    private static final String TAG = "main:PostUpdateActivity";
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
 
     FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
     StorageReference storageRef = storage.getReference("matchapp/postImg");//스토리지를 참조한다
-    private MemberDTO memberDTO = new MemberDTO();
+    private MemberDTO memberDTO;
 
     String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
 
     Button cancel, next, selectDateTime, selectPlace;
 
-    private PostDTO dto;
+    PostDTO dto, update;
 
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
@@ -68,7 +69,6 @@ public class PostUpdateActivity extends AppCompatActivity {
     private final int GET_GALLERY_IMAGE = 200;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +77,10 @@ public class PostUpdateActivity extends AppCompatActivity {
 
         //dto = new PostDTO();
 
+        //데이터 가져오기
         Intent intent = getIntent();
         dto = (PostDTO) intent.getSerializableExtra("post");
-        //String postkey = intent.getStringExtra("postkey");
-        //dto = (PostDTO) intent.getSerializableExtra("post");
+        Log.d(TAG, "디티오: " + dto);
 
         //버튼 찾기
         cancel = findViewById(R.id.cancel);
@@ -189,9 +189,17 @@ public class PostUpdateActivity extends AppCompatActivity {
                         Toast.makeText(PostUpdateActivity.this, "수정 성공", Toast.LENGTH_SHORT).show();
                         //todo 여기 하는 중 → PostUpdateActivity(수정 화면) 닫으면 PostDetailActivity 새로고침 시키기
 
+                        /*Intent intent = new Intent(getApplicationContext(), PostDetailActivity.class);*/
+                        /*update = dto;
+
+                        intent.putExtra("update", update);*/
+
                         Intent intent = new Intent(getApplicationContext(), PostDetailActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
+                        Log.d(TAG, "ㄹㄹㄹㄹonSuccess: " + dto);
+                        //intent.putExtra("dto", dto);
+                        setResult(RESULT_OK, intent);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        //startActivityForResult(intent, 123);
 
                         finish();
                     }

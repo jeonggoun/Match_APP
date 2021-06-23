@@ -261,7 +261,6 @@ public class PostWriteActivity extends AppCompatActivity {
             } else if (requestCode == 2) {
                 longitude = data.getDoubleExtra("long", 0);
                 latitude = data.getDoubleExtra("lati", 0);
-
             }
 
             if (requestCode == 200 && resultCode == RESULT_OK && data.getData() != null) {

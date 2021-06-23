@@ -40,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.match_app.Common.CommonMethod.memberDTO;
+
 
 public class Login03Activity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView button1;
@@ -145,13 +147,13 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
     private void sendToNext() {
         Intent nextIntent = new Intent(Login03Activity.this, Login04Activity.class);
 
-        MemberDTO dto = new MemberDTO();
-        dto.setLatitude(latitude);
-        dto.setLongitude(longitude);
-        dto.setAddress(addr);
-        dto.setEmailId("das");
+        memberDTO = new MemberDTO();
+        memberDTO.setLatitude(latitude);
+        memberDTO.setLongitude(longitude);
+        memberDTO.setAddress(addr);
+        memberDTO.setEmailId("das");
 
-        nextIntent.putExtra("dto", dto);
+        //nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }

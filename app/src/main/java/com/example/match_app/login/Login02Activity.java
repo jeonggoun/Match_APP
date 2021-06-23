@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.example.match_app.Common.CommonMethod.memberDTO;
+
 public class Login02Activity extends AppCompatActivity {
     private static final String TAG = "Login02Activity MAIN : ";
     private ProgressBar progressBar;
@@ -45,13 +47,13 @@ public class Login02Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private String otp;
     private String phoneNumber = null;
-    MemberDTO dto;
+    //MemberDTO dto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login02);
-        dto = (MemberDTO) getIntent().getSerializableExtra("dto");
+        //dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         tv_auth05 = findViewById(R.id.tv_auth05);
         auth_request = findViewById(R.id.auth_request);
         auth_retry = findViewById(R.id.auth_retry);
@@ -167,11 +169,11 @@ public class Login02Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
-                    dto.setIdToken(firebaseUser.getUid());
-                    dto.setPhoneNumber(phoneNumber);
+                    memberDTO.setIdToken(firebaseUser.getUid());
+                    memberDTO.setPhoneNumber(phoneNumber);
 
                     // setValue : database에 update(수정) 행위
-                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(dto);
+                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(memberDTO);
                     sendToNext();
                 } else {
                     tv_auth05.setText(task.getException().getMessage());
@@ -183,7 +185,7 @@ public class Login02Activity extends AppCompatActivity {
     }
     private void sendToNext() {
         Intent nextIntent = new Intent(Login02Activity.this, IntroActivity.class);
-        nextIntent.putExtra("dto", dto);
+        //nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }

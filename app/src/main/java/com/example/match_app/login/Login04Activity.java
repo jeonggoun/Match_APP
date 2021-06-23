@@ -23,6 +23,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
+import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.MainActivity.user;
 
 public class Login04Activity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class Login04Activity extends AppCompatActivity {
     ImageView profilePic, iv_camera;
 
 
-    private MemberDTO dto = new MemberDTO();
+    //private MemberDTO dto = new MemberDTO();
     private TextView auth_finish;
     private EditText et_01;
 
@@ -48,7 +49,7 @@ public class Login04Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login04);
-        dto = (MemberDTO) getIntent().getSerializableExtra("dto");
+        //dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         et_01 = findViewById(R.id.et_01);
         auth_finish = findViewById(R.id.auth_finish);
         profilePic = findViewById(R.id.profilePic);
@@ -75,11 +76,11 @@ public class Login04Activity extends AppCompatActivity {
                     Toast.makeText(Login04Activity.this, "닉네임은 필수 항목입니다", Toast.LENGTH_SHORT).show();
 
                 } else
-                    dto.setNickName(nickName);
+                    memberDTO.setNickName(nickName);
 
                 if (file != null) {
                     filename = UUID.randomUUID().toString() + ".jpg";
-                    dto.setFileName(filename);
+                    memberDTO.setFileName(filename);
                     StorageReference riversRef = storageRef.child(filename);
                     UploadTask uploadTask = riversRef.putFile(file);
                 }//file 있을 때
@@ -103,7 +104,7 @@ public class Login04Activity extends AppCompatActivity {
             if(data != null) {
                 file = data.getData();
                 filepath = String.valueOf(file);
-                dto.setFilePath(filepath);
+                memberDTO.setFilePath(filepath);
                 profilePic.setImageURI(file);
             }
         }
@@ -111,7 +112,7 @@ public class Login04Activity extends AppCompatActivity {
 
     private void sendToNext() {
         Intent nextIntent = new Intent(Login04Activity.this, Login02Activity.class);
-        nextIntent.putExtra("dto", dto);
+        //nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }
