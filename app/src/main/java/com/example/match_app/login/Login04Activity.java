@@ -37,11 +37,8 @@ public class Login04Activity extends AppCompatActivity {
     String filepath;
     Uri file;
 
-    //이미지뷰
     ImageView profilePic, iv_camera;
 
-
-    //private MemberDTO dto = new MemberDTO();
     private TextView auth_finish;
     private EditText et_01;
 
@@ -49,7 +46,7 @@ public class Login04Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login04);
-        //dto = (MemberDTO) getIntent().getSerializableExtra("dto");
+
         et_01 = findViewById(R.id.et_01);
         auth_finish = findViewById(R.id.auth_finish);
         profilePic = findViewById(R.id.profilePic);
@@ -61,13 +58,6 @@ public class Login04Activity extends AppCompatActivity {
 
 //-------------------------------------------------------------------------------------------------
 
-        iv_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoAlbum();
-            }
-        });
-
         auth_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,44 +65,24 @@ public class Login04Activity extends AppCompatActivity {
                 if (nickName.trim().length() < 1) {
                     Toast.makeText(Login04Activity.this, "닉네임은 필수 항목입니다", Toast.LENGTH_SHORT).show();
 
-                } else
+                } else {
                     memberDTO.setNickName(nickName);
 
-                if (file != null) {
-                    filename = UUID.randomUUID().toString() + ".jpg";
-                    memberDTO.setFileName(filename);
-                    StorageReference riversRef = storageRef.child(filename);
-                    UploadTask uploadTask = riversRef.putFile(file);
-                }//file 있을 때
+                    if (file != null) {
+                        filename = UUID.randomUUID().toString() + ".jpg";
+                        memberDTO.setFileName(filename);
+                        StorageReference riversRef = storageRef.child(filename);
+                        UploadTask uploadTask = riversRef.putFile(file);
+                    }//file 있을 때
 
-                sendToNext();
+                    sendToNext();
+                }
             }
         });
     }
 
-    private void gotoAlbum() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-        startActivityForResult(intent, GET_GALLERY_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 200 && resultCode == RESULT_OK && data.getData() != null) {
-            if(data != null) {
-                file = data.getData();
-                filepath = String.valueOf(file);
-                memberDTO.setFilePath(filepath);
-                profilePic.setImageURI(file);
-            }
-        }
-    }
-
     private void sendToNext() {
         Intent nextIntent = new Intent(Login04Activity.this, Login02Activity.class);
-        //nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }

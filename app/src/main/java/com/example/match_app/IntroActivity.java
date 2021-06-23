@@ -27,6 +27,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.MainActivity.user;
 public class IntroActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
@@ -117,6 +119,7 @@ public class IntroActivity extends AppCompatActivity {
                     MemberDTO dto = dataSnapshot.getValue(MemberDTO.class);
                     if(dto.getIdToken().equals(token)) {
                         user = dto;
+                        memberDTO = dataSnapshot.getValue(MemberDTO.class);
 
                         new Handler().postDelayed(new Runnable() {
                             @Override

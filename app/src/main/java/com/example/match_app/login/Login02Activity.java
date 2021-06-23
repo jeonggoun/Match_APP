@@ -47,13 +47,11 @@ public class Login02Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private String otp;
     private String phoneNumber = null;
-    //MemberDTO dto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login02);
-        //dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         tv_auth05 = findViewById(R.id.tv_auth05);
         auth_request = findViewById(R.id.auth_request);
         auth_retry = findViewById(R.id.auth_retry);
@@ -185,7 +183,6 @@ public class Login02Activity extends AppCompatActivity {
     }
     private void sendToNext() {
         Intent nextIntent = new Intent(Login02Activity.this, IntroActivity.class);
-        //nextIntent.putExtra("dto", dto);
         startActivity(nextIntent);
         finish();
     }

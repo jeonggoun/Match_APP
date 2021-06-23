@@ -16,7 +16,15 @@ public class MemberDTO implements Serializable {
     private double latitude, longitude;
     private String address;
     private String fileName, filePath;
+    private int changed;
 
+    public int getChanged() {
+        return changed;
+    }
+
+    public void setChanged(int changed) {
+        this.changed = changed;
+    }
 
     public MemberDTO() {
     }

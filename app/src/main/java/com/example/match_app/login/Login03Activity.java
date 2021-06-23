@@ -65,8 +65,6 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
@@ -152,8 +150,7 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
         memberDTO.setLongitude(longitude);
         memberDTO.setAddress(addr);
         memberDTO.setEmailId("das");
-
-        //nextIntent.putExtra("dto", dto);
+        memberDTO.setChanged(0);
         startActivity(nextIntent);
         finish();
     }
