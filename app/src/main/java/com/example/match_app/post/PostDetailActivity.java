@@ -172,8 +172,8 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         // 선택한 좌표 없으면 프래그먼트 숨기기
-        Log.d(TAG, "onCreate: " + dto.getLatitude());
-        Log.d(TAG, "onCreate: " + dto.getLongitude());
+//        Log.d(TAG, "onCreate: " + dto.getLatitude());
+//        Log.d(TAG, "onCreate: " + dto.getLongitude());
         if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
             frameMap.setVisibility(View.GONE);
         }
@@ -210,7 +210,7 @@ public class PostDetailActivity extends AppCompatActivity {
                                     .setPositiveButton("확인", new DialogInterface.OnClickListener(){
                                         public void onClick(DialogInterface dialog, int whichButton){
 
-                                            Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
+//                                            Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
 
                                             //선생님1     databaseReference = firebaseDatabase.getReference("matchapp/Post");
                                             //                                            databaseReference.child(dto.getPostKey()).removeValue().

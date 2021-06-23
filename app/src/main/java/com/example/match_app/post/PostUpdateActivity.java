@@ -81,7 +81,7 @@ public class PostUpdateActivity extends AppCompatActivity {
         //데이터 가져오기
         Intent intent = getIntent();
         dto = (PostDTO) intent.getSerializableExtra("post");
-        Log.d(TAG, "디티오: " + dto.getGame());
+//        Log.d(TAG, "디티오: " + dto.getGame());
 
         //버튼 찾기
         cancel = findViewById(R.id.cancel);
@@ -182,15 +182,14 @@ public class PostUpdateActivity extends AppCompatActivity {
                         UploadTask uploadTask = riversRef.putFile(file);
                     }//file 있을 때
 
-                    Log.d(TAG, "onClick: dto.getPostKey()" + dto.getPostKey());
+//                    Log.d(TAG, "onClick: dto.getPostKey()" + dto.getPostKey());
                 }
 
                 firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey()).setValue(dto).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PostUpdateActivity.this, "수정 성공", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onSuccess: 수정 성공" + dto.getTitle());
-                        //todo 여기 하는 중 → PostUpdateActivity(수정 화면) 닫으면 PostDetailActivity 새로고침 시키기
+//                        Log.d(TAG, "onSuccess: 수정 성공" + dto.getTitle());
 
                         Intent mainIntent = new Intent(PostUpdateActivity.this, MainActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -203,7 +202,7 @@ public class PostUpdateActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NotNull Exception e) {
-                        Log.d(TAG, "onFailure: " + e.getMessage());
+//                        Log.d(TAG, "onFailure: " + e.getMessage());
                         Toast.makeText(PostUpdateActivity.this, "수정 실패", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -222,7 +221,7 @@ public class PostUpdateActivity extends AppCompatActivity {
         spinnerGame.setAdapter(arrayAdapter);
 
         int dtoPosition = arrayAdapter.getPosition(dto.getGame());
-        Log.d(TAG, "onCreate: dtoPos => " + dtoPosition);
+//        Log.d(TAG, "onCreate: dtoPos => " + dtoPosition);
         spinnerGame.setSelection(dtoPosition);
 
         spinnerGame.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

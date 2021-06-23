@@ -235,8 +235,8 @@ public class PostWriteActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(TAG, "/nlatitude: " + latitude);
-        Log.d(TAG, "longitude: " + longitude);
+//        Log.d(TAG, "/nlatitude: " + latitude);
+//        Log.d(TAG, "longitude: " + longitude);
 
         if(latitude != 0.0 || longitude !=0.0) {
             mapResult.setVisibility(View.VISIBLE);
