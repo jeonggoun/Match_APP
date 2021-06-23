@@ -1,7 +1,5 @@
 package com.example.match_app.post;
 
-//todo 글 수정 후 새로고침
-//todo 글 수정 시 가지고 있는 종목값 스피너가 나타나게 하기
 //todo 글쓴 사람에게만 수정/삭제 나오도록 하기
 //todo map 첨부되면 지도가 첨부되었습니다 나오게 하기
 //todo map 검색 안 되는 경우 오류처리

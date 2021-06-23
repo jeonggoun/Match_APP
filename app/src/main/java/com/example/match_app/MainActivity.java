@@ -46,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
         checkDangerousPermissions();
 
-
         tv_fragTitle = findViewById(R.id.tv_fragTitle);
         dto = (MemberDTO) getIntent().getSerializableExtra("dto");
         mAuth = FirebaseAuth.getInstance();
+
+        // 현재 사용자 계정정보가 있는가? if =null 이면 로그인 액티비티로 가시오
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d(TAG, "onStart: currentUser : "+currentUser);
+        if (currentUser == null) {
+            startActivity(new Intent(MainActivity.this, Login02Activity.class));
+            finish();
+        }
 
         fragment1 = new HomeFragment();
         fragment2 = new SearchFragment();
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 현재 사용자 계정정보가 있는가? if =null 이면 로그인 액티비티로 가시오
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -106,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, Login02Activity.class));
             finish();
         }
-    }
+    }*/
 
+    // startActivityForResult 를 사용하여 requestCode를 보내고
+    // 그 액티비티가 종료되고 그 넘어온 데이터를 받을때
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -118,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
             fragment4.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    // 기존에 만들어진 액티비티를 재사용할때
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int requestcode = intent.getIntExtra("requestCode", 0);
+        if(requestcode == 100){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contain, fragment2).commit();
+        }
     }
 
     private void checkDangerousPermissions() {

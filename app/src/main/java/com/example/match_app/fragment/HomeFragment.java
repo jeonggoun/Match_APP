@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment {
 
                     //Log.d(TAG, "doInBackground: doc => " + doc);
                     // Log.d(TAG, "doInBackground: doc2 => " + doc2);
-                    Log.d(TAG, "doInBackground: arrayList.toString => " + doc2.toString());
+                    //Log.d(TAG, "doInBackground: arrayList.toString => " + doc2.toString());
 
 
                     arrayList.add(new NewsDTO(img, title, content, league, match_title, match_time, match_date, match_content));
@@ -292,7 +292,7 @@ public class HomeFragment extends Fragment {
                                                                     "hh:mm");
         String getTime = dateFormat.format(date);
 
-        Log.d(TAG, "getTime: " + getTime);
+        //Log.d(TAG, "getTime: " + getTime);
         return getTime;
 
     }

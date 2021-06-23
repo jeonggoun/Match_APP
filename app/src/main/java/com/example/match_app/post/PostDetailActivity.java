@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import com.example.match_app.ChattingActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
+import com.example.match_app.asynctask.post.PostDetail;
 import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.MetaDTO;
@@ -124,7 +125,58 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-        print();
+
+        String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F" + dto.getImgPath() + "?alt=media";
+        Glide.with(this).load(filePath).into(ivDetailImage);
+
+        tvDetailTitle.setText(dto.getTitle());
+        tvDetailGame.setText(dto.getGame());
+        tvDetailContent.setText(dto.getContent());
+        tvDetailNickname.setText(dto.getWriter());
+        tvDetailPlace.setText("모임장소 : " + dto.getPlace());
+        tvDetailTime.setText("모임일시 : " + dto.getTime());
+
+        if(dto.getFee().equals("0"))
+            tvDetailFee.setText("참가비 없음");
+        else
+            tvDetailFee.setText("참가비 : " + dto.getFee() + "원");
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.detailMap);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.R)
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+
+                map = googleMap;
+                try{
+                    map.setMyLocationEnabled(true);
+                }catch (SecurityException e){
+
+                }
+                Location targetLocation = new Location("");
+                targetLocation.setLatitude(Double.parseDouble(dto.getLatitude()));
+                targetLocation.setLongitude(Double.parseDouble(dto.getLongitude())); //이동하고 찍을 좌표 설정
+                showMyLocationMarker(targetLocation);  //마커찍기
+                showCurrentLocation(targetLocation);  //위치로 이동
+
+            }
+        });
+
+        // 구글맵 초기화
+        MapsInitializer.initialize(this);
+
+        // 이미지 없으면
+        if(dto.getImgPath() == null) {
+            ivDetailImage.setVisibility(View.GONE);
+        }
+
+        // 선택한 좌표 없으면 프래그먼트 숨기기
+        Log.d(TAG, "onCreate: " + dto.getLatitude());
+        Log.d(TAG, "onCreate: " + dto.getLongitude());
+        if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
+            frameMap.setVisibility(View.GONE);
+        }
 
     }
 
@@ -242,86 +294,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
 
-        //print();
-    }
-
-    /* 정보 뿌려주는 코드 독립 시킨 함수 */
-    public void print(){
-
-        String filePath = "https://firebasestorage.googleapis.com/v0/b/match-app-b8c4a.appspot.com/o/matchapp%2FpostImg%2F" + dto.getImgPath() + "?alt=media";
-        Glide.with(this).load(filePath).into(ivDetailImage);
-
-        tvDetailTitle.setText(dto.getTitle());
-        tvDetailGame.setText(dto.getGame());
-        tvDetailContent.setText(dto.getContent());
-        tvDetailNickname.setText(dto.getWriter());
-        tvDetailPlace.setText("모임장소 : " + dto.getPlace());
-        tvDetailTime.setText("모임일시 : " + dto.getTime());
-
-        if(dto.getFee().equals("0"))
-            tvDetailFee.setText("참가비 없음");
-        else
-            tvDetailFee.setText("참가비 : " + dto.getFee() + "원");
-
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.detailMap);
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @RequiresApi(api = Build.VERSION_CODES.R)
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-
-                map = googleMap;
-                try{
-                    map.setMyLocationEnabled(true);
-                }catch (SecurityException e){
-
-                }
-                Location targetLocation = new Location("");
-                targetLocation.setLatitude(Double.parseDouble(dto.getLatitude()));
-                targetLocation.setLongitude(Double.parseDouble(dto.getLongitude())); //이동하고 찍을 좌표 설정
-                showMyLocationMarker(targetLocation);  //마커찍기
-                showCurrentLocation(targetLocation);  //위치로 이동
-
-            }
-        });
-
-        // 구글맵 초기화
-        MapsInitializer.initialize(this);
-
-        // 이미지 없으면
-        if(dto.getImgPath() == null) {
-            ivDetailImage.setVisibility(View.GONE);
-        }
-
-        // 선택한 좌표 없으면 프래그먼트 숨기기
-        Log.d(TAG, "onCreate: " + dto.getLatitude());
-        Log.d(TAG, "onCreate: " + dto.getLongitude());
-        if(dto.getLatitude().equals("0.0") || dto.getLongitude().equals("0.0")){
-            frameMap.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 123) {
-            finish();
-
-            /*Intent intent = getIntent();
-            dto = (PostDTO) intent.getSerializableExtra("update");
-            Log.d(TAG, "우웩: " + dto);*/
-            //print();
-        }
-    }
-//todo
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 }
 
