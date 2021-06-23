@@ -1,5 +1,7 @@
 package com.example.match_app.fragment;
 
+import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -27,7 +29,17 @@ import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.etc.Btn01;
+import com.example.match_app.etc.Btn02;
+import com.example.match_app.etc.Btn03;
+import com.example.match_app.etc.Btn04;
+import com.example.match_app.etc.Btn05;
+import com.example.match_app.etc.Btn06;
+import com.example.match_app.etc.Btn07;
 import com.example.match_app.etc.EtcProfileActivity;
+import com.example.match_app.etc.FavoriteListActivity;
+import com.example.match_app.etc.GpsListActivity;
+import com.example.match_app.etc.MatchListActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +70,7 @@ public class EtcFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private StorageReference storageRef;
     CircleImageView iv_profile;
-    Button lL_matchlist, lL_locationAuth, lL_favoritelist;
+    Button lL_matchlist, lL_locationAuth, lL_favoritelist, btn_01, btn_02, btn_03, btn_04, btn_05, btn_06, btn_07;
     TextView tv_nick, tv_local, btn_profile;
 
     @Override
@@ -67,22 +79,102 @@ public class EtcFragment extends Fragment {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp/UserAccount");
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_etc, container, false);
         iv_profile = viewGroup.findViewById(R.id.iv_profile);
+
         tv_nick = viewGroup.findViewById(R.id.tv_nick);
         tv_local = viewGroup.findViewById(R.id.tv_local);
-        btn_profile = viewGroup.findViewById(R.id.btn_profile);
-        lL_matchlist = viewGroup.findViewById(R.id.lL_matchlist);
-        lL_locationAuth = viewGroup.findViewById(R.id.lL_locationAuth);
-        lL_favoritelist = viewGroup.findViewById(R.id.lL_favoritelist);
-
         tv_nick.setText(memberDTO.getNickName());
         tv_local.setText(memberDTO.getAddress());
 
+        btn_profile = viewGroup.findViewById(R.id.btn_profile);
         btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendToProfile();
             }
         });
+        lL_matchlist = viewGroup.findViewById(R.id.lL_matchlist);
+        lL_matchlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), MatchListActivity.class);
+                startActivity(nextIntent);
+            }
+        });
+        lL_favoritelist = viewGroup.findViewById(R.id.lL_favoritelist);
+        lL_favoritelist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), FavoriteListActivity.class);
+                startActivity(nextIntent);
+            }
+        });
+        lL_locationAuth = viewGroup.findViewById(R.id.lL_locationAuth);
+        lL_locationAuth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), GpsListActivity.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_01 = viewGroup.findViewById(R.id.btn01);
+        btn_01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn01.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_02 = viewGroup.findViewById(R.id.btn02);
+        btn_02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn02.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_03 = viewGroup.findViewById(R.id.btn03);
+        btn_03.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn03.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_04 = viewGroup.findViewById(R.id.btn04);
+        btn_04.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn04.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_05 = viewGroup.findViewById(R.id.btn05);
+        btn_05.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn05.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_06 = viewGroup.findViewById(R.id.btn06);
+        btn_06.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn06.class);
+                startActivity(nextIntent);
+            }
+        });
+        btn_07 = viewGroup.findViewById(R.id.btn07);
+        btn_07.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn07.class);
+                startActivity(nextIntent);
+            }
+        });
+
+
+
 
         mDatabaseRef.orderByKey().equalTo(uid).addChildEventListener(new ChildEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)

@@ -98,7 +98,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
-        <activity android:name=".etc.EtcProfileActivity"></activity>
+        <activity android:name=".etc.Btn01"></activity>
+        <activity android:name=".etc.GpsListActivity" />
+        <activity android:name=".etc.FavoriteListActivity" />
+        <activity android:name=".etc.MatchListActivity" />
+        <activity android:name=".etc.EtcProfileActivity" />
         <activity android:name=".post.PostUpdateActivity" />
 
         <meta-data

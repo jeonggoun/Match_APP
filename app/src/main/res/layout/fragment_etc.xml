@@ -120,6 +120,7 @@
                 android:layout_marginBottom="5dp"/>
 
             <Button
+                android:id="@+id/btn01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -130,6 +131,7 @@
                 android:textColor="#000000" />
 
             <Button
+                android:id="@+id/btn02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -147,6 +149,7 @@
                 android:layout_marginBottom="5dp"/>
 
             <Button
+                android:id="@+id/btn03"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -157,6 +160,7 @@
                 android:textColor="#000000" />
 
             <Button
+                android:id="@+id/btn04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -167,6 +171,7 @@
                 android:textColor="#000000" />
 
             <Button
+                android:id="@+id/btn05"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -177,6 +182,7 @@
                 android:textColor="#000000" />
 
             <Button
+                android:id="@+id/btn06"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -187,6 +193,7 @@
                 android:textColor="#000000" />
 
             <Button
+                android:id="@+id/btn07"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
