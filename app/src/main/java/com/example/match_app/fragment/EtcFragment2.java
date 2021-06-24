@@ -33,7 +33,7 @@ public class EtcFragment2 extends Fragment {
         TextView tv_nick = viewGroup.findViewById(R.id.tv_nick);
         TextView tv_local = viewGroup.findViewById(R.id.tv_local);
         Button btn_profile = viewGroup.findViewById(R.id.btn_profile);
-/*        gv = viewGroup.findViewById(R.id.gridView);
+/*      gv = viewGroup.findViewById(R.id.gridView);
         lv = viewGroup.findViewById(R.id.listView);*/
 
         iconAdapter = new IconAdapter();
