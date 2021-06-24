@@ -42,7 +42,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="검색"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:backgroundTint="#55C4F6"/>
 
         </LinearLayout>
 
@@ -51,8 +52,9 @@
             android:id="@+id/btnWrite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="글 작성"
-            android:layout_weight="100"/>
+            android:text="모임 올리기"
+            android:layout_weight="100"
+            android:backgroundTint="#55C4F6"/>
     </LinearLayout>
 
     <!--글 목록 나올 부분-->

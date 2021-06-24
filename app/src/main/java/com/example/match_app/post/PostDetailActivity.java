@@ -216,9 +216,8 @@ public class PostDetailActivity extends AppCompatActivity {
                     case R.id.update:
                         /* update를 선택했을 때 이벤트 실행 코드 작성 */
                         Intent intent = new Intent(PostDetailActivity.this, PostUpdateActivity.class);
-                        startActivity(intent);
                         intent.putExtra("post", dto);
-                        startActivityForResult(intent, 123);
+                        startActivity(intent);
 
                         break;
 
