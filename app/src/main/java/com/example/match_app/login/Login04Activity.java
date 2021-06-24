@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.example.match_app.Common.CommonMethod.memberDTO;
@@ -39,10 +42,17 @@ public class Login04Activity extends AppCompatActivity {
     private String filepath;
     private Uri file;
 
-    private ImageView profilePic, iv_camera;
-    private ConstraintLayout cblay_01,cblay_02,cblay_03,cblay_04,cblay_05,cblay_06,cblay_07,cblay_08,cblay_09,cblay_10
+    private ImageView iv_back;
+
+/*    private ConstraintLayout cblay_01,cblay_02,cblay_03,cblay_04,cblay_05,cblay_06,cblay_07,cblay_08,cblay_09,cblay_10
             ,cblay_11,cblay_12,cblay_13,cblay_14,cblay_15,cblay_16,cblay_17,cblay_18,cblay_19,cblay_20
-            ,cblay_21,cblay_22,cblay_23,cblay_24,cblay_25;
+            ,cblay_21,cblay_22,cblay_23,cblay_24,cblay_25 ;
+    private CheckBox[] cb_01,cb_02,cb_03,cb_04,cb_05,cb_06,cb_07,cb_08,cb_09,cb_10,cb_11,cb_12,cb_13,cb_14,cb_15,cb_016
+            ,cb_17,cb_18,cb_19,cb_20,cb_21,cb_22,cb_23,cb_24,cb_25;*/
+
+    private ConstraintLayout[] cblays;
+    private CheckBox[] cbs;
+    private TextView[] tvs;
 
     private TextView auth_finish;
     private EditText et_01;
@@ -52,17 +62,52 @@ public class Login04Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login04);
 
+        cblays = new ConstraintLayout[24];
+        cbs = new CheckBox[24];
+        tvs = new TextView[24];
+
+
+
+        int[] cblaysId = {R.id.cblay_01, R.id.cblay_02, R.id.cblay_03,R.id.cblay_04,R.id.cblay_05,R.id.cblay_06,R.id.cblay_07,R.id.cblay_08,R.id.cblay_09,R.id.cblay_10,
+                        R.id.cblay_11,R.id.cblay_12,R.id.cblay_13,R.id.cblay_14,R.id.cblay_15,R.id.cblay_16,R.id.cblay_17,R.id.cblay_18,R.id.cblay_19,R.id.cblay_20,
+                        R.id.cblay_21,R.id.cblay_22,R.id.cblay_23,R.id.cblay_24};
+
+        int[] cbsId = {R.id.cb01, R.id.cb02, R.id.cb03,R.id.cb04,R.id.cb05,R.id.cb06,R.id.cb07,R.id.cb08,R.id.cb09,R.id.cb10,
+                        R.id.cb11,R.id.cb12,R.id.cb13,R.id.cb14,R.id.cb15,R.id.cb16,R.id.cb17,R.id.cb18,R.id.cb19,R.id.cb20,
+                        R.id.cb21,R.id.cb22,R.id.cb23,R.id.cb24};
+
+        int[] tvsId = {R.id.tv01, R.id.tv02, R.id.tv03,R.id.tv04,R.id.tv05,R.id.tv06,R.id.tv07,R.id.tv08,R.id.tv09,R.id.tv10,
+                R.id.tv11,R.id.tv12,R.id.tv13,R.id.tv14,R.id.tv15,R.id.tv16,R.id.tv17,R.id.tv18,R.id.tv19,R.id.tv20,
+                R.id.tv21,R.id.tv22,R.id.tv23,R.id.tv24};
+
+        String[] sports = new String[]{ "육상", "야구", "배구", "테니스", "볼링", "배드민턴", "육상", "체조", "헬스", "수영",
+                                        "유도", "레슬링", "복싱", "사격", "사이클", "스쿼시", "승마", "카누", "e스포츠", "스케이팅",
+                                        "익스트림", "레이싱", "등산", "전체"};
+
+
+        for(int i = 0; i < 24; i++){
+            this.cblays[i] = findViewById(cblaysId[i]);
+            this.cbs[i] = findViewById(cbsId[i]);
+            this.tvs[i] = findViewById(tvsId[i]);
+
+            if (sports[i].length()>3) { tvs[i].setText(sports[i]); tvs[i].setTextSize(13); }
+            else tvs[i].setText(sports[i]);
+
+            this.cblays[i].setOnClickListener(layoutListener);
+        }
+
+        cbs[23].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { checkedListener(); }
+        });
+
+
         et_01 = findViewById(R.id.et_01);
         auth_finish = findViewById(R.id.auth_finish);
-        profilePic = findViewById(R.id.profilePic);
-        iv_camera = findViewById(R.id.iv_camera);
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
         storageRef = FirebaseStorage.getInstance().getReference("matchapp/profileImg");
-
-
 //-------------------------------------------------------------------------------------------------
-
         auth_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,11 +125,62 @@ public class Login04Activity extends AppCompatActivity {
                         UploadTask uploadTask = riversRef.putFile(file);
                     }//file 있을 때
 
+                    StringBuilder sports = new StringBuilder("");
+                    for(int i = 0; i < 23; i++) if (cbs[i].isChecked() == true)  sports.append(tvs[i].getText()+" ");
+                    memberDTO.setSports(sports.toString());
                     sendToNext();
                 }
             }
         });
+
+        iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(Login04Activity.this, Login03Activity.class);
+                startActivity(nextIntent);
+                finish();
+            }
+        });
+//-------------------------------------------------------------------------------------------------
+
+/*         for (int i=0; i<25; i++) {
+
+            if (i < 10) {
+                cblay+i = findViewById(cblay[i]);
+                cb_01 = findViewById(R.id.cb01);
+                cblay_01.setOnClickListener(new View.OnClickListener() {
+                    int checking = 0;
+                    @Override
+                    public void onClick(View v) {
+                        if (cb_01.isChecked() == false) {
+                            cb_01.setChecked(true);
+                        }else {
+                            cb_01.setChecked(false);
+                        }
+                    }
+                });
+            }
+        }*/
     }
+
+    // layout 클릭리스너
+    private View.OnClickListener layoutListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for(int i = 0; i < 24; i++){
+                if(v.getId() == cblays[i].getId()) {
+                    if (cbs[i].isChecked() == false) cbs[i].setChecked(true);
+                    else cbs[i].setChecked(false);
+                }
+            }
+        }
+    };
+
+    private void checkedListener() {
+        if (cbs[23].isChecked() == true) for (int i = 0; i < 23; i++) cbs[i].setChecked(true);
+        else for (int i = 0; i < 23; i++) cbs[i].setChecked(false);
+    };
 
     private void sendToNext() {
         Intent nextIntent = new Intent(Login04Activity.this, Login02Activity.class);
@@ -92,8 +188,5 @@ public class Login04Activity extends AppCompatActivity {
         finish();
     }
 
-    private void checkedBox() {
-
-    }
 
 }

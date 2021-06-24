@@ -16,7 +16,19 @@ public class MemberDTO implements Serializable {
     private double latitude, longitude;
     private String address;
     private String fileName, filePath;
+    private String sports;
     private int changed;
+
+    public MemberDTO() {
+    }
+
+    public String getSports() {
+        return sports;
+    }
+
+    public void setSports(String sports) {
+        this.sports = sports;
+    }
 
     public int getChanged() {
         return changed;
@@ -24,9 +36,6 @@ public class MemberDTO implements Serializable {
 
     public void setChanged(int changed) {
         this.changed = changed;
-    }
-
-    public MemberDTO() {
     }
 
     public String getFilePath() {
