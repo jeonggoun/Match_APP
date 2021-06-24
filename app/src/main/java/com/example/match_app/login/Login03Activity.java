@@ -151,6 +151,8 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
         memberDTO.setAddress(addr);
         memberDTO.setEmailId("das");
         memberDTO.setChanged(0);
+        memberDTO.setFileName("");
+        memberDTO.setFilePath("");
         startActivity(nextIntent);
         finish();
     }

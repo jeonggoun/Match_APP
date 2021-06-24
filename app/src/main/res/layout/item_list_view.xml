@@ -32,10 +32,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:background="#FFFFFF"
+                    android:background="@drawable/button_background"
                     android:gravity="center_horizontal|center_vertical"
                     android:hint="종목"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"/>
 
                 <TextView
                     android:id="@+id/tvTitle"

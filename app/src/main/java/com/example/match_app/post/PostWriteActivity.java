@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.MemberDTO;
@@ -184,8 +185,11 @@ public class PostWriteActivity extends AppCompatActivity {
 //                    }
 //                });
                 databaseReference.push().setValue(dto);
-//                databaseReference.child(dto.getPostKey()).setValue(dto);  //글 수정시
-//                databaseReference.child(dto.getPostKey()).removeValue();  //글 삭제시
+
+                Intent mainIntent = new Intent(PostWriteActivity.this, MainActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mainIntent.putExtra("requestCode", 100);
+                startActivity(mainIntent);
 
                 finish();
 
