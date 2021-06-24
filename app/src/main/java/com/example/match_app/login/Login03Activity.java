@@ -34,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -53,6 +54,8 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
     private ArrayList<String> addrList = null;
     private String addr;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,9 +152,9 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
         memberDTO.setLatitude(latitude);
         memberDTO.setLongitude(longitude);
         memberDTO.setAddress(addr);
-        memberDTO.setEmailId("das");
+        memberDTO.setEmailId("202-A");
         memberDTO.setChanged(0);
-        memberDTO.setFileName("");
+        memberDTO.setFileName(uid + ".jpg");
         memberDTO.setFilePath("");
         startActivity(nextIntent);
         finish();
