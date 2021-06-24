@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Unchecked -->
+    <item android:state_checked="false">
+        <layer-list>
+            <item android:drawable="@drawable/add_checkbox01"
+                android:gravity="center" />
+        </layer-list>
+    </item>
+    <!-- Checked -->
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:drawable="@drawable/add_checkbox02"
+                android:gravity="center"/>
+        </layer-list>
+    </item>
+</selector>

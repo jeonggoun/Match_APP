@@ -1,12 +1,14 @@
 package com.example.match_app.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,11 +35,14 @@ public class Login04Activity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private StorageReference storageRef;
 
-    String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
-    String filepath;
-    Uri file;
+    private String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
+    private String filepath;
+    private Uri file;
 
-    ImageView profilePic, iv_camera;
+    private ImageView profilePic, iv_camera;
+    private ConstraintLayout cblay_01,cblay_02,cblay_03,cblay_04,cblay_05,cblay_06,cblay_07,cblay_08,cblay_09,cblay_10
+            ,cblay_11,cblay_12,cblay_13,cblay_14,cblay_15,cblay_16,cblay_17,cblay_18,cblay_19,cblay_20
+            ,cblay_21,cblay_22,cblay_23,cblay_24,cblay_25;
 
     private TextView auth_finish;
     private EditText et_01;
@@ -85,6 +90,10 @@ public class Login04Activity extends AppCompatActivity {
         Intent nextIntent = new Intent(Login04Activity.this, Login02Activity.class);
         startActivity(nextIntent);
         finish();
+    }
+
+    private void checkedBox() {
+
     }
 
 }
