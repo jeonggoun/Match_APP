@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="경기확정하기!"
-            app:backgroundTint="#55C4F6" />
+            app:backgroundTint="#051B37" />
 
         <Button
             android:id="@+id/chat_activity_match_cancel"
@@ -54,7 +54,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:text="send"
-            app:backgroundTint="#55C4F6" />
+            app:backgroundTint="#051B37" />
 
     </LinearLayout>
 

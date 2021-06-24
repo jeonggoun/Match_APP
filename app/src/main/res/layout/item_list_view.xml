@@ -7,12 +7,19 @@
     android:orientation="vertical">
 
     <!--글 목록 들어갈 CardView-->
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false">
 
         <!--CardView 내에서 줄 나누기 위한 LinearLayout-->
         <LinearLayout
@@ -35,8 +42,8 @@
                     android:background="@drawable/button_background"
                     android:gravity="center_horizontal|center_vertical"
                     android:hint="종목"
-                    android:textSize="15sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -77,11 +84,11 @@
                             android:scaleType="fitXY" />
 
                         <ProgressBar
+                            android:id="@+id/progressBar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/progressBar"
                             android:layout_gravity="center"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </FrameLayout>
 
@@ -93,9 +100,9 @@
                     android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
                     android:weightSum="3">
 
                     <TextView
@@ -130,5 +137,12 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E4E4E4" />
 </LinearLayout>

@@ -22,7 +22,7 @@
         android:layout_height="280dp"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/momo" />
+        app:srcCompat="@drawable/momo3" />
 
     <TextView
         android:id="@+id/textView2"

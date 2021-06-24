@@ -222,7 +222,7 @@
             android:text="채팅으로 모임 요청"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:backgroundTint="#55C4F6"/>
+            android:backgroundTint="#051B37"/>
 
 
     </LinearLayout>
