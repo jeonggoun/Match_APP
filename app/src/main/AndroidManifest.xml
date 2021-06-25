@@ -99,6 +99,12 @@
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
         <activity android:name=".etc.Btn01"></activity>
+        <activity android:name=".etc.Btn02"></activity>
+        <activity android:name=".etc.Btn03"></activity>
+        <activity android:name=".etc.Btn04"></activity>
+        <activity android:name=".etc.Btn05"></activity>
+        <activity android:name=".etc.Btn06"></activity>
+        <activity android:name=".etc.Btn07"></activity>
         <activity android:name=".etc.GpsListActivity" />
         <activity android:name=".etc.FavoriteListActivity" />
         <activity android:name=".etc.MatchListActivity" />
