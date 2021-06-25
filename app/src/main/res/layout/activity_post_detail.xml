@@ -81,11 +81,26 @@
 
                 <TextView
                     android:id="@+id/tvDetailGame"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
                     android:layout_weight="2"
+                    android:background="@drawable/button_background"
                     android:hint="종목"
+                    android:textColor="#ffffff"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvDetailEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/button_background2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="모집 완료"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvDetailTitle"
@@ -93,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:hint="글 제목"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,8 +125,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/calendar" />
 
                 <TextView
                     android:id="@+id/tvDetailTime"
@@ -119,6 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:hint="일시"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -131,28 +156,26 @@
                     android:layout_margin="5dp"
                     android:text="·" />
 
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/location" />
+
                 <TextView
-                    android:id="@+id/tvDetailFee"
+                    android:id="@+id/tvDetailPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="참가비" />
+                    android:layout_gravity="center"
+                    android:hint="장소"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvDetailPlace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:hint="장소"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <!--맵
             <FrameLayout
@@ -171,16 +194,39 @@
 
             </FrameLayout>-->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/currency" />
+
+                <TextView
+                    android:id="@+id/tvDetailFee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="clip_vertical"
+                    android:hint="참가비"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tvDetailContent"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:hint="글 내용"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -209,7 +255,7 @@
             android:layout_weight="90"
             android:gravity="center_vertical"
             android:hint="닉네임"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <!--채팅 버튼-->
         <Button

@@ -139,7 +139,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             //사진, 이름을 카드 모양에 넣는다
 
             tvTitle.setText(dto.getTitle());
-            tvName.setText("'" + dto.getRecent().getNickname() + "' 님과의 대화");
+            tvName.setText("'" + dto.getRecent().getNickname() + "' 님과의 채팅");
             if(dto.getRecent() != null) tvPlace.setText(dto.getRecent().getMsg());
             tvTime.setText(dto.getDate());
 

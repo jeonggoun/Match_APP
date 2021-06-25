@@ -82,6 +82,7 @@ public class ChattingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonChange("disable");
                 setPost("disable");
+                Toast.makeText(ChattingActivity.this, "경기가 확정되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
         matchCancel.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +91,7 @@ public class ChattingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonChange("enable");
                 setPost("enable");
+                Toast.makeText(ChattingActivity.this, "경기가 취소되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -181,8 +183,6 @@ public class ChattingActivity extends AppCompatActivity {
         ArrayMap<String,String> map2 = new ArrayMap<>();
         map2.put("matchConfirm" , set);
         post.updateChildren(Collections.unmodifiableMap(map2));
-        Toast.makeText(context, set, Toast.LENGTH_SHORT).show();
-
     }
 
     private void buttonChange(String set){

@@ -163,6 +163,7 @@ public class PostWriteActivity extends AppCompatActivity {
                     dto.setLongitude(longitude.toString());*/
                     dto.setWriter(user.getNickName());
                     dto.setWriterToken(user.getIdToken());
+                    dto.setMatchConfirm("enable");
 
                     if(file != null) {
                         filename = UUID.randomUUID().toString() + ".jpg";

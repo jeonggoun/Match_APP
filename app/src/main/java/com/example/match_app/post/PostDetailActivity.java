@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.match_app.ChattingActivity;
+import com.example.match_app.JoinActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.asynctask.post.PostDetail;
@@ -65,7 +66,7 @@ public class PostDetailActivity extends AppCompatActivity {
     DatabaseReference databaseReference2;
     ImageView ivDetailImage, ivDetailBack;
     PostDTO dto;
-    TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent, tvDetailFee;
+    TextView tvDetailNickname, tvDetailTitle, tvDetailGame, tvDetailPlace, tvDetailTime, tvDetailContent, tvDetailFee, tvDetailEnd;
 
     /*맵
     SupportMapFragment mapFragment;
@@ -102,6 +103,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailTime = findViewById(R.id.tvDetailTime);
         tvDetailContent = findViewById(R.id.tvDetailContent);
         tvDetailFee = findViewById(R.id.tvDetailFee);
+        tvDetailEnd = findViewById(R.id.tvDetailEnd);
 
         /*맵
         frameMap = findViewById(R.id.frameMap);*/
@@ -111,9 +113,7 @@ public class PostDetailActivity extends AppCompatActivity {
         findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!user.getIdToken().equals(dto.getWriterToken())){
-                    startChatting(dto);
-                }
+                startChatting(dto);
             }
         });
 
@@ -141,8 +141,8 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDetailGame.setText(dto.getGame());
         tvDetailContent.setText(dto.getContent());
         tvDetailNickname.setText(dto.getWriter());
-        tvDetailPlace.setText("모임장소 : " + dto.getPlace());
-        tvDetailTime.setText("모임일시 : " + dto.getTime());
+        tvDetailPlace.setText(dto.getPlace());
+        tvDetailTime.setText(dto.getTime());
 
         if(dto.getFee().equals("0"))
             tvDetailFee.setText("참가비 없음");
@@ -191,12 +191,17 @@ public class PostDetailActivity extends AppCompatActivity {
             frameMap.setVisibility(View.GONE);
         }*/
 
-        // 내 글일 때만 수정/삭제 팝업 나타날 수 있게 하기
+        // 내 글일 때만 수정/삭제 팝업 나타날 수 있게 하기, 채팅 안 보이기
         if(user.getIdToken().equals(dto.getWriterToken())) {
             popupLayout.setVisibility(View.VISIBLE);
+            findViewById(R.id.btnChat).setVisibility(View.INVISIBLE);
         }
-        Log.d(TAG, "아이디토큰: " + user.getIdToken());
-        Log.d(TAG, "라이터토큰: " + dto.getWriterToken());
+
+        if(dto.getMatchConfirm().equals("enable")){
+            tvDetailEnd.setVisibility(View.GONE);
+        }else if(dto.getMatchConfirm().equals("disable")){
+            tvDetailEnd.setVisibility(View.VISIBLE);
+        }
 
     }
 

@@ -41,17 +41,20 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/button_background"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="종목"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="종목"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="글 제목"
-                    android:textSize="24sp" />
+                    android:text="글 제목"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -64,8 +67,9 @@
                 <!--둘째 줄: 이미지와 글 칸 나누기 위한 LinearLayout-->
                 <LinearLayout
                     android:id="@+id/imageLayout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -99,41 +103,87 @@
                 <LinearLayout
                     android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:weightSum="3">
 
-                    <TextView
-                        android:id="@+id/tvTime"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:hint="일시"
-                        android:textSize="14sp"
-                        android:textStyle="normal|bold" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvPlace"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:hint="장소"
-                        android:textSize="14sp"
-                        android:textStyle="normal|bold" />
+                        <ImageView
+                            android:id="@+id/ivCalanIcon"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            app:srcCompat="@drawable/calendar" />
 
-                    <TextView
-                        android:id="@+id/tvFee"
+                        <TextView
+                            android:id="@+id/tvTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="일시"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            android:textStyle="normal|bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:hint="참가비"
-                        android:textSize="14sp"
-                        android:textStyle="normal|bold" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            app:srcCompat="@drawable/location" />
+
+                        <TextView
+                            android:id="@+id/tvPlace"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="장소"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            android:textStyle="normal|bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            app:srcCompat="@drawable/currency" />
+
+                        <TextView
+                            android:id="@+id/tvFee"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="참가비"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            android:textStyle="normal|bold" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

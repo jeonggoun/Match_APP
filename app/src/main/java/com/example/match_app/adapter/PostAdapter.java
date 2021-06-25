@@ -3,6 +3,8 @@ package com.example.match_app.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableResource;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.post.PostDetailActivity;
@@ -138,8 +141,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         public void setDto(PostDTO dto){
             //사진, 이름을 카드 모양에 넣는다
 
+
             tvTitle.setText(dto.getTitle());
-            tvGame.setText(dto.getGame());
 
             if(dto.getFee().equals("0")) {
                 tvFee.setText("참가비 없음");
@@ -148,6 +151,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
             }
             tvPlace.setText(dto.getPlace());
             tvTime.setText(dto.getTime());
+
+
+            if(dto.getMatchConfirm().equals("enable")){
+                tvGame.setText(dto.getGame());
+            }else if(dto.getMatchConfirm().equals("disable")){
+                tvGame.setText("모집 완료");
+                parentLayout.setBackgroundColor(R.drawable.button_background2);
+           }
 
             switch (dto.getGame()){
                 case "축구" :
@@ -180,6 +191,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 default:    //기본 사진
                     image.setImageResource(R.drawable.match);
             }
+
 
 
         }
