@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestcode == 100){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contain, fragment2).commit();
+            fragment2.onNewIntent(requestcode);
         }
     }
 

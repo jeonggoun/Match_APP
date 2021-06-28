@@ -77,7 +77,7 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 //
 //        // 어댑터 객체를 생성한다
-        adapter = new PostAdapter(dtos, getContext());
+        adapter = new PostAdapter(dtos, getContext(), SearchFragment.this);
 //
 //        // 어댑터에 있는 ArrayList에 dto를 5개 추가한다
 //        ListItemDTO dto0 = new ListItemDTO(0, "테니스", "테니스 치실 분", "2021/5/26", "농성테니스장", "무료", "#");
@@ -152,7 +152,7 @@ public class SearchFragment extends Fragment {
 
     private void showPostList() {
 //     리스트 어댑터 생성 및 세팅
-        postAdapter = new PostAdapter(dtos, getContext());
+        postAdapter = new PostAdapter(dtos, getContext(), SearchFragment.this);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
@@ -197,6 +197,12 @@ public class SearchFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == 100){
+            getFragmentManager().beginTransaction().detach(SearchFragment.this).attach(SearchFragment.this).commit();
+        }
+    }
+
+    public  void onNewIntent(int requestCode){
         if(requestCode == 100){
             getFragmentManager().beginTransaction().detach(SearchFragment.this).attach(SearchFragment.this).commit();
         }

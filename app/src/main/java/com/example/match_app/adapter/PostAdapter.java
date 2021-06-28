@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +23,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.load.resource.drawable.DrawableResource;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.fragment.SearchFragment;
 import com.example.match_app.post.PostDetailActivity;
 import com.example.match_app.post.PostUpdateActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import static com.example.match_app.MainActivity.user;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         implements com.example.match_app.adapter.PostOnClickListener {
-    //cardView 어댑터 보고 여기 채워넣기?(태그 찾아놓고 글 집어넣고)
 
     private static final String TAG = "ListItemAdapter ";
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     // 1. 리스너 선언
     com.example.match_app.adapter.PostOnClickListener listener;
@@ -42,11 +49,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
     ArrayList<PostDTO> dtos;
     Context context;
     LayoutInflater inflater;
+    SearchFragment fragment2;
 
-    public PostAdapter(ArrayList<PostDTO> dtos, Context context) {
+
+    public PostAdapter(ArrayList<PostDTO> dtos, Context context, SearchFragment fragment2) {
         this.dtos = dtos;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
+        this.fragment2 = fragment2;
     }
 
 
@@ -76,6 +86,66 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 ((Activity)context).startActivityForResult(intent, 100); /* 글 삭제 후 새로고침 */
             }
         });
+
+        //todo 카드뷰에서 수정 삭제 보이게 하는 부분
+        Log.d(TAG, "user.getIdToken(): " + user.getIdToken());
+        Log.d(TAG, "dto.getWriterToken(): " + dto.getWriterToken());
+        if(user.getIdToken().equals(dto.getWriterToken())){  //Writer와 user의 token이 동일하다면 카드뷰에 있는 수정, 삭제 버튼을 보이게 한다
+            holder.writerLayout.setVisibility(View.VISIBLE);
+        }
+
+        //수정 버튼 누르는 경우
+        holder.itemView.findViewById(R.id.btnModify).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PostUpdateActivity.class);
+                intent.putExtra("post", dto);
+                context.startActivity(intent);
+            }
+        });
+
+        //삭제 버튼 누르는 경우
+        holder.itemView.findViewById(R.id.btnDelete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("정말 삭제하시겠습니까?")        // 제목 설정
+                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int whichButton){
+
+//                                            Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
+
+                                //선생님1     databaseReference = firebaseDatabase.getReference("matchapp/Post");
+                                //                                            databaseReference.child(dto.getPostKey()).removeValue().
+
+                                //선생님2     firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().
+
+                                firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        fragment2.onNewIntent(200);
+                                        Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int whichButton){
+
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                dialog.show();    // 알림창 띄우기
+            }
+        });
+
     }
 
     @Override
@@ -145,65 +215,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                     }
                 }
             });
-
-            //todo 준후야 도와줘
-            /*if(dtos.){  //Writer와 user의 token이 동일하다면 카드뷰에 있는 수정, 삭제 버튼을 보이게 한다
-                writerLayout.setVisibility(View.VISIBLE);
-            }
-
-            //수정 버튼 누르는 경우
-            itemView.findViewById(R.id.btnModify).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, PostUpdateActivity.class);
-                    intent.putExtra("post", dto);
-                    startActivity(intent);
-
-                    break;
-                }
-            });
-
-            //삭제 버튼 누르는 경우
-            itemView.findViewById(R.id.btnDelete).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("정말 삭제하시겠습니까?")        // 제목 설정
-                            .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener(){
-                                public void onClick(DialogInterface dialog, int whichButton){
-
-//                                            Log.d(TAG, "onClick: " + firebaseDatabase.getReference().child(dto.getPostKey()));
-
-                                    //선생님1     databaseReference = firebaseDatabase.getReference("matchapp/Post");
-                                    //                                            databaseReference.child(dto.getPostKey()).removeValue().
-
-                                    //선생님2     firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().
-
-                                    firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            })
-                            .setNegativeButton("취소", new DialogInterface.OnClickListener(){
-                                public void onClick(DialogInterface dialog, int whichButton){
-
-                                }
-                            });
-
-                    AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                    dialog.show();    // 알림창 띄우기
-                }
-            });*/
         }
 
         public void setDto(PostDTO dto){
@@ -258,8 +269,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 default:    //기본 사진
                     image.setImageResource(R.drawable.match);
             }
-
-
 
         }
 

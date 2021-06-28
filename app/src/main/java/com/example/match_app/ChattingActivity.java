@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,8 @@ public class ChattingActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private DatabaseReference toRef;
     private DatabaseReference toRefMeta, userMeta, post;
+    private TextView tvChatPostTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +78,19 @@ public class ChattingActivity extends AppCompatActivity {
 
         btn_send = findViewById(R.id.btn_send);
         edt_chat = findViewById(R.id.edt_chat);
+        tvChatPostTitle = findViewById(R.id.tvChatPostTitle);
 
         matchConfirm = findViewById(R.id.chat_activity_match_confirm);
 
+        //todo 채팅 확정은 글을 쓴 사람만 할 수 있게 바꾸기
         /*if(user.getIdToken().equals(chatMeta.getChatToken())){  //*
             chat_match_confirm_layout.setVisibility(View.VISIBLE);
             Log.d(TAG, "user.getIdToken: " + user.getIdToken());
             Log.d(TAG, "chatMeta.getChatToken: " + chatMeta.getChatToken());
             Log.d(TAG, "chatMeta.getPostToken: " + chatMeta.getPostToken());
         }*/
+
+        tvChatPostTitle.setText(chatMeta.getTitle());
 
 
         matchCancel = findViewById(R.id.chat_activity_match_cancel);
