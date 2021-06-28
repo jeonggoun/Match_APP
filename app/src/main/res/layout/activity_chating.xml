@@ -9,10 +9,34 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:id="@+id/chat_match_confirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvChatPostTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="8"
+            android:gravity="center_vertical"
+            android:text="글 제목" />
+
+        <Button
+            android:id="@+id/btnChatPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="포스트로 이동"
+            app:backgroundTint="#051B37" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chat_match_confirm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/chat_activity_match_confirm"

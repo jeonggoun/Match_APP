@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ import java.util.Map;
 
 import static com.example.match_app.MainActivity.user;
 public class ChattingActivity extends AppCompatActivity {
+    private static final String TAG = "Main: ChattingActivity";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -75,6 +77,15 @@ public class ChattingActivity extends AppCompatActivity {
         edt_chat = findViewById(R.id.edt_chat);
 
         matchConfirm = findViewById(R.id.chat_activity_match_confirm);
+
+        /*if(user.getIdToken().equals(chatMeta.getChatToken())){  //*
+            chat_match_confirm_layout.setVisibility(View.VISIBLE);
+            Log.d(TAG, "user.getIdToken: " + user.getIdToken());
+            Log.d(TAG, "chatMeta.getChatToken: " + chatMeta.getChatToken());
+            Log.d(TAG, "chatMeta.getPostToken: " + chatMeta.getPostToken());
+        }*/
+
+
         matchCancel = findViewById(R.id.chat_activity_match_cancel);
         matchConfirm.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -89,6 +100,7 @@ public class ChattingActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
+                //chatMeta.getChatToken()==userToken
                 buttonChange("enable");
                 setPost("enable");
                 Toast.makeText(ChattingActivity.this, "경기가 취소되었습니다", Toast.LENGTH_SHORT).show();

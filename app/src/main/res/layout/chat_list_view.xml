@@ -118,7 +118,7 @@
                             android:id="@+id/ivCalanIcon"
                             android:layout_width="50dp"
                             android:layout_height="match_parent"
-                            android:padding="10dp"
+                            android:padding="15dp"
                             app:srcCompat="@drawable/calendar" />
 
                         <TextView
@@ -144,7 +144,7 @@
                             android:id="@+id/ivChatIcon"
                             android:layout_width="50dp"
                             android:layout_height="match_parent"
-                            android:padding="10dp"
+                            android:padding="15dp"
                             app:srcCompat="@drawable/chat" />
 
                         <TextView

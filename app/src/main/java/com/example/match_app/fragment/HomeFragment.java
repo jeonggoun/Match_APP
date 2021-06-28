@@ -68,14 +68,11 @@ public class HomeFragment extends Fragment {
         context = container.getContext();
 
         textView = viewGroup.findViewById(R.id.home_user_email);
-        imageView = viewGroup.findViewById(R.id.homeImage);
 
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
         news_image[2] = viewGroup.findViewById(R.id.news_image3);
-        if (ImageUri != null)
-            imageView.setImageURI(ImageUri);
-        textView.setText(user.getEmailId());
+        textView.setText(user.getNickName() + "님 반갑습니다!");
 
         news_content_text[0] = viewGroup.findViewById(R.id.news_content_text1);
         news_content_text[1] = viewGroup.findViewById(R.id.news_content_text2);
@@ -288,8 +285,8 @@ public class HomeFragment extends Fragment {
     private String getTime(){
         long now = System.currentTimeMillis();
         Date date = new Date(now);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("★오늘의 경기★\n" + "yyyy" + "년 " + "MM" + "월 " + "dd"+"일 " +
-                                                                    "hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy" + "년 " + "MM" + "월 " + "dd"+"일 " +
+                                                                    "hh:mm" + "\n★오늘의 경기★");
         String getTime = dateFormat.format(date);
 
         //Log.d(TAG, "getTime: " + getTime);
