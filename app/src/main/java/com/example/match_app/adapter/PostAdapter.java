@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableResource;
+import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.fragment.SearchFragment;
@@ -49,14 +50,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
     ArrayList<PostDTO> dtos;
     Context context;
     LayoutInflater inflater;
-    SearchFragment fragment2;
 
-
-    public PostAdapter(ArrayList<PostDTO> dtos, Context context, SearchFragment fragment2) {
+    public PostAdapter(ArrayList<PostDTO> dtos, Context context) {
         this.dtos = dtos;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
-        this.fragment2 = fragment2;
     }
 
 
@@ -124,7 +122,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                                 firebaseDatabase.getReference("matchapp/Post/" + dto.getPostKey() ).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        fragment2.onNewIntent(200);
+                                        // 삭제시 메인액티비티 재실행 : Adapter는 액티비티가 아니므로 반드시 FLAG_ACTIVITY_NEW_TASK 추가
+                                        Intent mainIntent = new Intent(context, MainActivity.class);
+                                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                                Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                                                Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        mainIntent.putExtra("requestCode", 100);
+                                        context.startActivity(mainIntent);
+
                                         Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
