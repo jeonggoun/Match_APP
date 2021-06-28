@@ -1,6 +1,7 @@
 package com.example.match_app;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.example.match_app.adapter.ChatAdpter;
 import com.example.match_app.dto.ChattingDTO;
 import com.example.match_app.dto.MetaDTO;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.post.PostDetailActivity;
+import com.example.match_app.post.PostUpdateActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +65,8 @@ public class ChattingActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private DatabaseReference toRef;
     private DatabaseReference toRefMeta, userMeta, post;
-    private TextView tvChatPostTitle;
+    private TextView tvChatPostTitle, tvChatGame;
+    private LinearLayout chat_match_confirm_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +84,33 @@ public class ChattingActivity extends AppCompatActivity {
         btn_send = findViewById(R.id.btn_send);
         edt_chat = findViewById(R.id.edt_chat);
         tvChatPostTitle = findViewById(R.id.tvChatPostTitle);
+        tvChatGame = findViewById(R.id.tvChatGame);
 
         matchConfirm = findViewById(R.id.chat_activity_match_confirm);
+        chat_match_confirm_layout = findViewById(R.id.chat_match_confirm_layout);
 
-        //todo 채팅 확정은 글을 쓴 사람만 할 수 있게 바꾸기
-        /*if(user.getIdToken().equals(chatMeta.getChatToken())){  //*
+        //dto.writerToken == chatMeta.chatToken 이거로 하면 됨 글쓴이만 경기 확정 할 수 있게
+        Log.d(TAG, "user.getIdToken: " + user.getIdToken());
+        Log.d(TAG, "chatMeta.getChatToken: " + chatMeta.getChatToken());
+        //todo 경기 확정은 글을 쓴 사람만 할 수 있게 바꾸기 → 대충 된 거 같음
+        if(user.getIdToken().equals(chatMeta.getChatToken())){
             chat_match_confirm_layout.setVisibility(View.VISIBLE);
-            Log.d(TAG, "user.getIdToken: " + user.getIdToken());
-            Log.d(TAG, "chatMeta.getChatToken: " + chatMeta.getChatToken());
-            Log.d(TAG, "chatMeta.getPostToken: " + chatMeta.getPostToken());
-        }*/
+        }
 
         tvChatPostTitle.setText(chatMeta.getTitle());
+        tvChatGame.setText(chatMeta.getGame());
 
+
+        //todo
+        //이동 버튼 누르면 해당하는 post detail 페이지로 이동
+        findViewById(R.id.btnChatPost).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChattingActivity.this, PostUpdateActivity.class);
+                //intent.putExtra("", );
+                startActivity(intent);
+            }
+        });
 
         matchCancel = findViewById(R.id.chat_activity_match_cancel);
         matchConfirm.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +122,7 @@ public class ChattingActivity extends AppCompatActivity {
                 Toast.makeText(ChattingActivity.this, "경기가 확정되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
+
         matchCancel.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override

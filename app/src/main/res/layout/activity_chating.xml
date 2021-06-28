@@ -11,6 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -34,14 +36,15 @@
             android:layout_margin="5dp"
             android:layout_weight="8"
             android:gravity="center_vertical"
-            android:text="글 제목" />
+            android:text="글 제목"
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnChatPage"
+            android:id="@+id/btnChatPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="포스트로 이동"
+            android:text="이동"
             app:backgroundTint="#051B37" />
     </LinearLayout>
 
@@ -49,6 +52,8 @@
         android:id="@+id/chat_match_confirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
