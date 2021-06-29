@@ -127,28 +127,36 @@ public class IntroActivity extends AppCompatActivity {
                         user = dto;
                         memberDTO = dataSnapshot.getValue(MemberDTO.class);
 
-
                         if (memberDTO.getChecked1() != null) {
                             ArrayList<Boolean> chked1 = new ArrayList<>();
                             String[] checked1 = memberDTO.getChecked1().trim().split(" ");
-                            for (int i=0; i<checked1.length; i++) {
+                            for (int i = 0; i < checked1.length; i++) {
                                 chked1.add(Boolean.parseBoolean(checked1[i]));
                             }
                             favoriteDTO.setChked1(chked1);
 
                             ArrayList<Boolean> chked2 = new ArrayList<>();
                             String[] checked2 = memberDTO.getChecked2().trim().split(" ");
-                            for (int i=0; i<checked2.length; i++) {
+                            for (int i = 0; i < checked2.length; i++) {
                                 chked2.add(Boolean.parseBoolean(checked2[i]));
                             }
                             favoriteDTO.setChked2(chked2);
 
                             ArrayList<Boolean> chked3 = new ArrayList<>();
                             String[] checked3 = memberDTO.getChecked3().trim().split(" ");
-                            for (int i=0; i<checked3.length; i++) {
+                            for (int i = 0; i < checked3.length; i++) {
                                 chked3.add(Boolean.parseBoolean(checked3[i]));
                             }
                             favoriteDTO.setChked3(chked3);
+                        }
+
+                        if (memberDTO.getKeyWord() != null) {
+                            ArrayList<String> keyword = new ArrayList<>();
+                            String[] keyw = memberDTO.getKeyWord().trim().split(" ");
+                            for (int i = 0; i < keyw.length; i++) {
+                                keyword.add(keyw[i]);
+                            }
+                            favoriteDTO.setKeyword(keyword);
                         }
 
 

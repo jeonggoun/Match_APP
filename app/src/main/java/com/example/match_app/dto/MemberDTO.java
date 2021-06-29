@@ -23,6 +23,15 @@ public class MemberDTO {
     private String checked1;
     private String checked2;
     private String checked3;
+    private String keyWord;
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
 
     public String getChecked1() { return checked1; }
     public void setChecked1(String checked1) {

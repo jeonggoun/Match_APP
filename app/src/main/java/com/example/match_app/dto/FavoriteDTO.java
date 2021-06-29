@@ -6,6 +6,15 @@ public class FavoriteDTO {
     private ArrayList<Boolean> chked1;
     private ArrayList<Boolean> chked2;
     private ArrayList<Boolean> chked3;
+    private ArrayList<String> keyword;
+
+    public ArrayList<String> getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(ArrayList<String> keyword) {
+        this.keyword = keyword;
+    }
 
     public FavoriteDTO() {
     }

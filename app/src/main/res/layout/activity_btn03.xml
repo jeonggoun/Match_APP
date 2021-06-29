@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".etc.Btn03">
 
+    <TextView
+        android:id="@+id/tv_now2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="24dp"
+        android:text="이벤트 내역"
+        android:textColor="#1865C4"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_back2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
     <ImageView
         android:id="@+id/iv_back2"
         android:layout_width="wrap_content"
@@ -33,12 +46,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:text="선택한 카테고리의 게시글만 홈에서 보이고,\n키워드 알림을 받을 수 있어요."
+        android:text="초대한 친구가 가입을 하면 두 사람 모두 모모를 1개 받아요.\n모모 3개마다 소정의 상품을 드려요."
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_back2" />
+
+
+    <TextView
+        android:id="@+id/tv_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="24dp"
+        android:text="모모 리워드"
+        android:textColor="#1865C4"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_back2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_auth02" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -49,7 +75,7 @@
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_auth02">
+        app:layout_constraintTop_toBottomOf="@+id/tv_now">
 
         <Button
             android:id="@+id/versus01"
@@ -90,6 +116,41 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="#FFCCC8C8"
+        app:layout_constraintBottom_toTopOf="@+id/tv_now"
+        app:layout_constraintTop_toBottomOf="@+id/tv_auth02" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#FFCCC8C8"
+        app:layout_constraintBottom_toTopOf="@+id/tv_now2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#E4E4E4"
+        android:text="\n\t1. 이벤트 종료일은 21-07-13 입니다.
+        \n\t2. 모모를 받기 위해서는 친구가 내 초대 URL을 통해서 설치와 가입 절차를 진행해야 합니다.
+        \n\t3. 초대하기 관련하여 문의사항이 있으신 분은 @여기@ 를 누르셔서 문의해주세요!"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="410dp"
+        android:layout_height="267dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_now2"></LinearLayout>
+
     <!--app:layout_constraintBottom_toTopOf="@+id/image_logo"-->
 </androidx.constraintlayout.widget.ConstraintLayout>

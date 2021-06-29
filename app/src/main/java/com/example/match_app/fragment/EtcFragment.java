@@ -144,8 +144,6 @@ public class EtcFragment extends Fragment {
         btn_04.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent nextIntent = new Intent(getActivity(), Btn04.class);
-                //startActivity(nextIntent);
 
                 try {
                     Intent intent = new Intent(Intent.ACTION_SEND);
@@ -184,9 +182,6 @@ public class EtcFragment extends Fragment {
             }
         });
 
-
-
-
         mDatabaseRef.orderByKey().equalTo(uid).addChildEventListener(new ChildEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -211,10 +206,6 @@ public class EtcFragment extends Fragment {
     private void getFireBaseProfileImage() {
         downloadImg();
     }
-
-    /*private void downloadImg2() {
-        Glide.with(getContext()).load(Environment.DIRECTORY_PICTURES + "/momo_img/" +uid+ ".jpg").into(iv_profile);
-    }*/
 
     private void downloadImg() {
         storageRef = FirebaseStorage.getInstance().getReference("matchapp/profileImg");
