@@ -144,8 +144,19 @@ public class EtcFragment extends Fragment {
         btn_04.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextIntent = new Intent(getActivity(), Btn04.class);
-                startActivity(nextIntent);
+                //Intent nextIntent = new Intent(getActivity(), Btn04.class);
+                //startActivity(nextIntent);
+
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "share test");
+                    String shareMessage = "모모의 세상에 초대합니다. http://localhost:8989/momo/";
+                    intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(intent, "share by"));
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "에러 발생", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_05 = viewGroup.findViewById(R.id.btn05);

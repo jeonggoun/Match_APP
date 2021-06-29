@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.match_app.Common.GetKeyHash;
+import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.login.Login00Activity;
 import com.github.ybq.android.spinkit.style.Wave;
@@ -28,6 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.MainActivity.user;
 public class IntroActivity extends AppCompatActivity {
@@ -40,6 +44,8 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        favoriteDTO = new FavoriteDTO();
+
 
         mAuth = FirebaseAuth.getInstance();
         Log.e("GR_KeyHash",CommonFunction.getKeyHash(this));
@@ -120,6 +126,31 @@ public class IntroActivity extends AppCompatActivity {
                     if(dto.getIdToken().equals(token)) {
                         user = dto;
                         memberDTO = dataSnapshot.getValue(MemberDTO.class);
+
+
+                        if (memberDTO.getChecked1() != null) {
+                            ArrayList<Boolean> chked1 = new ArrayList<>();
+                            String[] checked1 = memberDTO.getChecked1().trim().split(" ");
+                            for (int i=0; i<checked1.length; i++) {
+                                chked1.add(Boolean.parseBoolean(checked1[i]));
+                            }
+                            favoriteDTO.setChked1(chked1);
+
+                            ArrayList<Boolean> chked2 = new ArrayList<>();
+                            String[] checked2 = memberDTO.getChecked2().trim().split(" ");
+                            for (int i=0; i<checked2.length; i++) {
+                                chked2.add(Boolean.parseBoolean(checked2[i]));
+                            }
+                            favoriteDTO.setChked2(chked2);
+
+                            ArrayList<Boolean> chked3 = new ArrayList<>();
+                            String[] checked3 = memberDTO.getChecked3().trim().split(" ");
+                            for (int i=0; i<checked3.length; i++) {
+                                chked3.add(Boolean.parseBoolean(checked3[i]));
+                            }
+                            favoriteDTO.setChked3(chked3);
+                        }
+
 
                         new Handler().postDelayed(new Runnable() {
                             @Override

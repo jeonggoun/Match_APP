@@ -5,10 +5,12 @@ import android.net.Uri;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.net.URI;
+import java.util.ArrayList;
 
 // 사용자 계정 정보 모델 클래스
-public class MemberDTO implements Serializable {
+public class MemberDTO {
     private String idToken;     // Firebase Uid (고유 토큰 정보)
     private String emailId;
     private String phoneNumber;
@@ -18,6 +20,26 @@ public class MemberDTO implements Serializable {
     private String fileName, filePath;
     private String sports;
     private int changed;
+    private String checked1;
+    private String checked2;
+    private String checked3;
+
+    public String getChecked1() { return checked1; }
+    public void setChecked1(String checked1) {
+        this.checked1 = checked1;
+    }
+    public String getChecked2() {
+        return checked2;
+    }
+    public void setChecked2(String checked2) {
+        this.checked2 = checked2;
+    }
+    public String getChecked3() {
+        return checked3;
+    }
+    public void setChecked3(String checked3) {
+        this.checked3 = checked3;
+    }
 
     public MemberDTO() {
     }

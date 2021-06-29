@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match_app.R;
+import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.MainActivity.user;
 
@@ -43,12 +45,6 @@ public class Login04Activity extends AppCompatActivity {
     private Uri file;
 
     private ImageView iv_back;
-
-/*    private ConstraintLayout cblay_01,cblay_02,cblay_03,cblay_04,cblay_05,cblay_06,cblay_07,cblay_08,cblay_09,cblay_10
-            ,cblay_11,cblay_12,cblay_13,cblay_14,cblay_15,cblay_16,cblay_17,cblay_18,cblay_19,cblay_20
-            ,cblay_21,cblay_22,cblay_23,cblay_24,cblay_25 ;
-    private CheckBox[] cb_01,cb_02,cb_03,cb_04,cb_05,cb_06,cb_07,cb_08,cb_09,cb_10,cb_11,cb_12,cb_13,cb_14,cb_15,cb_016
-            ,cb_17,cb_18,cb_19,cb_20,cb_21,cb_22,cb_23,cb_24,cb_25;*/
 
     private ConstraintLayout[] cblays;
     private CheckBox[] cbs;
@@ -67,7 +63,6 @@ public class Login04Activity extends AppCompatActivity {
         tvs = new TextView[24];
 
 
-
         int[] cblaysId = {R.id.cblay_01, R.id.cblay_02, R.id.cblay_03,R.id.cblay_04,R.id.cblay_05,R.id.cblay_06,R.id.cblay_07,R.id.cblay_08,R.id.cblay_09,R.id.cblay_10,
                         R.id.cblay_11,R.id.cblay_12,R.id.cblay_13,R.id.cblay_14,R.id.cblay_15,R.id.cblay_16,R.id.cblay_17,R.id.cblay_18,R.id.cblay_19,R.id.cblay_20,
                         R.id.cblay_21,R.id.cblay_22,R.id.cblay_23,R.id.cblay_24};
@@ -83,7 +78,6 @@ public class Login04Activity extends AppCompatActivity {
         String[] sports = new String[]{ "육상", "야구", "배구", "테니스", "볼링", "배드민턴", "육상", "체조", "헬스", "수영",
                                         "유도", "레슬링", "복싱", "사격", "사이클", "스쿼시", "승마", "카누", "e스포츠", "스케이팅",
                                         "익스트림", "레이싱", "등산", "전체"};
-
 
         for(int i = 0; i < 24; i++){
             this.cblays[i] = findViewById(cblaysId[i]);
@@ -142,27 +136,9 @@ public class Login04Activity extends AppCompatActivity {
                 finish();
             }
         });
-//-------------------------------------------------------------------------------------------------
-
-/*         for (int i=0; i<25; i++) {
-
-            if (i < 10) {
-                cblay+i = findViewById(cblay[i]);
-                cb_01 = findViewById(R.id.cb01);
-                cblay_01.setOnClickListener(new View.OnClickListener() {
-                    int checking = 0;
-                    @Override
-                    public void onClick(View v) {
-                        if (cb_01.isChecked() == false) {
-                            cb_01.setChecked(true);
-                        }else {
-                            cb_01.setChecked(false);
-                        }
-                    }
-                });
-            }
-        }*/
     }
+
+    //-------------------------------------------------------------------------------------------------
 
     // layout 클릭리스너
     private View.OnClickListener layoutListener = new View.OnClickListener() {

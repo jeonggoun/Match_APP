@@ -4,6 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".etc.Btn01">
+    tools:context=".etc.Btn03">
 
+    <ImageView
+        android:id="@+id/iv_back2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_fragTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="친구초대"
+        android:textColor="#1865C4"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_back2"
+        app:layout_constraintTop_toTopOf="@+id/iv_back2" />
+
+    <TextView
+        android:id="@+id/tv_auth02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="선택한 카테고리의 게시글만 홈에서 보이고,\n키워드 알림을 받을 수 있어요."
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_back2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_auth02">
+
+        <Button
+            android:id="@+id/versus01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:drawableTop="@drawable/no11"
+            android:text="첫번째"
+            android:textColor="#000000"
+            app:backgroundTint="#FFFFFF"></Button>
+
+        <Button
+            android:id="@+id/versus02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:drawableTop="@drawable/no12"
+            android:text="두번째"
+            android:textColor="#000000"
+            app:backgroundTint="#FFFFFF"></Button>
+
+        <Button
+            android:id="@+id/versus03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:drawableTop="@drawable/no13"
+            android:text="세번째"
+            android:textColor="#000000"
+            app:backgroundTint="#FFFFFF"></Button>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#FFCCC8C8"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <!--app:layout_constraintBottom_toTopOf="@+id/image_logo"-->
 </androidx.constraintlayout.widget.ConstraintLayout>

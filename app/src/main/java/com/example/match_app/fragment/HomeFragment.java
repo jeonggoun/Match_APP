@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.match_app.Common.CommonMethod;
 import com.example.match_app.R;
 import com.example.match_app.dto.NewsDTO;
 import com.example.match_app.post.PostWriteActivity;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
         news_image[2] = viewGroup.findViewById(R.id.news_image3);
-        textView.setText(user.getNickName() + "님 반갑습니다!");
+        textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
 
         news_content_text[0] = viewGroup.findViewById(R.id.news_content_text1);
         news_content_text[1] = viewGroup.findViewById(R.id.news_content_text2);
