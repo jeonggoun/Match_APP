@@ -106,6 +106,8 @@ public class Btn02 extends AppCompatActivity {
                 }
                 memberDTO.setKeyWord(sB1.toString());
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
+
+                finish();
             }
         });
     }

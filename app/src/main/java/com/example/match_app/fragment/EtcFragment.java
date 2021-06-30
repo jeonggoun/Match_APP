@@ -3,6 +3,7 @@ package com.example.match_app.fragment;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -86,7 +87,9 @@ public class EtcFragment extends Fragment {
         tv_local = viewGroup.findViewById(R.id.tv_local);
         tv_nick.setText(memberDTO.getNickName());
         tv_local.setText(memberDTO.getAddress());
-
+        if (memberDTO.getFileName()!=uid+".jpg"){
+            iv_profile.setImageResource(R.drawable.ic_profile);
+        }
         btn_profile = viewGroup.findViewById(R.id.btn_profile);
         btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +97,14 @@ public class EtcFragment extends Fragment {
                 sendToProfile();
             }
         });
+
+        iv_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
         lL_matchlist = viewGroup.findViewById(R.id.lL_matchlist);
         lL_matchlist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,7 +265,7 @@ public class EtcFragment extends Fragment {
                 public void run() {
                     refresh();
                 }
-            },1000);
+            },1500);
 
         }
     }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.match_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MatchListActivity extends AppCompatActivity {
     private static final String TAG = "MatchListActivity : ";
@@ -26,6 +28,8 @@ public class MatchListActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
+
+    TextView tv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,36 +40,28 @@ public class MatchListActivity extends AppCompatActivity {
         mDatabaseRefAccount = FirebaseDatabase.getInstance().getReference("matchapp/UserAccount");
         mDatabaseRefPost = FirebaseDatabase.getInstance().getReference("matchapp/Post");
 
+        tv1 = findViewById(R.id.tv1);
 
-        Query myPost = mDatabaseRefPost.child("user-posts").orderByChild("writerToken").equalTo(uid);
-        Task<DataSnapshot> post= myPost.get();
+        Query myPost = mDatabaseRefPost.orderByChild("writerToken").equalTo(uid);
 
-        Log.d(TAG, "onCreate: "+post);
-
-        myPost.addChildEventListener(new ChildEventListener() {
+        myPost.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    Log.d("testaa", "onDataChange: " + ds.getValue());
+                    Log.d("testaa", "onDataChange: " + ds.getKey());
 
-            }
+                    String title = ds.child("title").getValue(String.class);
+                    Log.d("testaa", "onDataChange: " + title);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    tv1.append(title);
 
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d("testaa", "onCancelled: 오류남 " + error.toString());
             }
         });
 

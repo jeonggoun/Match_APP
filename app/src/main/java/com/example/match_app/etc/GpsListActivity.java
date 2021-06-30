@@ -103,7 +103,7 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
     private void getNeighbor() {
         if (memberDTO.getLatitude()-0.03 < latitude && memberDTO.getLatitude()+0.03 > latitude &&
                 memberDTO.getLongitude()-0.03 < longitude && memberDTO.getLongitude()+0.03 > longitude) {
-            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"</B>"+"' 근처에 있어요. 인증되었습니다."));
+            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"</B>"+"' 근처에 있어요. \n인증되었습니다."));
             memberDTO.setAddrAuth(true);
             finish.setVisibility(View.GONE);
             finish2.setVisibility(View.VISIBLE);
