@@ -24,6 +24,15 @@ public class MemberDTO {
     private String checked2;
     private String checked3;
     private String keyWord;
+    private boolean addrAuth;
+
+    public boolean isAddrAuth() {
+        return addrAuth;
+    }
+
+    public void setAddrAuth(boolean addrAuth) {
+        this.addrAuth = addrAuth;
+    }
 
     public String getKeyWord() {
         return keyWord;

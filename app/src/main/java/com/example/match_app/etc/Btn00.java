@@ -1,9 +1,4 @@
-package com.example.match_app.login;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+package com.example.match_app.etc;
 
 import android.Manifest;
 import android.content.Context;
@@ -24,13 +19,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.login.Login04Activity;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +44,7 @@ import java.util.List;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
 
 
-public class Login03Activity extends AppCompatActivity implements OnMapReadyCallback {
+public class Btn00 extends AppCompatActivity implements OnMapReadyCallback {
     private TextView button1;
     private ListView addr_list;
     private double longitude=0, latitude = 0;
@@ -60,7 +60,7 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login03);
+        setContentView(R.layout.activity_btn00);
         checkDangerousPermissions();
         button1 = findViewById(R.id.button1);
         addr_list = findViewById(R.id.addr_list);
@@ -140,19 +140,11 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void sendToNext() {
-        Intent nextIntent = new Intent(Login03Activity.this, Login04Activity.class);
-
-        memberDTO = new MemberDTO();
         memberDTO.setLatitude(latitude);
         memberDTO.setLongitude(longitude);
         memberDTO.setAddress(addr);
-        memberDTO.setEmailId("202-A");
-        memberDTO.setChanged(0);
-        memberDTO.setFileName(uid + ".jpg");
-        memberDTO.setFilePath("");
-        memberDTO.setAddrAuth(false);
-
-        startActivity(nextIntent);
+        mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
+        setResult(RESULT_OK);
         finish();
     }
 

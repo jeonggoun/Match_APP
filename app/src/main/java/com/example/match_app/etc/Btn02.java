@@ -52,7 +52,9 @@ public class Btn02 extends AppCompatActivity {
         StringBuilder sB1 = new StringBuilder();
         ArrayList<String> keyw = new ArrayList<>();
 
-        addChip();
+        if(favoriteDTO.getKeyword() != null) {
+            addChip();
+        }
 
         if (et_keyword.getText().toString() != "" && et_keyword.getText().length()<10) {
             tv_addKeyword.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +86,13 @@ public class Btn02 extends AppCompatActivity {
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 List<Integer> ids = chipGroup.getCheckedChipIds();
                 ArrayList<String> keyw = new ArrayList<>();
                 for (Integer id:ids) {
@@ -97,30 +106,27 @@ public class Btn02 extends AppCompatActivity {
                 }
                 memberDTO.setKeyWord(sB1.toString());
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
-
-                finish();
             }
         });
-
     }
 
     private void addChip() {
-        for (int i = 0; i<favoriteDTO.getKeyword().size(); i++) {
-            Chip chip = new Chip(Btn02.this);
-            chip.setText(favoriteDTO.getKeyword().get(i));
-            chip.setCloseIconVisible(true);
-            chip.setCloseIconResource(R.drawable.clear);
-            chip.setCheckable(true);
-            chip.setChecked(true);
-            chip.setCheckedIconVisible(false);
-            chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    chipGroup.removeView(chip);
-                }
-            });
-            chipGroup.addView(chip);
-            chipGroup.setVisibility(View.VISIBLE);
-        }
+            for (int i = 0; i < favoriteDTO.getKeyword().size(); i++) {
+                Chip chip = new Chip(Btn02.this);
+                chip.setText(favoriteDTO.getKeyword().get(i));
+                chip.setCloseIconVisible(true);
+                chip.setCloseIconResource(R.drawable.clear);
+                chip.setCheckable(true);
+                chip.setChecked(true);
+                chip.setCheckedIconVisible(false);
+                chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        chipGroup.removeView(chip);
+                    }
+                });
+                chipGroup.addView(chip);
+                chipGroup.setVisibility(View.VISIBLE);
+            }
     }
 }

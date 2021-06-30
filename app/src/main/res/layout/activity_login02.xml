@@ -127,45 +127,45 @@
         android:id="@+id/tv_auth05"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:text="경고창"
         android:textColor="#1865C4"
         android:textSize="14sp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/auth_finish"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_auth_enter" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/auth_finish"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="28dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/bg_custom_button01"
         android:gravity="center"
         android:padding="16dp"
         android:text="인증완료"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_auth05" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_auth_enter" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.match_app.Common.TimerView
         android:id="@+id/timer"

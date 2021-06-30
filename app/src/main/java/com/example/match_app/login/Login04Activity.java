@@ -19,6 +19,7 @@ import com.example.match_app.R;
 import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,6 +40,9 @@ public class Login04Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
     private StorageReference storageRef;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     private String filename;  //ex) profile1.jpg 로그인하는 사람에 따라 그에 식별값에 맞는 프로필 사진 가져오기
     private String filepath;

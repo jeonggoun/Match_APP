@@ -45,8 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="모모를 좀 더 잘 이용하기 위해 꼼꼼이 작성해주세요"
         android:textColor="#1865C4"
         android:textSize="14sp"
@@ -58,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="32dp"
         android:text="선호 종목 (복수 허용)"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +67,7 @@
         android:id="@+id/image_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_auth04">
@@ -87,9 +86,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_01"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -97,8 +96,8 @@
                         android:id="@+id/cb01"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:button="@android:color/transparent"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         android:gravity="center"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -116,19 +115,19 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_02"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_01"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb02"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:checked="true"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -145,18 +144,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_03"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_02"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb03"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -173,18 +172,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_04"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_03"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb04"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -210,18 +209,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_05"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb05"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         android:gravity="center"
 
                         app:layout_constraintStart_toStartOf="parent"
@@ -240,18 +239,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_06"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_05"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb06"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -268,18 +267,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_07"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_06"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb07"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -289,26 +288,26 @@
                         android:layout_height="30dp"
                         android:gravity="center"
                         android:text="7"
-                        android:textSize="13sp"
                         android:textColor="@color/black"
+                        android:textSize="13sp"
                         app:layout_constraintStart_toEndOf="@+id/cb07"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_08"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_07"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb08"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -334,18 +333,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_09"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb09"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         android:gravity="center"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -363,18 +362,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_10"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_09"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb10"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -391,18 +390,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_11"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_10"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb11"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -419,18 +418,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_12"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_11"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb12"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -455,18 +454,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_13"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb13"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         android:gravity="center"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -484,18 +483,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_14"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_13"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb14"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -512,18 +511,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_15"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_14"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb15"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -540,18 +539,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_16"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_15"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
                         android:id="@+id/cb16"
-                        android:button="@android:color/transparent"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/checkbox"
+                        android:button="@android:color/transparent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -577,9 +576,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_17"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -606,9 +605,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_18"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_17"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -634,9 +633,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_19"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_18"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -662,9 +661,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_20"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_19"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -697,9 +696,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_21"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -727,9 +726,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_22"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_21"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -755,9 +754,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_23"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_22"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -783,9 +782,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cblay_24"
-                    android:layout_margin="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cblay_23"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -820,7 +819,7 @@
         android:id="@+id/et_01"
         android:layout_width="343dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -831,17 +830,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="48dp"
         android:layout_marginEnd="28dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/bg_custom_button01"
         android:gravity="center"
         android:padding="16dp"
         android:text="다음"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_01" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

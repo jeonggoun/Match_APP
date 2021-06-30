@@ -29,6 +29,7 @@ import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.etc.Btn00;
 import com.example.match_app.etc.Btn01;
 import com.example.match_app.etc.Btn02;
 import com.example.match_app.etc.Btn03;
@@ -40,6 +41,7 @@ import com.example.match_app.etc.EtcProfileActivity;
 import com.example.match_app.etc.FavoriteListActivity;
 import com.example.match_app.etc.GpsListActivity;
 import com.example.match_app.etc.MatchListActivity;
+import com.example.match_app.login.Login03Activity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +72,7 @@ public class EtcFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private StorageReference storageRef;
     CircleImageView iv_profile;
-    Button lL_matchlist, lL_locationAuth, lL_favoritelist, btn_01, btn_02, btn_03, btn_04, btn_05, btn_06, btn_07;
+    Button lL_matchlist, lL_locationAuth, lL_favoritelist, btn_00, btn_01, btn_02, btn_03, btn_04, btn_05, btn_06, btn_07;
     TextView tv_nick, tv_local, btn_profile;
 
     @Override
@@ -116,6 +118,16 @@ public class EtcFragment extends Fragment {
                 startActivity(nextIntent);
             }
         });
+
+        btn_00 = viewGroup.findViewById(R.id.btn00);
+        btn_00.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(getActivity(), Btn00.class);
+                startActivityForResult(nextIntent,200);
+            }
+        });
+
         btn_01 = viewGroup.findViewById(R.id.btn01);
         btn_01.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,13 +241,13 @@ public class EtcFragment extends Fragment {
 
     private void sendToProfile() {
         Intent nextIntent = new Intent(getActivity(), EtcProfileActivity.class);
-        startActivityForResult(nextIntent,1);
+        startActivityForResult(nextIntent,200);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == 200) {
 
             new Handler().postDelayed(new Runnable() {
                 @Override

@@ -111,12 +111,12 @@ public class Btn01 extends AppCompatActivity {
                 StringBuilder sB1 = new StringBuilder();
                 StringBuilder sB2 = new StringBuilder();
                 StringBuilder sB3 = new StringBuilder();
+
                 for (int i=0; i<sports01.length; i++) memberDTO.setChecked1((sB1.append(favoriteDTO.getChked1().get(i).toString()+" ")).toString());
                 for (int i=0; i<sports02.length; i++) memberDTO.setChecked2((sB2.append(favoriteDTO.getChked2().get(i).toString()+" ")).toString());
                 for (int i=0; i<sports03.length; i++) memberDTO.setChecked3((sB3.append(favoriteDTO.getChked3().get(i).toString()+" ")).toString());
 
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
-
                 finish();
             }
 
