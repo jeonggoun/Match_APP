@@ -48,13 +48,10 @@ public class MatchListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    Log.d("testaa", "onDataChange: " + ds.getValue());
-                    Log.d("testaa", "onDataChange: " + ds.getKey());
+                    // ds.getValue() → 컬럼, ds.getKey() → 키값
 
                     String title = ds.child("title").getValue(String.class);
-                    Log.d("testaa", "onDataChange: " + title);
-
-                    tv1.append(title);
+                    tv1.append(title+"\n");
 
                 }
             }
