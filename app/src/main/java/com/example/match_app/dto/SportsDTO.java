@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import java.util.ArrayList;
 
 public class SportsDTO {
+
     String Sports;
     boolean Checked;
 

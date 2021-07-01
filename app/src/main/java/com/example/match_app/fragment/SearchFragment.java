@@ -25,12 +25,17 @@ import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.PostAdapter;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.dto.SportsDTO;
 import com.example.match_app.post.PostWriteActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -38,8 +43,9 @@ public class SearchFragment extends Fragment {
     private static final String TAG = "main: SearchFragment";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
-    //종목 데이터
-    private DatabaseReference databaseReference2;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
+
     MainActivity activity;
 
     //ListItem용
@@ -51,7 +57,7 @@ public class SearchFragment extends Fragment {
     EditText tvSearch;
     //콤보박스용 items
     //String itemString = "전체";
-    public static String[] items = {"전체", "축구", "농구", "테니스", "야구", "배구", "배드민턴", "볼링", "당구", "이스포츠", "기타"};
+    public static String[] items = null;
     Spinner spinner;
     String item = "전체";
     Context context;
@@ -60,6 +66,53 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
         context = container.getContext();
+
+        ArrayList<SportsDTO> dtox = new ArrayList<>();
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("matchapp/SportsClass").child(uid).orderByChild("checked").equalTo(true);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()) dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
+
+                items = new String[dtox.size()+1];
+                items[0] = "전체";                                          // 선호 종목들 넣기
+                for (int i=1; i<dtox.size()+1; i++) items[i] = dtox.get(i-1).getSports();
+
+                //spinner();
+                //스피너 찾아주기
+                spinner = viewGroup.findViewById(R.id.spinner);
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                //스피너에 어댑터 설정
+                spinner.setAdapter(arrayAdapter);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                        // 받은 어댑터에서 야구만 있는 어댑터를 만들어서 그어댑터를 setAdapter ?!
+                        if(!item.equals(items[position])) {
+                            item = items[position];
+//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                    ft.detach(SearchFragment.this).attach(SearchFragment.this).commit();
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
 //        databaseReference2 = firebaseDatabase.getReference("matchapp/Game");
         //itemString = "전체";
@@ -70,23 +123,14 @@ public class SearchFragment extends Fragment {
 
         recyclerView = viewGroup.findViewById(R.id.recyclerView);
         tvSearch = viewGroup.findViewById(R.id.tvSearch);
-//        // 리사이클러뷰에서 반드시 초기화 시켜야함
+        // 리사이클러뷰에서 반드시 초기화 시켜야함
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
         );
         recyclerView.setLayoutManager(layoutManager);
-//
-//        // 어댑터 객체를 생성한다
+
+        // 어댑터 객체를 생성한다
         adapter = new PostAdapter(dtos, getContext());
-//
-//        // 어댑터에 있는 ArrayList에 dto를 5개 추가한다
-//        ListItemDTO dto0 = new ListItemDTO(0, "테니스", "테니스 치실 분", "2021/5/26", "농성테니스장", "무료", "#");
-//        adapter.addDto(dto0);    //어디 DTO 받아올 건지 물어볼 예정
-//        databaseReference.push().setValue(dto0);
-//
-//        // 만든 어댑터를 리스트뷰에 붙인다
-//        recyclerView.setAdapter(adapter);
-        ////////
 
         //글작성 버튼 클릭시 화면전환
         btnWrite = viewGroup.findViewById(R.id.btnWrite);
@@ -95,34 +139,6 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PostWriteActivity.class);
                 startActivity(intent);
-            }
-        });
-        //spinner();
-        //스피너 찾아주기
-        spinner = viewGroup.findViewById(R.id.spinner);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, items);
-        arrayAdapter.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item);
-
-        //스피너에 어댑터 설정
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                // 받은 어댑터에서 야구만 있는 어댑터를 만들어서 그어댑터를 setAdapter ?!
-                if(!item.equals(items[position])) {
-                    item = items[position];
-//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                    ft.detach(SearchFragment.this).attach(SearchFragment.this).commit();
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -134,7 +150,6 @@ public class SearchFragment extends Fragment {
             }
         });
 
-
         showPostList();
         return viewGroup;
     }
@@ -142,7 +157,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         addItemsOnSpinner();
     }
 
@@ -167,13 +181,13 @@ public class SearchFragment extends Fragment {
                 PostDTO dto = dataSnapshot.getValue(PostDTO.class);
                 dto.setPostKey(dataSnapshot.getKey());
                 boolean check = true;
-                if(!item.isEmpty() && !item.equals("전체")){
+                if(!item.isEmpty() && !item.equals("전체")) {
                     if (!item.equals(dto.getGame()))
                         check = false;
                 }
                 if(!tvSearch.getText().toString().equals("")) {
                     String ss = dto.getTitle();
-                    if(!ss.contains(tvSearch.getText().toString())){
+                    if(!ss.contains(tvSearch.getText().toString().trim())){
                         check = false;
                     }
                 }

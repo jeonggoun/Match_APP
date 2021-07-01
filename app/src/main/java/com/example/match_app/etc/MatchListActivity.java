@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,15 +40,18 @@ public class MatchListActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
-    private ListView listView;
-    private MyPostAdapter adapter;
+    private ListView listView1;
+    private MyPostAdapter adapter1, adapter2;
     private PostDTO selected;
+    private TextView tv_ing, tv_end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_list);
-        listView = findViewById(R.id.listView);
+        listView1 = findViewById(R.id.listView1);
+        tv_ing = findViewById(R.id.tv_ing);
+        tv_end = findViewById(R.id.tv_end);
 
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,8 @@ public class MatchListActivity extends AppCompatActivity {
         mDatabaseRefPost = FirebaseDatabase.getInstance().getReference("matchapp/Post");
 
         ArrayList<PostDTO> dto = new ArrayList<>();
+        ArrayList<PostDTO> dto1 = new ArrayList<>();
+        ArrayList<PostDTO> dto2 = new ArrayList<>();
 
         Query myPost = mDatabaseRefPost.orderByChild("writerToken").equalTo(uid);
         myPost.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,16 +76,40 @@ public class MatchListActivity extends AppCompatActivity {
                     // ds.getValue() → 컬럼, ds.getKey() → 키값
                     //String title = ds.child("title").getValue(String.class);
                     dto.add(ds.getValue(PostDTO.class));
+
+                    String matchConfirm = ds.child("matchConfirm").getValue(String.class);
+                    if (matchConfirm != "enable") dto1.add(ds.getValue(PostDTO.class));
+                    else dto2.add(ds.getValue(PostDTO.class));
                 }
 
-                adapter = new MyPostAdapter(dto, getApplicationContext());
-                listView.setAdapter(adapter);
+                adapter1 = new MyPostAdapter(dto1, getApplicationContext());
+                adapter2 = new MyPostAdapter(dto2, getApplicationContext());
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                listView1.setAdapter(adapter1); listView1.setVisibility(View.VISIBLE);
+
+                tv_ing.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tv_ing.setPaintFlags(tv_ing.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
+                        tv_end.setPaintFlags(0);
+                        listView1.setAdapter(adapter1);
+                    }
+                });
+
+                tv_end.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tv_end.setPaintFlags(tv_ing.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
+                        tv_ing.setPaintFlags(0);
+                        listView1.setAdapter(adapter2);
+                    }
+                });
+
+                listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                         selected = new PostDTO();
-                        selected = (PostDTO) dto.get(i);
+                        selected = (PostDTO) dto1.get(i);
                         Intent intent = new Intent(MatchListActivity.this, PostDetailActivity.class);
                         intent.putExtra("post", selected);
                         startActivity(intent);

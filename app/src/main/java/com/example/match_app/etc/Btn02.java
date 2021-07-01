@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LongDef;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,8 @@ public class Btn02 extends AppCompatActivity {
     TextView tv_addKeyword;
     ChipGroup chipGroup;
 
+    String[] keywords = new String[20];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +59,12 @@ public class Btn02 extends AppCompatActivity {
             addChip();
         }
 
-        if (et_keyword.getText().toString() != "" && et_keyword.getText().length()<10) {
-            tv_addKeyword.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        tv_addKeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_keyword.getText().length()<1) Toast.makeText(Btn02.this, "키워드를 입력해주세요. (예: 쥐불놀이)", Toast.LENGTH_SHORT).show();
+                else if (et_keyword.getText().length()>10) Toast.makeText(Btn02.this, "키워드 길이는 10자를 초과할 수 없습니다", Toast.LENGTH_SHORT).show();
+                else if (et_keyword.getText().toString() != "") {
                     keyw.add(et_keyword.getText().toString());
                     Chip chip = new Chip(Btn02.this);
                     chip.setText(et_keyword.getText().toString());
@@ -71,18 +76,17 @@ public class Btn02 extends AppCompatActivity {
                     chip.setOnCloseIconClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            chipGroup.removeView(chip);
-                        }
+                                chipGroup.removeView(chip);
+                            }
                     });
                     chipGroup.addView(chip);
                     chipGroup.setVisibility(View.VISIBLE);
-
                     et_keyword.setText("");
-
-
                 }
-            });
-        }
+            }
+        });
+
+
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

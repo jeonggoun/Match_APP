@@ -32,7 +32,7 @@ public class Btn01 extends AppCompatActivity {
 
     Button versus01, versus02, versus03;
     GridView gv1, gv2, gv3;
-    ArrayList<SportsDTO> items1, items2, items3;
+    ArrayList<SportsDTO> items1, items2, items3, items0;
     ArrayList<Boolean> chked01, chked02, chked03;
     SportsAdapter1 adapter1, adapter2, adapter3;
 
@@ -54,10 +54,12 @@ public class Btn01 extends AppCompatActivity {
         String[] sports02 = new String[]{ "축구", "농구", "배구", "핸드볼", "야구", "하키", "럭비", "족구", };
         String[] sports03 = new String[]{ "놀이공원", "곤충채집", "놀이공원", "등산", "익스트림", "번지점프", "승마", "피겨", "쇼트트랙", "마라톤", "경보", "수영", "헬스"};
 
+
         chked01 = new ArrayList<>();
         chked02 = new ArrayList<>();
         chked03 = new ArrayList<>();
 
+        items0 = new ArrayList<>();
         items1 = new ArrayList<>();
         items2 = new ArrayList<>();
         items3 = new ArrayList<>();
@@ -86,7 +88,6 @@ public class Btn01 extends AppCompatActivity {
         gv2.setAdapter(adapter2); gv2.setVisibility(View.GONE);
         gv3.setAdapter(adapter3); gv3.setVisibility(View.GONE);
 
-        versus01.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.versus11,0,0);
         gv1.setVisibility(View.VISIBLE);
 
         findViewById(R.id.finish).setOnClickListener(new View.OnClickListener() {
@@ -120,12 +121,22 @@ public class Btn01 extends AppCompatActivity {
                 for (int i=0; i<sports03.length; i++) memberDTO.setChecked3((sB3.append(favoriteDTO.getChked3().get(i).toString()+" ")).toString());
 
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
+
+                for (int i=0; i<items1.size(); i++) items0.add(items1.get(i));
+                for (int i=0; i<items2.size(); i++) items0.add(items2.get(i));
+                for (int i=0; i<items3.size(); i++) items0.add(items3.get(i));
+
+                mDatabaseRef.child("SportsClass").child(uid).setValue(items0);
                 finish();
             }
 
         });
 
+
+
         versus01 = findViewById(R.id.versus01);
+        versus01.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.versus11,0,0);
+
         versus01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
