@@ -9,7 +9,6 @@ public class PostDTO implements Serializable {
     String game, title, time, place, fee, imgPath, content, writer, writerToken;
     String latitude, longitude;
 
-
     public PostDTO() {
     }
 

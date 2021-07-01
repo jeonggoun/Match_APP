@@ -67,9 +67,9 @@ public class EtcFragment2 extends Fragment {
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
             context = parent.getContext();
-            if (convertView == null) {
+ /*           if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.icon_item, parent, false);
+                convertView = inflater.inflate(R.layout.row_mypost, parent, false);
             }
 
             ImageView imageView = convertView.findViewById(R.id.iv_icon);
@@ -77,7 +77,7 @@ public class EtcFragment2 extends Fragment {
 
             IconDTO dto = items.get(i);
             imageView.setImageResource(dto.getIconImage());
-            textView.setText(dto.getIconId());
+            textView.setText(dto.getIconId());*/
 
             return convertView;
         }

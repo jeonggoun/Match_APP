@@ -20,10 +20,8 @@ import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 
 public class SportsAdapter1 extends BaseAdapter {
 
-    ArrayList<FavoriteDTO> dtos;
     ArrayList<SportsDTO> items;
     Context context;
-    FavoriteDTO favoriteDTO;
 
     public SportsAdapter1(ArrayList<SportsDTO> items, Context context){
         this.items = items;

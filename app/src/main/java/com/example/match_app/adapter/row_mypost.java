@@ -12,16 +12,16 @@ import androidx.annotation.Nullable;
 import com.example.match_app.R;
 import com.example.match_app.dto.IconDTO;
 
-public class IconViewer extends LinearLayout {
+public class row_mypost extends LinearLayout {
     TextView tv_icon;
     ImageView iv_icon;
 
-    public IconViewer(Context context) {
+    public row_mypost(Context context) {
         super(context);
         init(context);
     }
 
-    public IconViewer(Context context, @Nullable AttributeSet attrs) {
+    public row_mypost(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
