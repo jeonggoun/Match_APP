@@ -28,7 +28,7 @@ public class IconViewer extends LinearLayout {
 
     public void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.icon_item,this,true);
+        inflater.inflate(R.layout.row_mypost,this,true);
     }
 
     public void setItem(IconDTO dto) {
