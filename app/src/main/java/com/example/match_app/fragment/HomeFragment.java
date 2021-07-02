@@ -68,12 +68,12 @@ public class HomeFragment extends Fragment {
 
         context = container.getContext();
 
-        textView = viewGroup.findViewById(R.id.home_user_email);
+        //textView = viewGroup.findViewById(R.id.home_user_email);
 
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
         news_image[2] = viewGroup.findViewById(R.id.news_image3);
-        textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
+        //textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
 
         news_content_text[0] = viewGroup.findViewById(R.id.news_content_text1);
         news_content_text[1] = viewGroup.findViewById(R.id.news_content_text2);

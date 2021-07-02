@@ -66,6 +66,11 @@ dependencies {
     implementation files('libs\\jsoup-1.13.1.jar')
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
+    //Okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
