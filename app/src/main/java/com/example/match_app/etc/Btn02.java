@@ -27,7 +27,7 @@ import java.util.List;
 
 import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
-
+import static com.example.match_app.Common.MyService.keywords;
 public class Btn02 extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;
@@ -40,8 +40,6 @@ public class Btn02 extends AppCompatActivity {
     EditText et_keyword;
     TextView tv_addKeyword;
     ChipGroup chipGroup;
-
-    String[] keywords = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +108,8 @@ public class Btn02 extends AppCompatActivity {
                 }
                 memberDTO.setKeyWord(sB1.toString());
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
+                keywords = new String[keyw.size()];
+                keywords = (String[]) keyw.toArray(keywords);
 
                 finish();
             }
