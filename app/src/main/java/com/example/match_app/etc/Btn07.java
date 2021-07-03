@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +17,9 @@ import com.example.match_app.login.Login00Activity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static com.example.match_app.Common.CommonMethod.memberDTO;
 
 public class Btn07 extends AppCompatActivity {
 
@@ -32,8 +36,24 @@ public class Btn07 extends AppCompatActivity {
         setContentView(R.layout.activity_btn07);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRefAccount = FirebaseDatabase.getInstance().getReference("matchapp");
+
+        TextView tv_number = findViewById(R.id.tv_number);
+        TextView tv_email = findViewById(R.id.tv_email);
+
+        String phone =memberDTO.getPhoneNumber().toString().replace("+82","0");
+
+        tv_email.setText(memberDTO.getEmailId());
+        tv_number.setText(phone);
 
 
+
+        findViewById(R.id.email_reg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
         findViewById(R.id.btn_logOut).setOnClickListener(new View.OnClickListener() {
@@ -95,3 +115,4 @@ public class Btn07 extends AppCompatActivity {
         });
     }
 }
+

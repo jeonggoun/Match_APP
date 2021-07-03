@@ -57,12 +57,16 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         notificationManager.createNotificationChannel(notificationChannel);
     }
 
-    private void showNotification(String title, String body) {
+    public void showNotification(String title, String body) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, IntroActivity.class);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
-                .setContentTitle(title).setContentText(body).setSmallIcon(R.mipmap.ic_launcher).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setAutoCancel(true).setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setAutoCancel(true)
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         notificationManager.notify(1,builder.build());
     }
 
