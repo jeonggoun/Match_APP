@@ -41,7 +41,7 @@ public class Btn02 extends AppCompatActivity {
     TextView tv_addKeyword;
     ChipGroup chipGroup;
 
-    String[] keywords = new String[20];
+    String[] keywords = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

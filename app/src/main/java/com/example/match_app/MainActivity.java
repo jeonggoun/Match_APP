@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.match_app.Common.MyService;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.fragment.ChatListFragment;
 import com.example.match_app.fragment.EtcFragment;
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.contain, fragment1).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navi);
-
+        Intent intent = new Intent(getApplicationContext(), MyService.class);
+        Log.d(TAG, "onChildAdded: 쏼라 aabbccddd");
+        startService(intent);
         //하단 네비게이션바
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

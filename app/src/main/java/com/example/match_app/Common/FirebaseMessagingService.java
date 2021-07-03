@@ -69,38 +69,4 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         notificationManager.notify(1,builder.build());
     }
-
-    //    @Override
-//    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-//        //super.onMessageReceived(remoteMessage);
-//
-//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-//            @Override
-//            public void onComplete(@NonNull Task<String> task) {
-//                if(!task.isSuccessful()) return;
-//                String token = task.getResult();
-//                Log.d(TAG, "msgToken"+token);
-//            }
-//        });
-//
-//        Log.e(TAG, "onMessageReceived");
-//        title = remoteMessage.getNotification().getTitle();
-//        msg = remoteMessage.getNotification().getBody();
-//
-//        Intent intent = new Intent(this, IntroActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 찾아보기
-//
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, IntroActivity.class),0);
-//
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle(title).setContentText(msg).setAutoCancel(true).setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//                .setVibrate(new long[]{1, 1000});
-//
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.notify(0,mBuilder.build());
-//
-//        mBuilder.setContentIntent(contentIntent);
-//    }
-
-
 }

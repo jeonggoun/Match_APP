@@ -75,10 +75,13 @@ public class SearchFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()) dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
 
-                items = new String[dtox.size()+1];
-                items[0] = "전체";                                          // 선호 종목들 넣기
-                for (int i=1; i<dtox.size()+1; i++) items[i] = dtox.get(i-1).getSports();
-
+                if (dtox != null) {
+                    items = new String[dtox.size()+1];
+                    items[0] = "전체";                                          // 선호 종목들 넣기
+                    for (int i=1; i<dtox.size()+1; i++) items[i] = dtox.get(i-1).getSports();
+                }else {
+                    items = new String[]{"전체", "축구", "야구", "농구", "배구"};
+                }
                 //spinner();
                 //스피너 찾아주기
                 spinner = viewGroup.findViewById(R.id.spinner);

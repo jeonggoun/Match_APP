@@ -65,6 +65,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation files('libs\\jsoup-1.13.1.jar')
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-dynamic-links'
 
     //Okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'

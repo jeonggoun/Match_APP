@@ -2,11 +2,16 @@ package com.example.match_app.etc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,15 +25,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.optionDTO;
 
 public class Btn07 extends AppCompatActivity {
 
     private DatabaseReference mDatabaseRefAccount, mDatabaseRefPost;
     private FirebaseAuth firebaseAuth;
 
-
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
+
+    ToggleButton toggle_sound, toggle_vib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,44 @@ public class Btn07 extends AppCompatActivity {
         tv_email.setText(memberDTO.getEmailId());
         tv_number.setText(phone);
 
+        toggle_sound = findViewById(R.id.toggle_sound);
+        toggle_vib = findViewById(R.id.toggle_vib);
 
+        Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone rt = RingtoneManager.getRingtone(getApplicationContext(),notification);
+
+        toggle_vib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (toggle_vib.isChecked()) {
+                    vibrator.vibrate(500);
+                    optionDTO.setVib(true);
+                    Toast.makeText(Btn07.this, "진동 on", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(Btn07.this, "진동 off", Toast.LENGTH_SHORT).show();
+                    optionDTO.setVib(false);
+                    vibrator.cancel();
+                };
+            }
+        });
+
+        toggle_sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (toggle_sound.isChecked()) {
+                    optionDTO.setSound(true);
+                    rt.play();
+                    Toast.makeText(Btn07.this, "소리 on", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(Btn07.this, "소리 off", Toast.LENGTH_SHORT).show();
+                    optionDTO.setSound(true);
+                    rt.stop();
+                };
+            }
+        });
 
         findViewById(R.id.email_reg).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +157,7 @@ public class Btn07 extends AppCompatActivity {
                         .show();
             }
         });
+
     }
 }
 

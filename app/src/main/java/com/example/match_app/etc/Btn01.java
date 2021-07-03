@@ -127,6 +127,7 @@ public class Btn01 extends AppCompatActivity {
                 for (int i=0; i<items3.size(); i++) items0.add(items3.get(i));
 
                 mDatabaseRef.child("SportsClass").child(uid).setValue(items0);
+
                 finish();
             }
 

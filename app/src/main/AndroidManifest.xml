@@ -98,14 +98,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
-        <activity android:name=".etc.Btn00"></activity>
-        <activity android:name=".etc.Btn01"></activity>
-        <activity android:name=".etc.Btn02"></activity>
-        <activity android:name=".etc.Btn03"></activity>
-        <activity android:name=".etc.Btn04"></activity>
-        <activity android:name=".etc.Btn05"></activity>
-        <activity android:name=".etc.Btn06"></activity>
-        <activity android:name=".etc.Btn07"></activity>
+        <activity android:name=".etc.Btn07_2_authDelete"></activity>
+        <activity android:name=".etc.Btn07_1_Email" />
+        <activity android:name=".etc.Btn00" />
+        <activity android:name=".etc.Btn01" />
+        <activity android:name=".etc.Btn02" />
+        <activity android:name=".etc.Btn03" />
+        <activity android:name=".etc.Btn04" />
+        <activity android:name=".etc.Btn05" />
+        <activity android:name=".etc.Btn06" />
+        <activity android:name=".etc.Btn07" />
         <activity android:name=".etc.GpsListActivity" />
         <activity android:name=".etc.FavoriteListActivity" />
         <activity android:name=".etc.MatchListActivity" />
@@ -123,10 +125,18 @@
         <activity android:name=".post.PostMapActivity" />
         <activity android:name=".MainActivity" /> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
         <activity android:name=".IntroActivity"> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="example.com/link" android:scheme="http"/>
+                <data android:host="example.com/link" android:scheme="https"/>
+                <data
+                    android:host="example.com"
+                    android:scheme="https"/>
+
             </intent-filter>
         </activity> <!-- 구글맵 api key -->
         <!--
@@ -167,20 +177,25 @@
             android:name=".Common.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </service>
-
-        <!--- 안드로이드 8.0 이상 푸시 처리 추가 코드-->
-        <!--<meta-data
+        </service> <!-- - 안드로이드 8.0 이상 푸시 처리 추가 코드 -->
+        <!--
+<meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_push"/>-->
+            android:resource="@drawable/ic_push"/>
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent"/>
+            android:resource="@color/colorAccent" />
+        <service
+            android:name=".Common.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
 
 
     </application>
+
 
 </manifest>

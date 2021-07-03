@@ -3,6 +3,7 @@ package com.example.match_app;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,9 +21,12 @@ import androidx.core.content.ContextCompat;
 import com.example.match_app.Common.GetKeyHash;
 import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.OptionDTO;
 import com.example.match_app.login.Login00Activity;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,12 +35,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
 import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.optionDTO;
 import static com.example.match_app.MainActivity.user;
 public class IntroActivity extends AppCompatActivity {
     private static final String TAG = "IntroActivity MAIN : ";
@@ -48,6 +55,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
         favoriteDTO = new FavoriteDTO();
 
         mAuth = FirebaseAuth.getInstance();
@@ -58,6 +66,37 @@ public class IntroActivity extends AppCompatActivity {
         progressBar.setIndeterminateDrawable(wave);
         progressBar.bringToFront();
         iv_momo = findViewById(R.id.iv_momo);
+
+        OptionDTO optionDTO = new OptionDTO();
+        optionDTO.setSound(true);
+        optionDTO.setVib(true);
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+
+                        // Handle the deep link. For example, open the linked
+                        // content, or apply promotional credit to the user's
+                        // account.
+                        // ...
+
+                        // ...
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getDynamicLink:onFailure", e);
+                    }
+                });
+
     }
 
     private void checkDangerousPermissions() {

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.OptionDTO;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class CommonMethod {
 
     public static MemberDTO memberDTO = null;
     public static FavoriteDTO favoriteDTO = null;
+    public static OptionDTO optionDTO = null;
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
