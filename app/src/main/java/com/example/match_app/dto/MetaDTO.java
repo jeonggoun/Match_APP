@@ -3,8 +3,24 @@ package com.example.match_app.dto;
 import java.io.Serializable;
 
 public class MetaDTO implements Serializable {
-    String title, game, date, chatToken, postToken;
+    String title, game, date, chatToken, postToken, noty, metaKey;
     ChattingDTO recent;
+
+    public String getMetaKey() {
+        return metaKey;
+    }
+
+    public void setMetaKey(String metaKey) {
+        this.metaKey = metaKey;
+    }
+
+    public String getNoty() {
+        return noty;
+    }
+
+    public void setNoty(String noty) {
+        this.noty = noty;
+    }
 
     public String getPostToken() {
         return postToken;

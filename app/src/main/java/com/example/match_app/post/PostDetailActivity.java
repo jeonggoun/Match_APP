@@ -276,14 +276,16 @@ public class PostDetailActivity extends AppCompatActivity {
         meta.setTitle(postDTO.getTitle());
         meta.setDate(postDTO.getTime());
         meta.setGame(postDTO.getGame());
-        meta.setChatToken(dto.getWriterToken());
+        meta.setChatToken(user.getIdToken());
         meta.setPostToken(postDTO.getPostKey());
+        meta.setNoty("0");
         ChattingDTO chattingDTO = new ChattingDTO();
         chattingDTO.setNickname(user.getNickName());
         meta.setRecent(chattingDTO);
         databaseReference2 = firebaseDatabase.getReference(path+"/"+postDTO.getWriterToken());
         databaseReference2.child(user.getIdToken()).setValue(meta);
-        chattingDTO.setNickname(dto.getWriter());
+        meta.setChatToken(postDTO.getWriterToken());
+        chattingDTO.setNickname(postDTO.getWriter());
         databaseReference = firebaseDatabase.getReference(path+"/"+user.getIdToken());  // user가 존재하지 않아 동작하지 않음
         databaseReference.child(postDTO.getWriterToken()).setValue(meta);
 

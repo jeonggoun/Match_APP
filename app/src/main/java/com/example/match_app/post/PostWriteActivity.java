@@ -1,7 +1,5 @@
 package com.example.match_app.post;
 
-//todo 글 작성 후 새로고침
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;

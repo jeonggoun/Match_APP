@@ -43,6 +43,7 @@ public class PostDateActivity extends AppCompatActivity {
         datePicker.setMinDate(System.currentTimeMillis());
 
         Date tempDate = new Date();
+        tempDate.setYear(2021);
         date = new DecimalFormat("0000").format(tempDate.getYear()) + "/" +
                 new DecimalFormat("00").format(tempDate.getMonth() + 1)
                 + "/" + new DecimalFormat("00").format(tempDate.getDay());

@@ -85,7 +85,8 @@
                 android:layout_marginLeft="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_camera"
-                tools:layout_editor_absoluteY="37dp" />
+                tools:layout_editor_absolueY="37dp"
+                android:scaleType="fitXY"/>
 
 
             <EditText

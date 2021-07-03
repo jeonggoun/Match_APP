@@ -104,10 +104,20 @@ public class ChatListFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 MetaDTO dto = dataSnapshot.getValue(MetaDTO.class);
+                dto.setMetaKey(dataSnapshot.getKey());
                 adapter.addDto(dto);
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String key = dataSnapshot.getKey();
+                for(int i =0; i< adapter.getItemCount();i++){
+                    if(adapter.getItem(i).getMetaKey().equals(key)){
+                        MetaDTO dto = dataSnapshot.getValue(MetaDTO.class);
+                        dto.setMetaKey(dataSnapshot.getKey());
+                        adapter.setItem(i, dto);
+                    }
+                }
+            }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {            }
             @Override

@@ -29,6 +29,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     // 메인에서 넘겨 받는것
     ArrayList<MetaDTO> dtos;
+    ArrayList<ViewHolder> holders = new ArrayList<>();
     MetaDTO dto;
     Context context;
     LayoutInflater inflater;
@@ -55,10 +56,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + position);
 
-        dto = dtos.get(position);
+        MetaDTO dto = dtos.get(position);
         // 뷰홀더에 만들어 놓은 setDto에 선택된 dto를 넘긴다
         holder.setDto(dto);
-
+        holders.add(holder);
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,8 +106,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         }
     }
 
+    public void setItem(int position, MetaDTO dto){
+        dtos.set(position, dto);
+        holders.get(position).setDto(dto);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTitle, imageLayout, tvName, tvTime, tvPlace, tvFee;
+        TextView tvTitle, imageLayout, tvName, tvTime, tvPlace, tvFee, tvNoty;
         ImageView image;
         LinearLayout parentLayout, textLayout;
 
@@ -121,7 +127,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             tvName = itemView.findViewById(R.id.chat_tvName);
             tvTime = itemView.findViewById(R.id.chat_tvTime);
             tvPlace = itemView.findViewById(R.id.chat_tvRecent);
-
+            tvNoty = itemView.findViewById(R.id.chat_tvNoty);
+            tvNoty.setVisibility(View.GONE);
             // 3. 클릭리스너를 달아준다
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,8 +149,24 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             tvName.setText("'" + dto.getRecent().getNickname() + "' 님과의 채팅");
             if(dto.getRecent() != null) tvPlace.setText(dto.getRecent().getMsg());
             tvTime.setText(dto.getDate());
-
+            if(dto.getNoty() != null) {
+                if(!dto.getNoty().equals("0"))
+                    tvNoty.setVisibility(View.VISIBLE);
+                tvNoty.setText(dto.getNoty());
+            }
             //"전체", "축구", "농구", "테니스", "야구", "배구", "배드민턴", "볼링", "당구", "이스포츠", "기타"
+
+//            int[] tvsId = {R.id.tv01, R.id.baseball, R.id.tv03,R.id.tv04,R.id.tv05,R.id.tv06,R.id.tv07,R.id.tv08,R.id.tv09,R.id.tv10,
+//                    R.id.tv11,R.id.tv12,R.id.tv13,R.id.tv14,R.id.tv15,R.id.tv16,R.id.tv17,R.id.tv18,R.id.tv19,R.id.tv20,
+//                    R.id.tv21,R.id.tv22,R.id.tv23,R.id.tv24};
+//            ArrayList<String> sports = new ArrayList<String>();
+//            String[] sport = new String[]{ "육상", "야구", "배구", "테니스", "볼링", "배드민턴", "육상", "체조", "헬스", "수영",
+//                    "유도", "레슬링", "복싱", "사격", "사이클", "스쿼시", "승마", "카누", "e스포츠", "스케이팅",
+//                    "익스트림", "레이싱", "등산", "전체"};
+//            for(int i=0; i <sport.length;i++){
+//                sports.add(sport[i]);
+//            }
+//            image.setImageResource(tvsId[sports.indexOf(dto.getGame())]);
             switch (dto.getGame()){
                 case "축구" :
                     image.setImageResource(R.drawable.soccer);

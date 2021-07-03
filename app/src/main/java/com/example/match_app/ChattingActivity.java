@@ -37,6 +37,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class ChattingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chating);
 
+
         checkDangerousPermissions();
         userToken = user.getIdToken();
         Intent intent = getIntent();
@@ -106,9 +108,33 @@ public class ChattingActivity extends AppCompatActivity {
         findViewById(R.id.btnChatPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChattingActivity.this, PostUpdateActivity.class);
-                //intent.putExtra("", );
-                startActivity(intent);
+                DatabaseReference databaseReference;
+                databaseReference = database.getReference("matchapp/Post");
+                databaseReference.addChildEventListener(new ChildEventListener() { //채팅 가져오기
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                        PostDTO dto = null;
+//                        switch (snapshot.getKey()){
+//                            case "content": dto.setContent((String) snapshot.getValue());
+//                        }
+                        if(snapshot.getKey().equals(chatMeta.getPostToken())) {
+                            PostDTO dto = snapshot.getValue(PostDTO.class);
+                            Intent intent = new Intent(ChattingActivity.this, PostDetailActivity.class);
+                            intent.putExtra("post", dto);
+                            startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {            }
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {            }
+                });
+
+
             }
         });
 
@@ -135,6 +161,7 @@ public class ChattingActivity extends AppCompatActivity {
         });
 
         btn_send.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 String msg = edt_chat.getText().toString();
@@ -149,6 +176,34 @@ public class ChattingActivity extends AppCompatActivity {
                     String getTime = simpleDate.format(mDate);
                     dto.setDate(getTime);
                     toRefMeta.child("recent").setValue(dto);
+                    toRefMeta.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if(snapshot.getKey().equals("noty")){
+                                int counter = Integer.parseInt((String) snapshot.getValue());
+                                buttonChange((String) snapshot.getValue());
+                                ArrayMap<String,String> map = new ArrayMap<>();
+                                map.put("noty" , Integer.toString(counter+1));
+                                toRefMeta.updateChildren(Collections.unmodifiableMap(map));
+                            }
+                        }
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     myRef.push().setValue(dto);
                     toRef.push().setValue(dto);
                     edt_chat.setText("");
@@ -169,16 +224,20 @@ public class ChattingActivity extends AppCompatActivity {
         myRef = database.getReference(path+"/"+userToken+"/"+chatToken);
         toRef = database.getReference(path+"/"+chatToken+"/"+userToken);
         toRefMeta = database.getReference(metaPath+"/"+chatToken+"/"+userToken);
-//        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
+        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
         //userMeta.removeValue(); 사용시 더이상 채팅방이 목록에서 나타나지 않음
         //상대는 채팅방 목록에 남아있으나, 말을 해도 더이상 상대에게 전달되지 않음
 
         post = database.getReference("matchapp/Post/"+chatMeta.getPostToken());
         myRef.addChildEventListener(new ChildEventListener() { //채팅 가져오기
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ChattingDTO dto = snapshot.getValue(ChattingDTO.class);
                 ((ChatAdpter) mAdapter).addChat(dto);
+                ArrayMap<String,String> map = new ArrayMap<>();
+                map.put("noty" , "0");
+                userMeta.updateChildren(Collections.unmodifiableMap(map));
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
