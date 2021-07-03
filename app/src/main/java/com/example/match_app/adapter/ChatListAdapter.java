@@ -107,8 +107,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     public void setItem(int position, MetaDTO dto){
-        dtos.set(position, dto);
-        holders.get(position).setDto(dto);
+        if(holders.size() - position - 1>-1) {
+            dtos.set(position, dto);
+            holders.get(holders.size() - position - 1).setDto(dto);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -152,6 +154,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             if(dto.getNoty() != null) {
                 if(!dto.getNoty().equals("0"))
                     tvNoty.setVisibility(View.VISIBLE);
+                else{
+                    tvNoty.setVisibility(View.GONE);
+                }
                 tvNoty.setText(dto.getNoty());
             }
             //"전체", "축구", "농구", "테니스", "야구", "배구", "배드민턴", "볼링", "당구", "이스포츠", "기타"

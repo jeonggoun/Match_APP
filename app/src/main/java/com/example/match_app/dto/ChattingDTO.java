@@ -6,6 +6,16 @@ public class ChattingDTO implements Serializable {
     private String msg;
     private String nickname;
     private String date;
+    private String writerToken;
+
+    public String getWriterToken() {
+        return writerToken;
+    }
+
+    public void setWriterToken(String writerToken) {
+        this.writerToken = writerToken;
+    }
+
     public String getMsg() {
         return msg;
     }

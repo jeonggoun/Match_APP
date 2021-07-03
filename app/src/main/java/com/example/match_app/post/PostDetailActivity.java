@@ -283,11 +283,11 @@ public class PostDetailActivity extends AppCompatActivity {
         chattingDTO.setNickname(user.getNickName());
         meta.setRecent(chattingDTO);
         databaseReference2 = firebaseDatabase.getReference(path+"/"+postDTO.getWriterToken());
-        databaseReference2.child(user.getIdToken()).setValue(meta);
+        databaseReference2.child(user.getIdToken()+postDTO.getPostKey()).setValue(meta);
         meta.setChatToken(postDTO.getWriterToken());
         chattingDTO.setNickname(postDTO.getWriter());
         databaseReference = firebaseDatabase.getReference(path+"/"+user.getIdToken());  // user가 존재하지 않아 동작하지 않음
-        databaseReference.child(postDTO.getWriterToken()).setValue(meta);
+        databaseReference.child(postDTO.getWriterToken()+postDTO.getPostKey()).setValue(meta);
 
         Intent intent = new Intent(this , ChattingActivity.class);
         intent.putExtra("meta", meta);

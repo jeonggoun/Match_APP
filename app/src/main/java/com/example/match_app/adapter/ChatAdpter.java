@@ -17,7 +17,7 @@ import com.example.match_app.R;
 import com.example.match_app.dto.ChattingDTO;
 
 import java.util.List;
-
+import static com.example.match_app.MainActivity.user;
 public class ChatAdpter extends RecyclerView.Adapter<ChatAdpter.MyViewHolder> {
     private List<ChattingDTO> mDataset;
     private String myNickName;
@@ -70,7 +70,7 @@ public class ChatAdpter extends RecyclerView.Adapter<ChatAdpter.MyViewHolder> {
         holder.txt_msg2.setText(dto.getMsg());
         holder.txt_date2.setText(dto.getDate());
 
-        if(dto.getNickname().equals(this.myNickName)){
+        if(dto.getWriterToken().equals(user.getIdToken())){
             holder.txt_msg.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             holder.txt_nickName.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             holder.txt_date.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -105,7 +105,7 @@ public class ChatAdpter extends RecyclerView.Adapter<ChatAdpter.MyViewHolder> {
     }
     public void addChat(ChattingDTO dto){
         mDataset.add(dto);
-        notifyItemInserted(mDataset.size()-1);
+        notifyItemInserted(mDataset.size() - 1);
     }
 
 

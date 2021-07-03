@@ -68,7 +68,7 @@ public class ChattingActivity extends AppCompatActivity {
     private DatabaseReference toRefMeta, userMeta, post;
     private TextView tvChatPostTitle, tvChatGame;
     private LinearLayout chat_match_confirm_layout;
-
+    int counter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +95,9 @@ public class ChattingActivity extends AppCompatActivity {
         Log.d(TAG, "user.getIdToken: " + user.getIdToken());
         Log.d(TAG, "chatMeta.getChatToken: " + chatMeta.getChatToken());
         //todo 경기 확정은 글을 쓴 사람만 할 수 있게 바꾸기 → 대충 된 거 같음
-        if(user.getIdToken().equals(chatMeta.getChatToken())){
-            chat_match_confirm_layout.setVisibility(View.VISIBLE);
-        }
+//        if(user.getIdToken().equals(chatMeta.)){
+//            chat_match_confirm_layout.setVisibility(View.VISIBLE);
+//        }
 
         tvChatPostTitle.setText(chatMeta.getTitle());
         tvChatGame.setText(chatMeta.getGame());
@@ -175,13 +175,13 @@ public class ChattingActivity extends AppCompatActivity {
                     SimpleDateFormat simpleDate = new SimpleDateFormat("hh:mm:aa");
                     String getTime = simpleDate.format(mDate);
                     dto.setDate(getTime);
+                    dto.setWriterToken(user.getIdToken());
                     toRefMeta.child("recent").setValue(dto);
                     toRefMeta.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             if(snapshot.getKey().equals("noty")){
-                                int counter = Integer.parseInt((String) snapshot.getValue());
-                                buttonChange((String) snapshot.getValue());
+                                counter = Integer.parseInt((String) snapshot.getValue());
                                 ArrayMap<String,String> map = new ArrayMap<>();
                                 map.put("noty" , Integer.toString(counter+1));
                                 toRefMeta.updateChildren(Collections.unmodifiableMap(map));
@@ -189,7 +189,9 @@ public class ChattingActivity extends AppCompatActivity {
                         }
                         @Override
                         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                            if(snapshot.getKey().equals("noty")){
+                                counter = Integer.parseInt((String) snapshot.getValue());
+                            }
                         }
                         @Override
                         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
@@ -221,10 +223,10 @@ public class ChattingActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
-        myRef = database.getReference(path+"/"+userToken+"/"+chatToken);
-        toRef = database.getReference(path+"/"+chatToken+"/"+userToken);
-        toRefMeta = database.getReference(metaPath+"/"+chatToken+"/"+userToken);
-        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken);
+        myRef = database.getReference(path+"/"+userToken+"/"+chatToken+chatMeta.getPostToken());
+        toRef = database.getReference(path+"/"+chatToken+"/"+userToken+chatMeta.getPostToken());
+        toRefMeta = database.getReference(metaPath+"/"+chatToken+"/"+userToken+chatMeta.getPostToken());
+        userMeta = database.getReference(metaPath+"/"+userToken+"/"+chatToken+chatMeta.getPostToken());
         //userMeta.removeValue(); 사용시 더이상 채팅방이 목록에서 나타나지 않음
         //상대는 채팅방 목록에 남아있으나, 말을 해도 더이상 상대에게 전달되지 않음
 
@@ -234,10 +236,10 @@ public class ChattingActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ChattingDTO dto = snapshot.getValue(ChattingDTO.class);
+                int num = 0;
+                if(dto.getWriterToken().equals(user.getIdToken())){ num =1; }
                 ((ChatAdpter) mAdapter).addChat(dto);
-                ArrayMap<String,String> map = new ArrayMap<>();
-                map.put("noty" , "0");
-                userMeta.updateChildren(Collections.unmodifiableMap(map));
+                if(num ==1) { mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1); }
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
@@ -251,9 +253,15 @@ public class ChattingActivity extends AppCompatActivity {
         post.addChildEventListener(new ChildEventListener() {//경기확정 버튼 반응
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("writerToken")){
+                    if(((String)snapshot.getValue()).equals(user.getIdToken())){
+                        chat_match_confirm_layout.setVisibility(View.VISIBLE);
+                    }
+                }
                 if(snapshot.getKey().equals("matchConfirm")){
                     buttonChange((String) snapshot.getValue());
                 }
+
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -274,6 +282,16 @@ public class ChattingActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ArrayMap<String,String> map = new ArrayMap<>();
+        map.put("noty" , "0");
+        userMeta.updateChildren(Collections.unmodifiableMap(map));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
