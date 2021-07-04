@@ -8,12 +8,12 @@
         </shape>
     </item>
     <item
-        android:width="5dp"
-        android:height="5dp"
+        android:width="75dp"
+        android:height="75dp"
         android:drawable="@drawable/pubimg"
-        android:bottom="6dp"
-        android:left="10dp"
-        android:right="10dp"
-        android:top="6dp"/>
+        android:bottom="5dp"
+        android:left="165dp"
+        android:right="0dp"
+        android:top="5dp"/>
 </layer-list>
 
