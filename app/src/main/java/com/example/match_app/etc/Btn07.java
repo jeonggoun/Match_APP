@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.match_app.IntroActivity;
 import com.example.match_app.R;
+import com.example.match_app.dto.OptionDTO;
 import com.example.match_app.login.Login00Activity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,6 +60,8 @@ public class Btn07 extends AppCompatActivity {
         Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone rt = RingtoneManager.getRingtone(getApplicationContext(),notification);
+
+        optionDTO = new OptionDTO();
 
         toggle_vib.setOnClickListener(new View.OnClickListener() {
             @Override

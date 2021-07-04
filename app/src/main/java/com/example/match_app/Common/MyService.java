@@ -17,8 +17,13 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.example.match_app.IntroActivity;
+import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.etc.Btn05;
+import com.example.match_app.etc.Btn06;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MyService extends Service {
     private static final String TAG = "main:MyService";
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
+
     public static String[] keywords = {};
     public MyService() {
     }
@@ -64,13 +72,11 @@ public class MyService extends Service {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("matchapp/public_post");
         createNotificationChannel();
-        Log.d(TAG, "onChildAdded: 쏼라 aabbccddd");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 PostDTO dto = snapshot.getValue(PostDTO.class);
-                showNotification(dto.getTitle(), dto.getContent());
-                Log.d(TAG, "onChildAdded: 쏼라 aabbccddd");
+                showNotiNewPublicPost(dto.getTitle(), dto.getContent());
             }
 
             @Override
@@ -101,7 +107,7 @@ public class MyService extends Service {
                 PostDTO dto = snapshot.getValue(PostDTO.class);
                 for(int i = 0; i< keywords.length; i++){
                     if(dto.getTitle().contains(keywords[i])||dto.getContent().contains(keywords[i])){
-                        showNotification("키워드 알림!", "등록한 키워드 새글이 작성되었습니다");
+                        if (dto.getWriterToken()!=uid) showNotiNewPost("키워드 알림!", "설정한 키워드가 포함된 새글이 작성되었습니다");
                     }
                 }
             }
@@ -133,14 +139,27 @@ public class MyService extends Service {
         notificationManager.createNotificationChannel(notificationChannel);
     }
 
-    public void showNotification(String title, String body) {
+    public void showNotiNewPost(String title, String body) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent intent = new Intent(this, IntroActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.noti_smallicon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon2))
+                .setAutoCancel(true)
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+        notificationManager.notify(1,builder.build());
+    }
+
+    public void showNotiNewPublicPost(String title, String body) {
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this, Btn05.class);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(R.drawable.noti_smallicon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon))
                 .setAutoCancel(true)
                 .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         notificationManager.notify(1,builder.build());
