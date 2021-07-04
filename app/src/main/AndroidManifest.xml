@@ -98,7 +98,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.match_app"
         android:usesCleartextTraffic="true">
-        <activity android:name=".etc.Btn07_2_authDelete"></activity>
+        <activity android:name=".etc.QAActivity"></activity>
+        <activity
+            android:name=".etc.PublicPostActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity android:name=".etc.Btn07_2_authDelete" />
         <activity android:name=".etc.Btn07_1_Email" />
         <activity android:name=".etc.Btn00" />
         <activity android:name=".etc.Btn01" />
@@ -127,16 +131,23 @@
         <activity android:name=".IntroActivity"> <!-- 여기에 파일명 입력하면 제일먼저실행됨 -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:host="example.com/link" android:scheme="http"/>
-                <data android:host="example.com/link" android:scheme="https"/>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="example.com/link"
+                    android:scheme="http" />
+                <data
+                    android:host="example.com/link"
+                    android:scheme="https" />
                 <data
                     android:host="example.com"
-                    android:scheme="https"/>
-
+                    android:scheme="https" />
             </intent-filter>
         </activity> <!-- 구글맵 api key -->
         <!--
@@ -189,13 +200,11 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+
         <service
             android:name=".Common.MyService"
             android:enabled="true"
-            android:exported="true"></service>
-
-
+            android:exported="true" />
     </application>
-
 
 </manifest>

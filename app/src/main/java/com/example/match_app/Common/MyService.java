@@ -20,6 +20,7 @@ import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.dto.PublicPostDTO;
 import com.example.match_app.etc.Btn05;
 import com.example.match_app.etc.Btn06;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,19 +31,28 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import static com.example.match_app.Common.CommonMethod.memberDTO;
+
 public class MyService extends Service {
     private static final String TAG = "main:MyService";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     public static String[] keywords = {};
+    public static ArrayList<PublicPostDTO> publicPostDTO = null;
+    public static ArrayList<PublicPostDTO> qaDTO = null;
+
     public MyService() {
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate: 실행됨");
+
+        publicPostDTO = new ArrayList<PublicPostDTO>();
+        qaDTO = new ArrayList<PublicPostDTO>();
     }
 
     // 서비스가 실행되면 무조건 onStartCommand를 실행한다.
@@ -56,10 +66,7 @@ public class MyService extends Service {
             Thread thread = new Thread(new Runnable() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
-                public void run() {
-                    Log.d(TAG, "onChildAdded: 쏼라 aabbccddd");
-                    processCommand(intent);
-                }
+                public void run() { processCommand(intent); }
             });
             thread.start();
         }
@@ -70,38 +77,32 @@ public class MyService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void processCommand(Intent intent) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("matchapp/public_post");
         createNotificationChannel();
-        myRef.addChildEventListener(new ChildEventListener() {
+
+        database.getReference("matchapp/public_post").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                PostDTO dto = snapshot.getValue(PostDTO.class);
-                showNotiNewPublicPost(dto.getTitle(), dto.getContent());
+                PublicPostDTO dto = snapshot.getValue(PublicPostDTO.class);
+                if (dto.isRead()==false) {
+                    showNotiNewPublicPost(dto.getTitle(), dto.getContent()); dto.setRead(true);
+                    database.getReference("matchapp/public_post").child(snapshot.getKey()).setValue(dto);
+                }
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
-        DatabaseReference myRef2 = database.getReference("matchapp/Post");
-        Log.d(TAG, "onChildAdded: 쏼라 aabbccdddee");
-        myRef2.addChildEventListener(new ChildEventListener() {
+
+        database.getReference("matchapp/Post").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
                 PostDTO dto = snapshot.getValue(PostDTO.class);
@@ -112,21 +113,43 @@ public class MyService extends Service {
                 }
             }
             @Override
-            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) { }
+        });
 
+        database.getReference("matchapp/public_post").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+                publicPostDTO.add(snapshot.getValue(PublicPostDTO.class));
             }
             @Override
-            public void onChildRemoved(@NonNull  DataSnapshot snapshot) {
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) { }
+        });
 
+        database.getReference("matchapp/qna").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+                qaDTO.add(snapshot.getValue(PublicPostDTO.class));
             }
             @Override
-            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
-
-            }
+            public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) { }
         });
     }
 
