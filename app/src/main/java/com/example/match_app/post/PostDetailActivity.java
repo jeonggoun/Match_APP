@@ -57,6 +57,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.NotNull;
 
+import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.MainActivity.user;
 public class PostDetailActivity extends AppCompatActivity {
     private static final String TAG = "main:PostDetailActivity";
@@ -110,12 +111,18 @@ public class PostDetailActivity extends AppCompatActivity {
 
         popupLayout = findViewById(R.id.popupLayout);
 
-        findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startChatting(dto);
-            }
-        });
+
+
+            findViewById(R.id.btnChat).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (memberDTO.isAddrAuth() == true) {
+                        startChatting(dto);
+                    } else {
+                        Toast.makeText(postDetailActivityContext, "동네인증을 먼저 해주세요!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         Intent intent = getIntent();
         dto = (PostDTO) intent.getSerializableExtra("post");

@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
+import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.PublicPostDTO;
 import com.example.match_app.etc.Btn05;
@@ -141,6 +142,24 @@ public class MyService extends Service {
             @Override
             public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
                 qaDTO.add(snapshot.getValue(PublicPostDTO.class));
+            }
+            @Override
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) { }
+        });
+
+        database.getReference("matchapp/UsertAccount/"+uid).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+                MemberDTO account = snapshot.getValue(MemberDTO.class);
+                if (uid == account.getIdToken()){
+                    memberDTO = account;
+                }
             }
             @Override
             public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }

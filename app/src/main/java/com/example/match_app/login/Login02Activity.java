@@ -169,6 +169,7 @@ public class Login02Activity extends AppCompatActivity {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     memberDTO.setIdToken(firebaseUser.getUid());
                     memberDTO.setPhoneNumber(phoneNumber);
+                    memberDTO.setAddrAuth(false);
 
                     // setValue : database에 update(수정) 행위
                     mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(memberDTO);

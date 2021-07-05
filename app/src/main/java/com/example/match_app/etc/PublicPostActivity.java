@@ -43,6 +43,5 @@ public class PublicPostActivity extends Activity {
 /*        tv_time = findViewById(R.id.tv_time);
         tv_time.setText(dto.getDate());*/
 
-
     }
 }

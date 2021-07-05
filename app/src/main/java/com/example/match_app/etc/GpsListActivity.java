@@ -7,20 +7,25 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match_app.R;
 import com.example.match_app.login.Login03Activity;
+import com.example.match_app.post.PostUpdateActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,13 +50,15 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     private List<Address> address = null;
-    TextView tv_message, tv_message2, finish, finish2;
+    TextView tv_message, tv_message2, finish, finish2, auth_status;
     String msg;
+    ImageView auth_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_list);
+        auth_img = findViewById(R.id.auth_img);
         tv_message = findViewById(R.id.tv_message);
         tv_message2 = findViewById(R.id.tv_message2);
         finish = findViewById(R.id.finish);
@@ -68,8 +75,27 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
         getAddress();
         getNeighbor();
 
-        tv_message.setText("동네인증을 하는 이유 →공지사항 액티비티 해당 글 이동");
+        tv_message.setText(Html.fromHtml("<B>동네 인증을 하는 이유?</B>"));
+        tv_message.setTextColor(Color.BLACK);
+        tv_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GpsListActivity.this, Btn06.class);
+                intent.putExtra("question_gps", "동네 인증을 하는 이유");
+                startActivity(intent);
+            }
+        });
 
+        auth_status = findViewById(R.id.auth_status);
+        if (memberDTO.isAddrAuth()==true) {
+            auth_status.setText("인증된 회원");
+            auth_status.setTextColor(Color.BLACK);
+            auth_img.setImageResource(R.drawable.icon_successed);
+        }else {
+            auth_status.setText("미인증 회원");
+            auth_status.setTextColor(Color.BLACK);
+            auth_img.setImageResource(R.drawable.icon_failed);
+        }
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +106,7 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
         finish2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                memberDTO.setAddrAuth(true);
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
                 finish();
             }
@@ -103,12 +130,12 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
     private void getNeighbor() {
         if (memberDTO.getLatitude()-0.03 < latitude && memberDTO.getLatitude()+0.03 > latitude &&
                 memberDTO.getLongitude()-0.03 < longitude && memberDTO.getLongitude()+0.03 > longitude) {
-            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"</B>"+"' 근처에 있어요. \n인증되었습니다."));
+            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"</B>"+"' 근처에 있어요."));
             memberDTO.setAddrAuth(true);
             finish.setVisibility(View.GONE);
             finish2.setVisibility(View.VISIBLE);
         }else {
-            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"'</B>"+" 에서 멀리 떨어져 있어요. 동네에서 다시 인증해주세요."));
+            tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"'</B>"+" 에서 멀리 떨어져 있어요."));
         }
 
     }

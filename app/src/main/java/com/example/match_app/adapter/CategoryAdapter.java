@@ -55,23 +55,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         holder.tv_category.setText(category[position]);
-
-
-/*        Query myPost = database.getReference().orderByChild("writerToken").equalTo(category[position]);
-        myPost.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        }*/
-           
-            
-
     }
 
     @Override

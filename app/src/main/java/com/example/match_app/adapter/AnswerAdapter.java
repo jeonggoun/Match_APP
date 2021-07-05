@@ -1,10 +1,12 @@
 package com.example.match_app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.match_app.R;
 import com.example.match_app.dto.PublicPostDTO;
+import com.example.match_app.etc.PublicPostActivity;
+import com.example.match_app.etc.QAActivity;
 
 
 import java.util.ArrayList;
@@ -38,6 +42,15 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull  AnswerAdapter.ViewHolder holder, int position) {
         holder.tv_answer.setText(dto.get(position).getTitle());
+        holder.layout_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "액티비티 → 공지사항 title, content, time(추가), read(추가)", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context , QAActivity.class);
+                intent.putExtra("dto", dto.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

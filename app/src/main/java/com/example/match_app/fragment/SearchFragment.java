@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.example.match_app.Common.CommonMethod.memberDTO;
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "main: SearchFragment";
@@ -137,13 +140,17 @@ public class SearchFragment extends Fragment {
 
         //글작성 버튼 클릭시 화면전환
         btnWrite = viewGroup.findViewById(R.id.btnWrite);
-        btnWrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PostWriteActivity.class);
-                startActivity(intent);
-            }
-        });
+            btnWrite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (memberDTO.isAddrAuth() == true) {
+                        Intent intent = new Intent(getActivity(), PostWriteActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(activity, "동네인증을 먼저 해주세요!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         viewGroup.findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
             @Override

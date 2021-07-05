@@ -92,14 +92,14 @@ public class PostWriteActivity extends AppCompatActivity {
         selectDateTime = findViewById(R.id.selectDateTime);
         txtResult = findViewById(R.id.txtResult);
 
-        /*맵
-        selectPlace = findViewById(R.id.selectPlace);*/
-
         //경고창
         alertTitle = findViewById(R.id.alertTitle);
 
-        /*맵
-        mapResult = findViewById(R.id.mapResult);*/
+        /*
+        맵
+        mapResult = findViewById(R.id.mapResult);
+        selectPlace = findViewById(R.id.selectPlace);
+        */
 
         //사진 불러올 수 있게 하기
         postImage.setOnClickListener(new View.OnClickListener() {

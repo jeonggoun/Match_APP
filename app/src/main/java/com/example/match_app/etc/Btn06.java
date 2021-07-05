@@ -1,5 +1,6 @@
 package com.example.match_app.etc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ public class Btn06 extends AppCompatActivity {
     AnswerAdapter adapter2;
     ArrayList<PublicPostDTO> dtos;
     String[] category;
+    String searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,16 @@ public class Btn06 extends AppCompatActivity {
         et_keyword = findViewById(R.id.et_keyword);
         et_keyword.setHint(memberDTO.getNickName()+"님 무엇을 도와드릴까요?");
 
+        dtos = new ArrayList<PublicPostDTO>();
+
+        Intent intent = getIntent();
+        String question_gps = intent.getStringExtra("question_gps");
+        if (question_gps != null) {
+            et_keyword.setText(question_gps);
+        }
+
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
 
-        dtos = new ArrayList<PublicPostDTO>();
         category = new String[]{"운영정책","계정/인증","이벤트/초대", "이용 제재", "기타", "모모 채팅", "모모 종목", "모모 매너", "모모 종목"};
         rv_category = findViewById(R.id.rv_category);
         rv_category.setLayoutManager(new GridLayoutManager(this,3));
@@ -62,7 +71,8 @@ public class Btn06 extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String searchText = et_keyword.getText().toString();
+
+                searchText = et_keyword.getText().toString();
                 searchFilter(searchText);
             }
         });
@@ -80,23 +90,6 @@ public class Btn06 extends AppCompatActivity {
             }
         });
 
-        /*adapter1.setOnItemClickListener(new CategoryAdapter().OnitemClickListener() {
-            @Override
-            public void onItemClick(View v, int i) {
-
-            }
-        });*/
-
-        /*if (et_keyword.getText() == null) {
-            adapter2 = new AnswerAdapter(this, qaDTO);
-            rv_answer.setAdapter(adapter2);
-        } else {
-            for (i=0; i<qaDTO.size(); i++) {
-                if (qaDTO.get(i).getTitle().contains(et_keyword.getText()) || qaDTO.get(i).getContent().contains(et_keyword.getText())) {
-                    dtos.add(qaDTO.get(i));
-                }
-            }
-        }*/
     }
 
     public void searchFilter(String searchText) {
@@ -106,6 +99,6 @@ public class Btn06 extends AppCompatActivity {
                 dtos.add(qaDTO.get(i));
             }
         }
-        adapter2.filterList(dtos);
+        if (dtos!=null) adapter2.filterList(dtos);
     }
 }
