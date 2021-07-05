@@ -56,7 +56,6 @@ public class MyService extends Service {
         publicPostDTO = new ArrayList<PublicPostDTO>();
         qaDTO = new ArrayList<PublicPostDTO>();
 
-
     }
 
     // 서비스가 실행되면 무조건 onStartCommand를 실행한다.
@@ -177,7 +176,6 @@ public class MyService extends Service {
                 MemberDTO account = snapshot.getValue(MemberDTO.class);
                 if (uid == account.getIdToken()){
                     memberDTO = account;
-
                     keywords = new String[memberDTO.getKeyWord().trim().split(" ").length];
                     keywords = memberDTO.getKeyWord().trim().split(" ");
                 }

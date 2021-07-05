@@ -25,7 +25,12 @@ public class Btn05 extends AppCompatActivity {
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
 
         rv_publicPost = findViewById(R.id.rv_publicPost);
-        rv_publicPost.setLayoutManager(new LinearLayoutManager(this));
+
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        rv_publicPost.setLayoutManager(mLayoutManager);
 
         adapter = new PublicPosterAdapter(this, publicPostDTO);
         rv_publicPost.setAdapter(adapter);

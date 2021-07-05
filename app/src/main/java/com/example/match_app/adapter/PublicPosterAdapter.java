@@ -41,6 +41,7 @@ public class PublicPosterAdapter extends RecyclerView.Adapter<PublicPosterAdapte
     @Override
     public void onBindViewHolder(@NonNull PublicPosterAdapter.ViewHolder holder, int position) {
         holder.tv_publicPost.setText(dto.get(position).getTitle());
+        holder.tv_time.setText(dto.get(position).getDate());
         holder.layout_public.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +60,11 @@ public class PublicPosterAdapter extends RecyclerView.Adapter<PublicPosterAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout layout_public;
-        TextView tv_publicPost;
+        TextView tv_publicPost, tv_time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             layout_public = itemView.findViewById(R.id.layout_public);
+            tv_time = itemView.findViewById(R.id.tv_time);
             tv_publicPost = itemView.findViewById(R.id.tv_publicPost);
         }
     }

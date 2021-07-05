@@ -133,6 +133,8 @@ public class SearchFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
         );
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
         // 어댑터 객체를 생성한다

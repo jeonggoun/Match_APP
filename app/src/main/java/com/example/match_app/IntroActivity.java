@@ -52,7 +52,6 @@ public class IntroActivity extends AppCompatActivity {
     private GetKeyHash CommonFunction;
     private ImageView iv_momo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,8 +171,10 @@ public class IntroActivity extends AppCompatActivity {
                     if(dto.getIdToken().equals(token)) {
                         user = dto;
                         memberDTO = dataSnapshot.getValue(MemberDTO.class);
-                        keywords  = new String[memberDTO.getKeyWord().trim().split(" ").length];
-                        keywords = memberDTO.getKeyWord().trim().split(" ");
+                        if (memberDTO.getKeyWord() != null) {
+                            keywords = new String[memberDTO.getKeyWord().trim().split(" ").length];
+                            keywords = memberDTO.getKeyWord().trim().split(" ");
+                        }
 
                         if (memberDTO.getChecked1() != null) {
                             ArrayList<Boolean> chked1 = new ArrayList<>();

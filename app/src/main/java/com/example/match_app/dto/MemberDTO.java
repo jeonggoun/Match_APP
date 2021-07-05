@@ -20,11 +20,30 @@ public class MemberDTO {
     private String fileName, filePath;
     private String sports;
     private int changed;
+
+    public int getRecommendCount() {
+        return recommendCount;
+    }
+
+    public void setRecommendCount(int recommendCount) {
+        this.recommendCount = recommendCount;
+    }
+
+    private int recommendCount;
     private String checked1;
     private String checked2;
     private String checked3;
     private String keyWord;
     private boolean addrAuth;
+    private String recommend;
+
+    public String getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
+    }
 
     public boolean isAddrAuth() {
         return addrAuth;

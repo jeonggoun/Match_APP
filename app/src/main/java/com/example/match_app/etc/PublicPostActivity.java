@@ -40,8 +40,8 @@ public class PublicPostActivity extends Activity {
         tv_title = findViewById(R.id.tv_title);
         tv_title.setText(dto.getTitle());
 
-/*        tv_time = findViewById(R.id.tv_time);
-        tv_time.setText(dto.getDate());*/
+        tv_time = findViewById(R.id.tv_time);
+        tv_time.setText(dto.getDate());
 
     }
 }
