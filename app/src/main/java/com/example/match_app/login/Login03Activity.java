@@ -270,9 +270,9 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
         } else {
-            Toast.makeText(this, "권한 설정 필요함", Toast.LENGTH_LONG).show();
+            /*Toast.makeText(this, "권한 설정 필요함", Toast.LENGTH_LONG).show();*/
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();*/
             } else {
                 ActivityCompat.requestPermissions(this, permissions, 1);
             }

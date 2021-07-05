@@ -159,12 +159,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+            /*Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();*/
         } else {
-            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+            /*Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();*/
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();*/
             } else {
                 ActivityCompat.requestPermissions(this, permissions, 1);
             }
@@ -176,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
+                    /*Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();*/
                 } else {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
+                    /*Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();*/
                 }
             }
         }
