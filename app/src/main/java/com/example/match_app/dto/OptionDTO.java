@@ -4,7 +4,7 @@ public class OptionDTO {
     boolean vib;
     boolean sound;
     boolean public_post;
-boolean chat;
+    boolean chat;
 
     public boolean isChat() {
         return chat;

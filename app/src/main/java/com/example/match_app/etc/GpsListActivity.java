@@ -58,7 +58,7 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_list);
-        auth_img = findViewById(R.id.auth_img);
+
         tv_message = findViewById(R.id.tv_message);
         tv_message2 = findViewById(R.id.tv_message2);
         finish = findViewById(R.id.finish);
@@ -85,13 +85,13 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
                 startActivity(intent);
             }
         });
-
+        auth_img = findViewById(R.id.auth_img);
         auth_status = findViewById(R.id.auth_status);
         if (memberDTO.isAddrAuth()==true) {
             auth_status.setText("인증된 회원");
             auth_status.setTextColor(Color.BLACK);
             auth_img.setImageResource(R.drawable.icon_successed);
-        }else {
+        }else if (memberDTO.isAddrAuth()!=true){
             auth_status.setText("미인증 회원");
             auth_status.setTextColor(Color.BLACK);
             auth_img.setImageResource(R.drawable.icon_failed);
@@ -131,7 +131,6 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
         if (memberDTO.getLatitude()-0.03 < latitude && memberDTO.getLatitude()+0.03 > latitude &&
                 memberDTO.getLongitude()-0.03 < longitude && memberDTO.getLongitude()+0.03 > longitude) {
             tv_message2.setText(Html.fromHtml("현재 위치가 동네로 설정한 "+"<B>'"+memberDTO.getAddress()+"</B>"+"' 근처에 있어요."));
-            memberDTO.setAddrAuth(true);
             finish.setVisibility(View.GONE);
             finish2.setVisibility(View.VISIBLE);
         }else {

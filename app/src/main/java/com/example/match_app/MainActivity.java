@@ -68,9 +68,17 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.contain, fragment1).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navi);
+
         Intent intent = new Intent(getApplicationContext(), MyService.class);
-        Log.d(TAG, "onChildAdded: 쏼라 aabbccddd");
         startService(intent);
+
+        Intent getIntent = getIntent();
+        String frag_page = getIntent.getStringExtra("data");
+
+        if (frag_page != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.contain, fragment2).commit();
+            tv_fragTitle.setText("모모 홈");
+        }
         //하단 네비게이션바
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

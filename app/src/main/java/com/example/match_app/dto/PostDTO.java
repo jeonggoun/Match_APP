@@ -5,9 +5,17 @@ import java.io.Serializable;
 //adapter에서 xml으로 이어주기 위해 만든 DTO
 public class PostDTO implements Serializable {
     String postKey, matchConfirm;
-
     String game, title, time, place, fee, imgPath, content, writer, writerToken;
     String latitude, longitude;
+    boolean read;
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     public PostDTO() {
     }

@@ -42,6 +42,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 
 import static com.example.match_app.Common.CommonMethod.favoriteDTO;
+import static com.example.match_app.Common.CommonMethod.keywords;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
 import static com.example.match_app.Common.CommonMethod.optionDTO;
 import static com.example.match_app.MainActivity.user;
@@ -50,6 +51,7 @@ public class IntroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GetKeyHash CommonFunction;
     private ImageView iv_momo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +69,11 @@ public class IntroActivity extends AppCompatActivity {
         progressBar.bringToFront();
         iv_momo = findViewById(R.id.iv_momo);
 
-        OptionDTO optionDTO = new OptionDTO();
+        optionDTO = new OptionDTO();
         optionDTO.setSound(true);
         optionDTO.setVib(true);
+        optionDTO.setChat(false);
+        optionDTO.setPublic_post(false);
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -168,6 +172,8 @@ public class IntroActivity extends AppCompatActivity {
                     if(dto.getIdToken().equals(token)) {
                         user = dto;
                         memberDTO = dataSnapshot.getValue(MemberDTO.class);
+                        keywords  = new String[memberDTO.getKeyWord().trim().split(" ").length];
+                        keywords = memberDTO.getKeyWord().trim().split(" ");
 
                         if (memberDTO.getChecked1() != null) {
                             ArrayList<Boolean> chked1 = new ArrayList<>();

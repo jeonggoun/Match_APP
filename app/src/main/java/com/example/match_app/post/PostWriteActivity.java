@@ -162,6 +162,7 @@ public class PostWriteActivity extends AppCompatActivity {
                     dto.setWriter(user.getNickName());
                     dto.setWriterToken(user.getIdToken());
                     dto.setMatchConfirm("enable");
+                    dto.setRead(false);
 
                     if(file != null) {
                         filename = UUID.randomUUID().toString() + ".jpg";

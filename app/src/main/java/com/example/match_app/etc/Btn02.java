@@ -27,7 +27,7 @@ import java.util.List;
 
 import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
-import static com.example.match_app.Common.MyService.keywords;
+import static com.example.match_app.Common.CommonMethod.keywords;
 public class Btn02 extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth firebaseAuth;

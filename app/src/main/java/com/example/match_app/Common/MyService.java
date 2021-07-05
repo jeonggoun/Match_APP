@@ -34,14 +34,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import static com.example.match_app.Common.CommonMethod.keywords;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.optionDTO;
 
 public class MyService extends Service {
     private static final String TAG = "main:MyService";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user != null ? user.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
-    public static String[] keywords = {};
     public static ArrayList<PublicPostDTO> publicPostDTO = null;
     public static ArrayList<PublicPostDTO> qaDTO = null;
 
@@ -54,6 +55,8 @@ public class MyService extends Service {
 
         publicPostDTO = new ArrayList<PublicPostDTO>();
         qaDTO = new ArrayList<PublicPostDTO>();
+
+
     }
 
     // 서비스가 실행되면 무조건 onStartCommand를 실행한다.
@@ -85,8 +88,10 @@ public class MyService extends Service {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 PublicPostDTO dto = snapshot.getValue(PublicPostDTO.class);
                 if (dto.isRead()==false) {
-                    showNotiNewPublicPost(dto.getTitle(), dto.getContent()); dto.setRead(true);
+                    dto.setRead(true);
                     database.getReference("matchapp/public_post").child(snapshot.getKey()).setValue(dto);
+                    showNotiNewPublicPost(dto.getTitle(), dto.getContent());
+
                 }
             }
 
@@ -107,9 +112,15 @@ public class MyService extends Service {
             @Override
             public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
                 PostDTO dto = snapshot.getValue(PostDTO.class);
-                for(int i = 0; i< keywords.length; i++){
-                    if(dto.getTitle().contains(keywords[i])||dto.getContent().contains(keywords[i])){
-                        if (dto.getWriterToken()!=uid) showNotiNewPost("키워드 알림!", "설정한 키워드가 포함된 새글이 작성되었습니다");
+                if (dto.isRead()==false) {
+                    for (int i = 0; i < keywords.length; i++) {
+                        if (dto.getTitle().contains(keywords[i]) || dto.getContent().contains(keywords[i])) {
+                            if (dto.getWriterToken() != uid) {
+                                dto.setRead(true);
+                                database.getReference("matchapp/Post").child(snapshot.getKey()).setValue(dto);
+                                showNotiNewPost("키워드 알림!", "설정한 키워드가 포함된 새글이 작성되었습니다");
+                            }
+                        }
                     }
                 }
             }
@@ -162,7 +173,15 @@ public class MyService extends Service {
                 }
             }
             @Override
-            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+                MemberDTO account = snapshot.getValue(MemberDTO.class);
+                if (uid == account.getIdToken()){
+                    memberDTO = account;
+
+                    keywords = new String[memberDTO.getKeyWord().trim().split(" ").length];
+                    keywords = memberDTO.getKeyWord().trim().split(" ");
+                }
+            }
             @Override
             public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
             @Override
@@ -177,6 +196,9 @@ public class MyService extends Service {
         NotificationChannel notificationChannel = new NotificationChannel("momo", "test momo channel", NotificationManager.IMPORTANCE_HIGH);
         notificationChannel.setDescription("My test notification channel");
 
+        NotificationChannel notificationChannel2 = new NotificationChannel("momo2", "test momo channel2", NotificationManager.IMPORTANCE_HIGH);
+        notificationChannel2.setDescription("My test notification channel2");
+
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(notificationChannel);
     }
@@ -184,27 +206,50 @@ public class MyService extends Service {
     public void showNotiNewPost(String title, String body) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, MainActivity.class);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
-                .setContentTitle(title)
-                .setContentText(body)
-                .setSmallIcon(R.drawable.noti_smallicon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon2))
-                .setAutoCancel(true)
-                .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        notificationManager.notify(1,builder.build());
+        intent.putExtra("data", "data");
+
+        if (optionDTO.isSound() == true) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setSmallIcon(R.drawable.noti_smallicon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon2))
+                    .setAutoCancel(true)
+                    .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+            notificationManager.notify(1, builder.build());
+        }else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo2")
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setSmallIcon(R.drawable.noti_smallicon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon2))
+                    .setAutoCancel(true)
+                    .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+        }
     }
 
     public void showNotiNewPublicPost(String title, String body) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, Btn05.class);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
-                .setContentTitle(title)
-                .setContentText(body)
-                .setSmallIcon(R.drawable.noti_smallicon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon))
-                .setAutoCancel(true)
-                .setContentIntent(PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        notificationManager.notify(1,builder.build());
+        if (optionDTO.isVib() == true) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo")
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setSmallIcon(R.drawable.noti_smallicon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon))
+                    .setAutoCancel(true)
+                    .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+            notificationManager.notify(1, builder.build());
+        }else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "momo2")
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setSmallIcon(R.drawable.noti_smallicon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.noti_largeicon))
+                    .setAutoCancel(true)
+                    .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+            notificationManager.notify(1, builder.build());
+        }
     }
 
     @Override
