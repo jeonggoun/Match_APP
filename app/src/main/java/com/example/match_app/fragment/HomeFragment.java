@@ -68,12 +68,12 @@ public class HomeFragment extends Fragment {
 
         context = container.getContext();
 
-        //textView = viewGroup.findViewById(R.id.home_user_email);
+        textView = viewGroup.findViewById(R.id.home_user_email);
+        textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
 
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
         news_image[2] = viewGroup.findViewById(R.id.news_image3);
-        //textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
 
         news_content_text[0] = viewGroup.findViewById(R.id.news_content_text1);
         news_content_text[1] = viewGroup.findViewById(R.id.news_content_text2);
@@ -83,7 +83,10 @@ public class HomeFragment extends Fragment {
         news_title_text[1] = viewGroup.findViewById(R.id.news_title_text2);
         news_title_text[2] = viewGroup.findViewById(R.id.news_title_text3);
 
-        ///
+        news_title_text[0].setSelected(true);
+        news_title_text[1].setSelected(true);
+        news_title_text[2].setSelected(true);
+
         match_title[0] = viewGroup.findViewById(R.id.match_title1);
         match_title[1] = viewGroup.findViewById(R.id.match_title2);
         match_title[2] = viewGroup.findViewById(R.id.match_title3);
