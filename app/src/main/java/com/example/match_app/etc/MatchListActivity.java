@@ -76,10 +76,16 @@ public class MatchListActivity extends AppCompatActivity {
                     // ds.getValue() → 컬럼, ds.getKey() → 키값
                     //String title = ds.child("title").getValue(String.class);
                     dto.add(ds.getValue(PostDTO.class));
+                }
 
-                    String matchConfirm = ds.child("matchConfirm").getValue(String.class);
-                    if (matchConfirm != "enable") dto1.add(ds.getValue(PostDTO.class));
-                    else dto2.add(ds.getValue(PostDTO.class));
+                dto1.clear(); dto2.clear();
+
+                for (int i=0; i<dto.size(); i++) {
+                    if (dto.get(i).getMatchConfirm().equals("enable")) {
+                        dto1.add(dto.get(i));
+                    } else {
+                        dto2.add(dto.get(i));
+                    }
                 }
 
                 adapter1 = new MyPostAdapter(dto1, getApplicationContext());

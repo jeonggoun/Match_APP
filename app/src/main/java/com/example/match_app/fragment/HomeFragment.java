@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
         context = container.getContext();
 
         textView = viewGroup.findViewById(R.id.home_user_email);
-        textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
 
         news_image[0] = viewGroup.findViewById(R.id.news_image1);
         news_image[1] = viewGroup.findViewById(R.id.news_image2);
@@ -135,6 +134,9 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if (CommonMethod.memberDTO.getNickName()!=null) textView.setText(CommonMethod.memberDTO.getNickName() + "님 반갑습니다!");
+
         return viewGroup;
     }
 
