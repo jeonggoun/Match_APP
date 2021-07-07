@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.asynctask.post.PostDetail;
@@ -38,7 +39,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.example.match_app.MainActivity.user;
-import static com.example.match_app.fragment.SearchFragment.items;
 
 public class PostUpdateActivity extends AppCompatActivity {
     private static final String TAG = "main:PostUpdateActivity";
@@ -217,7 +217,7 @@ public class PostUpdateActivity extends AppCompatActivity {
         spinnerGame = findViewById(R.id.spinnerGame);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, items);
+                this, android.R.layout.simple_spinner_item, IntroActivity.items);
         arrayAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
 
@@ -231,7 +231,7 @@ public class PostUpdateActivity extends AppCompatActivity {
         spinnerGame.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectGame = items[position];
+                selectGame = IntroActivity.items[position];
             }
 
             @Override

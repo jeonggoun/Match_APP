@@ -14,9 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.match_app.IntroActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.MyPostAdapter;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.dto.SportsDTO;
 import com.example.match_app.post.PostDetailActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +69,31 @@ public class MatchListActivity extends AppCompatActivity {
         ArrayList<PostDTO> dto = new ArrayList<>();
         ArrayList<PostDTO> dto1 = new ArrayList<>();
         ArrayList<PostDTO> dto2 = new ArrayList<>();
+
+        ArrayList<SportsDTO> dtox = new ArrayList<>();
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("matchapp/SportsClass").child(uid).orderByChild("checked").equalTo(true);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren())
+                    dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
+
+                if (dtox != null) {
+                    IntroActivity.items = new String[dtox.size() + 1];
+                    IntroActivity.items[0] = "전체";                                          // 선호 종목들 넣기
+                    for (int i = 1; i < dtox.size() + 1; i++)
+                        IntroActivity.items[i] = dtox.get(i - 1).getSports();
+                } else {
+                    IntroActivity.items = new String[]{"전체", "축구", "야구", "농구", "배구"};
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Query myPost = mDatabaseRefPost.orderByChild("writerToken").equalTo(uid);
         myPost.addListenerForSingleValueEvent(new ValueEventListener() {

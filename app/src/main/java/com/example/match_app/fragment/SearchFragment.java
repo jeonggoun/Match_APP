@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
 import com.example.match_app.adapter.PostAdapter;
@@ -60,7 +61,7 @@ public class SearchFragment extends Fragment {
     EditText tvSearch;
     //콤보박스용 items
     //String itemString = "전체";
-    public static String[] items = null;
+
     Spinner spinner;
     String item = "전체";
     Context context;
@@ -79,17 +80,17 @@ public class SearchFragment extends Fragment {
                 for (DataSnapshot ds: snapshot.getChildren()) dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
 
                 if (dtox != null) {
-                    items = new String[dtox.size()+1];
-                    items[0] = "전체";                                          // 선호 종목들 넣기
-                    for (int i=1; i<dtox.size()+1; i++) items[i] = dtox.get(i-1).getSports();
+                    IntroActivity.items = new String[dtox.size()+1];
+                    IntroActivity.items[0] = "전체";                                          // 선호 종목들 넣기
+                    for (int i=1; i<dtox.size()+1; i++) IntroActivity.items[i] = dtox.get(i-1).getSports();
                 }else {
-                    items = new String[]{"전체", "축구", "야구", "농구", "배구"};
+                    IntroActivity.items = new String[]{"전체", "축구", "야구", "농구", "배구"};
                 }
                 //spinner();
                 //스피너 찾아주기
                 spinner = viewGroup.findViewById(R.id.spinner);
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, IntroActivity.items);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //스피너에 어댑터 설정
@@ -98,8 +99,8 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                         // 받은 어댑터에서 야구만 있는 어댑터를 만들어서 그어댑터를 setAdapter ?!
-                        if(!item.equals(items[position])) {
-                            item = items[position];
+                        if(!item.equals(IntroActivity.items[position])) {
+                            item = IntroActivity.items[position];
 //                    FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                    ft.detach(SearchFragment.this).attach(SearchFragment.this).commit();
                         }

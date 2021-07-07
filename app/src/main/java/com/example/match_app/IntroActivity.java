@@ -51,6 +51,7 @@ public class IntroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GetKeyHash CommonFunction;
     private ImageView iv_momo;
+    public static String[] items = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
