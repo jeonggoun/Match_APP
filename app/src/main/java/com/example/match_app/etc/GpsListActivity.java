@@ -99,6 +99,7 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(GpsListActivity.this, "동네인증 실패!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -108,6 +109,7 @@ public class GpsListActivity extends AppCompatActivity implements OnMapReadyCall
             public void onClick(View v) {
                 memberDTO.setAddrAuth(true);
                 mDatabaseRef.child("UserAccount").child(uid).setValue(memberDTO);
+                Toast.makeText(GpsListActivity.this, "동네인증 성공!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
