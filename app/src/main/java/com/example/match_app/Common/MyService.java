@@ -19,7 +19,9 @@ import androidx.core.app.NotificationCompat;
 import com.example.match_app.IntroActivity;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
+import com.example.match_app.adapter.PostAdapter;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.NotiDataDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.dto.PublicPostDTO;
 import com.example.match_app.etc.Btn05;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 
 import static com.example.match_app.Common.CommonMethod.keywords;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.notiDataDTO;
 import static com.example.match_app.Common.CommonMethod.optionDTO;
 
 public class MyService extends Service {
@@ -45,6 +48,8 @@ public class MyService extends Service {
 
     public static ArrayList<PublicPostDTO> publicPostDTO = null;
     public static ArrayList<PublicPostDTO> qaDTO = null;
+    public static ArrayList<NotiDataDTO> notiDTO = null;
+    PostDTO dto;
 
     public MyService() {
     }
@@ -55,6 +60,7 @@ public class MyService extends Service {
 
         publicPostDTO = new ArrayList<PublicPostDTO>();
         qaDTO = new ArrayList<PublicPostDTO>();
+        notiDTO = new ArrayList<>();
 
     }
 
@@ -107,10 +113,11 @@ public class MyService extends Service {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+
         database.getReference("matchapp/Post").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
-                PostDTO dto = snapshot.getValue(PostDTO.class);
+                dto = snapshot.getValue(PostDTO.class);
                 if (dto.isRead()==false) {
                     for (int i = 0; i < keywords.length; i++) {
                         if (dto.getTitle().contains(keywords[i]) || dto.getContent().contains(keywords[i])) {
@@ -186,6 +193,23 @@ public class MyService extends Service {
             public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
             @Override
             public void onCancelled(@NonNull  DatabaseError error) { }
+        });
+
+        database.getReference("matchapp/NotiData").child(uid).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                notiDTO.add(snapshot.getValue(NotiDataDTO.class));
+            }
+            @Override
+            public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
+                notiDTO.add(snapshot.getValue(NotiDataDTO.class));
+            }
+            @Override
+            public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
 

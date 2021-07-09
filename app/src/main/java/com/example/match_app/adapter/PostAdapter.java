@@ -12,29 +12,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableResource;
 import com.example.match_app.MainActivity;
 import com.example.match_app.R;
+import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.NotiDataDTO;
 import com.example.match_app.dto.PostDTO;
 import com.example.match_app.fragment.SearchFragment;
 import com.example.match_app.post.PostDetailActivity;
 import com.example.match_app.post.PostUpdateActivity;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static com.example.match_app.Common.CommonMethod.keywords;
+import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.notiDataDTO;
+import static com.example.match_app.Common.MyService.notiDTO;
 import static com.example.match_app.MainActivity.user;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
@@ -42,6 +56,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
     private static final String TAG = "ListItemAdapter ";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    FirebaseUser user2 = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user2 != null ? user2.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     // 1. 리스너 선언
     com.example.match_app.adapter.PostOnClickListener listener;
@@ -91,6 +108,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         if(user.getIdToken().equals(dto.getWriterToken())){  //Writer와 user의 token이 동일하다면 카드뷰에 있는 수정, 삭제 버튼을 보이게 한다
             holder.writerLayout.setVisibility(View.VISIBLE);
         }
+
+        CheckBox like = holder.itemView.findViewById(R.id.like);
+
+        for (int j = 0 ; j<notiDTO.size(); j++) {
+                if(dtos.get(position).getPostKey().equals(notiDTO.get(j).getPostToken())){
+                    like.setChecked(notiDTO.get(j).isLike());
+                }
+            }
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notiDataDTO.setIdToken(uid);
+                notiDataDTO.setPostToken(dto.getPostKey());
+                notiDataDTO.setLike(like.isChecked());
+                firebaseDatabase.getReference("matchapp").child("NotiData").child(uid).child(dto.getPostKey()).setValue(notiDataDTO);
+            }
+        });
+
 
         //수정 버튼 누르는 경우
         holder.itemView.findViewById(R.id.btnModify).setOnClickListener(new View.OnClickListener() {
@@ -190,7 +226,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, imageLayout, tvGame, tvTime, tvPlace, tvFee;
-        ImageView image;
+        ImageView image; CheckBox like;
         LinearLayout parentLayout, textLayout, writerLayout;
 
 
@@ -205,9 +241,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
             tvTime = itemView.findViewById(R.id.tvTime);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             tvFee = itemView.findViewById(R.id.tvFee);
+            like = itemView.findViewById(R.id.like);
 
             writerLayout = itemView.findViewById(R.id.writerLayout);
-
 
             // 3. 클릭리스너를 달아준다
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +270,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
             }
             tvPlace.setText(dto.getPlace());
             tvTime.setText(dto.getTime());
+
+
+
 
 
             if(dto.getMatchConfirm().equals("enable")){
@@ -274,6 +313,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 default:    //기본 사진
                     image.setImageResource(R.drawable.match);
             }
+
+
 
         }
 

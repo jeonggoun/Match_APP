@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import com.example.match_app.Common.GetKeyHash;
 import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.NotiDataDTO;
 import com.example.match_app.dto.OptionDTO;
 import com.example.match_app.login.Login00Activity;
 import com.github.ybq.android.spinkit.style.Wave;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import static com.example.match_app.Common.CommonMethod.favoriteDTO;
 import static com.example.match_app.Common.CommonMethod.keywords;
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.CommonMethod.notiDataDTO;
 import static com.example.match_app.Common.CommonMethod.optionDTO;
 import static com.example.match_app.MainActivity.user;
 public class IntroActivity extends AppCompatActivity {
@@ -59,6 +61,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         favoriteDTO = new FavoriteDTO();
+        notiDataDTO = new NotiDataDTO();
 
         mAuth = FirebaseAuth.getInstance();
         Log.e("GR_KeyHash",CommonFunction.getKeyHash(this));
@@ -74,6 +77,11 @@ public class IntroActivity extends AppCompatActivity {
         optionDTO.setVib(true);
         optionDTO.setChat(false);
         optionDTO.setPublic_post(false);
+
+        notiDataDTO.setLike(false);
+        notiDataDTO.setRead(false);
+        notiDataDTO.setPostToken("");
+        notiDataDTO.setIdToken(mAuth.getCurrentUser().toString());
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())

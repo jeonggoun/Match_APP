@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import static com.example.match_app.Common.CommonMethod.memberDTO;
+import static com.example.match_app.Common.MyService.notiDTO;
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "main: SearchFragment";
@@ -193,6 +194,7 @@ public class SearchFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PostDTO dto = dataSnapshot.getValue(PostDTO.class);
                 dto.setPostKey(dataSnapshot.getKey());
+
                 boolean check = true;
                 if(!item.isEmpty() && !item.equals("전체")) {
                     if (!item.equals(dto.getGame()))

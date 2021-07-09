@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
+import com.example.match_app.dto.NotiDataDTO;
 import com.example.match_app.dto.OptionDTO;
 import com.example.match_app.dto.PostDTO;
 
@@ -26,6 +27,7 @@ public class CommonMethod {
     public static MemberDTO memberDTO = null;
     public static FavoriteDTO favoriteDTO = null;
     public static OptionDTO optionDTO = null;
+    public static NotiDataDTO notiDataDTO = null;
     public static String[] keywords = {};
 
     // 네트워크에 연결되어 있는가
