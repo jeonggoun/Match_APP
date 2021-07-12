@@ -81,7 +81,8 @@ public class IntroActivity extends AppCompatActivity {
         notiDataDTO.setLike(false);
         notiDataDTO.setRead(false);
         notiDataDTO.setPostToken("");
-        notiDataDTO.setIdToken(mAuth.getCurrentUser().toString());
+
+        if (mAuth.getCurrentUser() != null) notiDataDTO.setIdToken(mAuth.getCurrentUser().toString());
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
