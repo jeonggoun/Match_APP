@@ -205,7 +205,15 @@ public class MyService extends Service {
             }
             @Override
             public void onChildChanged(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
-                notiDTO.add(snapshot.getValue(NotiDataDTO.class));
+                NotiDataDTO dto = snapshot.getValue(NotiDataDTO.class);
+
+                for (int i=0; i<notiDTO.size(); i++) {
+                    if (notiDTO.get(i).getPostToken().equals(dto.getPostToken())) {
+                        notiDTO.remove(i);
+                        notiDTO.add(dto);
+                    }
+                }
+
             }
             @Override
             public void onChildRemoved(@NonNull  DataSnapshot snapshot) { }
