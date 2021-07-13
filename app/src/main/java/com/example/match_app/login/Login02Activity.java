@@ -106,18 +106,6 @@ public class Login02Activity extends AppCompatActivity {
 
         mCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                singIn(phoneAuthCredential);
-            }
-
-            @Override
-            public void onVerificationFailed(@NonNull FirebaseException e) {
-                tv_auth05.setText("status code 17093 null : 짧은 시간 요청으로 인증 블럭처리됨");
-                tv_auth05.setTextColor(Color.RED);
-                tv_auth05.setVisibility(View.VISIBLE);
-            }
-
-            @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
 
@@ -147,6 +135,23 @@ public class Login02Activity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                String code = phoneAuthCredential.getSmsCode();
+                if (code!=null) {
+                    tv_auth05.setText("가입내역이 있는 번호");
+                    tv_auth05.setTextColor(Color.RED);
+                    tv_auth05.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+                tv_auth05.setText("status code 17093 null : 짧은 시간 요청으로 인증 블럭처리됨");
+                tv_auth05.setTextColor(Color.RED);
+                tv_auth05.setVisibility(View.VISIBLE);
             }
         };
     }

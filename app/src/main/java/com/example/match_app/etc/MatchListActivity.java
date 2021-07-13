@@ -45,7 +45,7 @@ public class MatchListActivity extends AppCompatActivity {
     private ListView listView1;
     private MyPostAdapter adapter1, adapter2;
     private PostDTO selected;
-    private TextView tv_ing, tv_end;
+    private TextView tv_ing, tv_end, tv_null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,7 @@ public class MatchListActivity extends AppCompatActivity {
         listView1 = findViewById(R.id.listView1);
         tv_ing = findViewById(R.id.tv_ing);
         tv_end = findViewById(R.id.tv_end);
+        tv_null = findViewById(R.id.tv_null);
 
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +116,15 @@ public class MatchListActivity extends AppCompatActivity {
                     }
                 }
 
-                adapter1 = new MyPostAdapter(dto1, getApplicationContext());
-                adapter2 = new MyPostAdapter(dto2, getApplicationContext());
+
+
+                if (dto.size() != 0) {
+                    tv_null.setVisibility(View.GONE);
+                    adapter1 = new MyPostAdapter(dto1, getApplicationContext());
+                    adapter2 = new MyPostAdapter(dto2, getApplicationContext());
+                }else {
+                    tv_null.setVisibility(View.VISIBLE);
+                }
 
 
                 listView1.setAdapter(adapter1); listView1.setVisibility(View.VISIBLE);
