@@ -50,7 +50,7 @@ public class Btn06 extends AppCompatActivity {
 
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
 
-        category = new String[]{"운영정책","계정/인증","이벤트/초대", "이용 제재", "기타", "모모 채팅", "모모 종목", "모모 매너", "모모 종목"};
+        category = new String[]{"운영정책","계정/인증","이벤트/초대", "이용 제재", "기타", "모모 채팅", "모모 종목", "모모 매너", "모모 광고"};
         rv_category = findViewById(R.id.rv_category);
         rv_category.setLayoutManager(new GridLayoutManager(this,3));
         adapter1 = new CategoryAdapter(this, category);

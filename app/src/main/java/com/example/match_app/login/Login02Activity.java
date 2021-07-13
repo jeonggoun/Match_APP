@@ -63,6 +63,7 @@ public class Login02Activity extends AppCompatActivity {
         timerView = findViewById(R.id.timer);
 
         auth = FirebaseAuth.getInstance();
+        auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(false);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -80,14 +81,14 @@ public class Login02Activity extends AppCompatActivity {
                     phoneNumber = "+82"+phone.substring(1,phone.length());
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                             .setPhoneNumber(phoneNumber)
-                            .setTimeout(30L, TimeUnit.SECONDS)
+                            .setTimeout(90L, TimeUnit.SECONDS)
                             .setActivity(Login02Activity.this)
                             .setCallbacks(mCallBacks)
                             .build();
 
                     PhoneAuthProvider.verifyPhoneNumber(options);
 
-                    timerView.start(30000);
+                    timerView.start(90000);
                     timerView.setVisibility(View.VISIBLE);
 
                     if (timerView.isCertification() == false) {

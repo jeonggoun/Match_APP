@@ -65,6 +65,11 @@ public class Btn07 extends AppCompatActivity {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone rt = RingtoneManager.getRingtone(getApplicationContext(),notification);
 
+        findViewById(R.id.btn00).setVisibility(View.GONE);
+        findViewById(R.id.btn01).setVisibility(View.GONE);
+        toggle_vib.setVisibility(View.GONE);
+        toggle_sound.setVisibility(View.GONE);
+
         toggle_public.setChecked(optionDTO.isVib());
         toggle_public.setOnClickListener(new View.OnClickListener() {
             @Override
