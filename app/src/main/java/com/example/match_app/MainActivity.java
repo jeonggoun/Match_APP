@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab2:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contain, fragment2).commit();
-                        tv_fragTitle.setText("모모 게임");
+                        tv_fragTitle.setText("모모 매칭");
                         break;
 
                     case R.id.tab3:
