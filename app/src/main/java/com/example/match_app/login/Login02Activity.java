@@ -80,14 +80,14 @@ public class Login02Activity extends AppCompatActivity {
                     phoneNumber = "+82"+phone.substring(1,phone.length());
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                             .setPhoneNumber(phoneNumber)
-                            .setTimeout(120L, TimeUnit.SECONDS)
+                            .setTimeout(30L, TimeUnit.SECONDS)
                             .setActivity(Login02Activity.this)
                             .setCallbacks(mCallBacks)
                             .build();
-                    PhoneAuthProvider.verifyPhoneNumber(options);
-                    auth_request.setEnabled(false);
 
-                    timerView.start(120000);
+                    PhoneAuthProvider.verifyPhoneNumber(options);
+
+                    timerView.start(30000);
                     timerView.setVisibility(View.VISIBLE);
 
                     if (timerView.isCertification() == false) {
@@ -112,7 +112,7 @@ public class Login02Activity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                tv_auth05.setText(e.getMessage());
+                tv_auth05.setText("status code 17093 null : 짧은 시간 요청으로 인증 블럭처리됨");
                 tv_auth05.setTextColor(Color.RED);
                 tv_auth05.setVisibility(View.VISIBLE);
             }
@@ -126,12 +126,12 @@ public class Login02Activity extends AppCompatActivity {
                 tv_auth05.setVisibility(View.VISIBLE);
                 otp = s;
 
-                new Handler().postDelayed(new Runnable() {
+/*                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
 
                     }
-                }, 10000);
+                }, 10000);*/
 
                 auth_finish.setOnClickListener(new View.OnClickListener() {
                     @Override

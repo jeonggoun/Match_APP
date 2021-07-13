@@ -51,8 +51,8 @@ public class Btn01 extends AppCompatActivity {
         gv3 = findViewById(R.id.gridView3);
 
         String[] sports01 = new String[]{ "태권도", "씨름", "유도", "권투", "검도", "유도", "펜싱", "테니스", "배드민턴", "탁구", "스쿼시", "당구", "골프", "볼링", "체스", "바둑", "장기" };
-        String[] sports02 = new String[]{ "축구", "농구", "배구", "핸드볼", "야구", "하키", "럭비", "족구", };
-        String[] sports03 = new String[]{ "놀이공원", "곤충채집", "놀이공원", "등산", "익스트림", "번지점프", "승마", "피겨", "쇼트트랙", "마라톤", "경보", "수영", "헬스"};
+        String[] sports02 = new String[]{ "축구", "농구", "배구", "핸드볼", "야구", "하키", "럭비", "족구" };
+        String[] sports03 = new String[]{ "놀이공원", "곤충채집", "공부", "등산", "익스트림", "번지점프", "승마", "피겨", "쇼트트랙", "마라톤", "경보", "수영", "헬스"};
 
 
         chked01 = new ArrayList<>();

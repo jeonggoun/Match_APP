@@ -59,6 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
     FirebaseUser user2 = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
     String uid = user2 != null ? user2.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     // 1. 리스너 선언
     com.example.match_app.adapter.PostOnClickListener listener;
@@ -112,10 +113,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         CheckBox like = holder.itemView.findViewById(R.id.like);
 
         for (int j = 0 ; j<notiDTO.size(); j++) {
-                if(dtos.get(position).getPostKey().equals(notiDTO.get(j).getPostToken())){
-                    like.setChecked(notiDTO.get(j).isLike());
-                }
+            if(dtos.get(position).getPostKey().equals(notiDTO.get(j).getPostToken())){
+                like.setChecked(notiDTO.get(j).isLike());
             }
+        }
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                 notiDataDTO.setPostToken(dto.getPostKey());
                 notiDataDTO.setLike(like.isChecked());
                 firebaseDatabase.getReference("matchapp").child("NotiData").child(uid).child(dto.getPostKey()).setValue(notiDataDTO);
+                firebaseDatabase.getReference("matchapp").child("Post").child(dto.getPostKey()).setValue(dto);
             }
         });
 

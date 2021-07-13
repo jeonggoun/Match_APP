@@ -67,6 +67,7 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
         addrList = new ArrayList<>();
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.spin_kit);
@@ -278,6 +279,7 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 1) {

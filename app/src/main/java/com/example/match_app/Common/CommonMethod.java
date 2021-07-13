@@ -25,6 +25,7 @@ public class CommonMethod {
     //public static String ipConfig = "http://121.148.239.200:80";
 
     public static MemberDTO memberDTO = null;
+    public static PostDTO postDTO = null;
     public static FavoriteDTO favoriteDTO = null;
     public static OptionDTO optionDTO = null;
     public static NotiDataDTO notiDataDTO = null;

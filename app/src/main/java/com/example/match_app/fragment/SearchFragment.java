@@ -79,8 +79,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()) dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
-
-                if (dtox != null) {
+                if (dtox.size() != 0) {
                     IntroActivity.items = new String[dtox.size()+1];
                     IntroActivity.items[0] = "전체";                                          // 선호 종목들 넣기
                     for (int i=1; i<dtox.size()+1; i++) IntroActivity.items[i] = dtox.get(i-1).getSports();

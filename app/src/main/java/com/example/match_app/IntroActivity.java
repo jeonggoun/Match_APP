@@ -23,6 +23,8 @@ import com.example.match_app.dto.FavoriteDTO;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.NotiDataDTO;
 import com.example.match_app.dto.OptionDTO;
+import com.example.match_app.dto.PostDTO;
+import com.example.match_app.dto.SportsDTO;
 import com.example.match_app.login.Login00Activity;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +38,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -54,6 +58,9 @@ public class IntroActivity extends AppCompatActivity {
     private GetKeyHash CommonFunction;
     private ImageView iv_momo;
     public static String[] items = null;
+
+    FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저의 정보 가져오기
+    String uid = user1 != null ? user1.getUid() : null; // 로그인한 유저의 고유 uid 가져오기
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

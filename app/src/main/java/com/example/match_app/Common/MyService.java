@@ -49,6 +49,7 @@ public class MyService extends Service {
     public static ArrayList<PublicPostDTO> publicPostDTO = null;
     public static ArrayList<PublicPostDTO> qaDTO = null;
     public static ArrayList<NotiDataDTO> notiDTO = null;
+    public static ArrayList<PostDTO> postsDTO = null;
     PostDTO dto;
 
     public MyService() {
@@ -58,9 +59,10 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        publicPostDTO = new ArrayList<PublicPostDTO>();
-        qaDTO = new ArrayList<PublicPostDTO>();
+        publicPostDTO = new ArrayList<>();
+        qaDTO = new ArrayList<>();
         notiDTO = new ArrayList<>();
+        postsDTO = new ArrayList<>();
 
     }
 
@@ -118,6 +120,7 @@ public class MyService extends Service {
             @Override
             public void onChildAdded(@NonNull  DataSnapshot snapshot, @Nullable String previousChildName) {
                 dto = snapshot.getValue(PostDTO.class);
+                postsDTO.add(dto);
                 if (dto.isRead()==false) {
                     for (int i = 0; i < keywords.length; i++) {
                         if (dto.getTitle().contains(keywords[i]) || dto.getContent().contains(keywords[i])) {

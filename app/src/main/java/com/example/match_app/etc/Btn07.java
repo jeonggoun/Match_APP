@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.match_app.IntroActivity;
 import com.example.match_app.R;
@@ -137,7 +138,7 @@ public class Btn07 extends AppCompatActivity {
                                     firebaseAuth.signOut();
                                     Intent intent = new Intent(Btn07.this, IntroActivity.class);
                                     startActivity(intent);
-                                    finish();
+                                    ActivityCompat.finishAffinity(Btn07.this);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

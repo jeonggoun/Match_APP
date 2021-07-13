@@ -79,7 +79,7 @@ public class MatchListActivity extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren())
                     dtox.add(ds.getValue(SportsDTO.class));       // 쿼리 데이터 dto 주입
 
-                if (dtox != null) {
+                if (dtox.size() != 0) {
                     IntroActivity.items = new String[dtox.size() + 1];
                     IntroActivity.items[0] = "전체";                                          // 선호 종목들 넣기
                     for (int i = 1; i < dtox.size() + 1; i++)
@@ -117,6 +117,7 @@ public class MatchListActivity extends AppCompatActivity {
 
                 adapter1 = new MyPostAdapter(dto1, getApplicationContext());
                 adapter2 = new MyPostAdapter(dto2, getApplicationContext());
+
 
                 listView1.setAdapter(adapter1); listView1.setVisibility(View.VISIBLE);
 

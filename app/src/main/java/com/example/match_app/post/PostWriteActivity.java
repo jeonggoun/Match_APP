@@ -28,13 +28,22 @@ import com.example.match_app.R;
 import com.example.match_app.asynctask.post.PostWrite;
 import com.example.match_app.dto.MemberDTO;
 import com.example.match_app.dto.PostDTO;
+import com.example.match_app.dto.SportsDTO;
 import com.example.match_app.fragment.SearchFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.example.match_app.MainActivity.user;
@@ -43,6 +52,9 @@ public class PostWriteActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
+
+
+
 
     //storage 객체 만들고 참조 => 이미지 저장하려고
     FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
@@ -53,7 +65,6 @@ public class PostWriteActivity extends AppCompatActivity {
 
     Button cancel, next, selectDateTime, selectPlace;
 
-    private PostDTO dto;
     TextView etTitle, etFee, etContent, etPlace, txtResult, alertTitle, mapResult;
     Uri file;
     /*맵
@@ -75,8 +86,7 @@ public class PostWriteActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("matchapp/Post");
 
         //memberDTO.setIdToken("test1");
-
-        dto = new PostDTO();
+        PostDTO dto = new PostDTO();
 
         //버튼 찾기
         cancel = findViewById(R.id.cancel);
@@ -163,6 +173,7 @@ public class PostWriteActivity extends AppCompatActivity {
                     dto.setWriterToken(user.getIdToken());
                     dto.setMatchConfirm("enable");
                     dto.setRead(false);
+                    dto.setPostKey("null");
 
                     if(file != null) {
                         filename = UUID.randomUUID().toString() + ".jpg";
@@ -184,6 +195,7 @@ public class PostWriteActivity extends AppCompatActivity {
 //                        //Toast.makeText(getParent(), "프로필 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
+
                 databaseReference.push().setValue(dto);
 
                 Intent mainIntent = new Intent(PostWriteActivity.this, MainActivity.class);
