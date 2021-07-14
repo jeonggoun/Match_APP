@@ -55,9 +55,9 @@ public class Btn03 extends AppCompatActivity {
                 }
                 tv_recount.setText(dto.size()+"");
 
-                int quotient = dto.size()/3;
+                int quotient = (dto.size()+1)/3;
                 tv_reward.setText(quotient+"");
-                int remainder = dto.size()%3;
+                int remainder = (dto.size()+1)%3;
 
                 if (quotient!=0) {
                     switch (remainder) {

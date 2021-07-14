@@ -41,7 +41,6 @@ public class FavoriteListActivity extends AppCompatActivity {
         });
 
         favoriteDTO = new ArrayList<>();
-
         for (int j = 0; j < postsDTO.size(); j++) {
             for (int i = 0; i < notiDTO.size(); i++) {
                 if (notiDTO.get(i).isLike()==true) {
