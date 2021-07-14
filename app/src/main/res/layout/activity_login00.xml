@@ -29,7 +29,7 @@
         android:background="@drawable/bg_custom_button01"
         android:gravity="center"
         android:padding="16dp"
-        android:text="동네인증 하고 회원가입"
+        android:text="동네설정 하고 회원가입"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

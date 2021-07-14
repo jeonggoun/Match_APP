@@ -98,7 +98,7 @@ public class MyService extends Service {
                     dto.setRead(true);
                     database.getReference("matchapp/public_post").child(snapshot.getKey()).setValue(dto);
                     showNotiNewPublicPost(dto.getTitle(), dto.getContent());
-
+                    publicPostDTO.add(dto);
                 }
             }
 
