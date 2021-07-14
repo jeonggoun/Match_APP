@@ -1,6 +1,8 @@
 package com.example.match_app.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +15,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.match_app.Common.MyService;
+import com.example.match_app.Common.SmsBroadcast;
 import com.example.match_app.Common.TimerView;
 import com.example.match_app.IntroActivity;
 import com.example.match_app.R;
@@ -47,6 +53,7 @@ public class Login02Activity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private String otp;
     private String phoneNumber = null;
+    private SmsBroadcast sms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,10 @@ public class Login02Activity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(false);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("matchapp");
+
+        checkDangerousPermissions();
+        Intent disIntent = getIntent();
+        processIntent(disIntent);
 
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,5 +203,66 @@ public class Login02Activity extends AppCompatActivity {
         Intent nextIntent = new Intent(Login02Activity.this, IntroActivity.class);
         startActivity(nextIntent);
         finish();
+    }
+
+    // 위험권한 실행시 부여하기
+    private void checkDangerousPermissions() {
+        String[] permissions = {
+                Manifest.permission.RECEIVE_SMS
+        };
+
+        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+        for (int i = 0; i < permissions.length; i++) {
+            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
+            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                break;
+            }
+        }
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
+                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, permissions, 1);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private void processIntent(Intent disIntent) {
+        String sender = disIntent.getStringExtra("sender");
+        String receivedDate = disIntent.getStringExtra("receivedDate");
+        String contents = disIntent.getStringExtra("contents");
+
+        if(sender != null){
+            String msg =contents.substring(contents.length()-23,contents.length()-16);
+            et_auth_enter.setText(msg.trim()+"");
+        }
+
+    }
+
+    // 기존 화면이 사용하고자 할때 onCreate()를 사용하지 못하니
+    // onNewIntent() 매소드를 사용하여 새로운 intent를 받아
+    // 화면에 데이터를 갱신한다.
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        processIntent(intent);
     }
 }
