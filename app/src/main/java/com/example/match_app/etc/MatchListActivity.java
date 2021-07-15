@@ -122,7 +122,11 @@ public class MatchListActivity extends AppCompatActivity {
                 adapter2 = new MyPostAdapter(dto2, getApplicationContext());
 
                 listView1.setAdapter(adapter1); listView1.setVisibility(View.VISIBLE);
-                if (dto.size()==0) tv_null.setVisibility(View.VISIBLE);
+                if (dto.size()==0) {
+                    tv_null.setVisibility(View.VISIBLE);
+                } else {
+                    tv_null.setVisibility(View.GONE);
+                }
 
                 tv_ing.setOnClickListener(new View.OnClickListener() {
                     @Override
