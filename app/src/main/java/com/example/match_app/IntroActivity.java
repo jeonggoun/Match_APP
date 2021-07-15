@@ -187,6 +187,7 @@ public class IntroActivity extends AppCompatActivity {
                     MemberDTO dto = dataSnapshot.getValue(MemberDTO.class);
                     if(dto.getIdToken().equals(token)) {
                         user = dto;
+
                         memberDTO = dataSnapshot.getValue(MemberDTO.class);
                         if (memberDTO.getKeyWord() != null) {
                             keywords = new String[memberDTO.getKeyWord().trim().split(" ").length];

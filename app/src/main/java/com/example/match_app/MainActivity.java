@@ -69,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navi);
 
+
         Intent intent = new Intent(getApplicationContext(), MyService.class);
+        stopService(intent);
         startService(intent);
 
         Intent getIntent = getIntent();
