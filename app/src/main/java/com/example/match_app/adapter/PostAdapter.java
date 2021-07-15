@@ -109,8 +109,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         if(user.getIdToken().equals(dto.getWriterToken())){  //Writer와 user의 token이 동일하다면 카드뷰에 있는 수정, 삭제 버튼을 보이게 한다
             holder.writerLayout.setVisibility(View.VISIBLE);
         }
-
         CheckBox like = holder.itemView.findViewById(R.id.like);
+        if (user.getIdToken().equals(dto.getWriterToken())) {
+            holder.like.setVisibility(View.GONE);
+        }else {
+            holder.like.setVisibility(View.VISIBLE);
+        }
 
         for (int j = 0 ; j<notiDTO.size(); j++) {
             if(dtos.get(position).getPostKey().equals(notiDTO.get(j).getPostToken())){
