@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import static com.example.match_app.Common.MyService.notiDTO;
 import static com.example.match_app.Common.MyService.postsDTO;
 
 public class FavoriteListActivity extends AppCompatActivity {
+    private static final String TAG = "favo";
     private MyPostAdapter adapter1;
     private ListView listView1;
     private PostDTO selected;
@@ -53,7 +55,7 @@ public class FavoriteListActivity extends AppCompatActivity {
                 }//for i
             }// forj
         }
-
+        Log.d(TAG, "size"+favoriteDTO.size());
 
         if (favoriteDTO.size() != 0) {
             tv_null.setVisibility(View.GONE);

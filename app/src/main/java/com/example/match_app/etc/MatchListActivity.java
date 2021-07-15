@@ -56,6 +56,8 @@ public class MatchListActivity extends AppCompatActivity {
         tv_end = findViewById(R.id.tv_end);
         tv_null = findViewById(R.id.tv_null);
 
+
+
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,18 +118,11 @@ public class MatchListActivity extends AppCompatActivity {
                     }
                 }
 
-
-
-                if (dto.size() != 0) {
-                    tv_null.setVisibility(View.GONE);
-                    adapter1 = new MyPostAdapter(dto1, getApplicationContext());
-                    adapter2 = new MyPostAdapter(dto2, getApplicationContext());
-                }else {
-                    tv_null.setVisibility(View.VISIBLE);
-                }
-
+                adapter1 = new MyPostAdapter(dto1, getApplicationContext());
+                adapter2 = new MyPostAdapter(dto2, getApplicationContext());
 
                 listView1.setAdapter(adapter1); listView1.setVisibility(View.VISIBLE);
+                if (dto.size()==0) tv_null.setVisibility(View.VISIBLE);
 
                 tv_ing.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -135,6 +130,12 @@ public class MatchListActivity extends AppCompatActivity {
                         tv_ing.setPaintFlags(tv_ing.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
                         tv_end.setPaintFlags(0);
                         listView1.setAdapter(adapter1);
+
+                        if (dto1.size() == 0) {
+                            tv_null.setVisibility(View.VISIBLE);
+                            tv_null.setText("회원님의 진행중인 게시글이 없습니다.");
+                        }
+                        else tv_null.setVisibility(View.GONE);
                     }
                 });
 
@@ -144,6 +145,12 @@ public class MatchListActivity extends AppCompatActivity {
                         tv_end.setPaintFlags(tv_ing.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
                         tv_ing.setPaintFlags(0);
                         listView1.setAdapter(adapter2);
+
+                        if (dto2.size() == 0) {
+                            tv_null.setVisibility(View.VISIBLE);
+                            tv_null.setText("회원님의 완료된 게시글이 없습니다.");
+                        }
+                        else tv_null.setVisibility(View.GONE);
                     }
                 });
 
@@ -151,7 +158,12 @@ public class MatchListActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                         selected = new PostDTO();
-                        selected = (PostDTO) dto1.get(i);
+
+                        if (dto1.size()!=0) {
+                            selected = (PostDTO) dto1.get(i);
+                        }else {
+                            selected = (PostDTO) dto2.get(i);
+                        }
                         Intent intent = new Intent(MatchListActivity.this, PostDetailActivity.class);
                         intent.putExtra("post", selected);
                         startActivity(intent);

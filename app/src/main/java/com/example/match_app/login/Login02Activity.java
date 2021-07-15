@@ -153,7 +153,7 @@ public class Login02Activity extends AppCompatActivity {
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                 String code = phoneAuthCredential.getSmsCode();
                 if (code!=null) {
-                    tv_auth05.setText("가입내역이 있는 번호");
+                    tv_auth05.setText("인증 성공!");
                     tv_auth05.setTextColor(Color.RED);
                     tv_auth05.setVisibility(View.VISIBLE);
                 }
