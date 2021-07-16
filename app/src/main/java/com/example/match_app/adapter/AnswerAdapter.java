@@ -45,7 +45,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         holder.layout_answer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "액티비티 → 공지사항 title, content, time(추가), read(추가)", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "액티비티 → 공지사항 title, content, time(추가), read(추가)", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context , QAActivity.class);
                 intent.putExtra("dto", dto.get(position));
                 context.startActivity(intent);

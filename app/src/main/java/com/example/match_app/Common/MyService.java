@@ -96,8 +96,9 @@ public class MyService extends Service {
                 PublicPostDTO dto = snapshot.getValue(PublicPostDTO.class);
                 if (dto.isRead()==false) {
                     dto.setRead(true);
-                    database.getReference("matchapp/public_post").child(snapshot.getKey()).setValue(dto);
+//                    database.getReference("matchapp/public_post").child(snapshot.getKey()).setValue(dto);
                     showNotiNewPublicPost(dto.getTitle(), dto.getContent());
+                    if (!publicPostDTO.contains(dto))
                     publicPostDTO.add(dto);
                 }
             }

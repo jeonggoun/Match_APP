@@ -67,8 +67,10 @@ public class Btn07 extends AppCompatActivity {
 
         findViewById(R.id.btn00).setVisibility(View.GONE);
         findViewById(R.id.btn01).setVisibility(View.GONE);
+        findViewById(R.id.btn04).setVisibility(View.GONE);
         toggle_vib.setVisibility(View.GONE);
         toggle_sound.setVisibility(View.GONE);
+        toggle_chat.setVisibility(View.GONE);
 
         toggle_public.setChecked(optionDTO.isVib());
         toggle_public.setOnClickListener(new View.OnClickListener() {

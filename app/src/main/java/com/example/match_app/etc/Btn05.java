@@ -22,6 +22,8 @@ public class Btn05 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btn05);
 
+        publicPostDTO.remove(publicPostDTO.size()-1);
+
         findViewById(R.id.iv_back2).setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
 
         rv_publicPost = findViewById(R.id.rv_publicPost);
