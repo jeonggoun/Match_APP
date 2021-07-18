@@ -32,32 +32,22 @@ public class SmsBroadcast extends BroadcastReceiver {
         if(messages != null && messages.length > 0){
             Log.d(TAG, "onReceive: SMS를 수신하였습니다.");
 
-            // 보낸사람 전화번호
-            String sender = messages[0].getOriginatingAddress();
-            Log.d(TAG, "sender : " + sender);
-
-            // 보낸 날짜와 시간
-            Date receivedDate = new Date(messages[0].getTimestampMillis());
-            Log.d(TAG, "receivedDate" + receivedDate);
-
-            // 메세지 내용
-            String contents = messages[0].getMessageBody();
-            Log.d(TAG, "contents : " + contents);
+            String sender = messages[0].getOriginatingAddress(); // 보낸사람 전화번호
+            Date receivedDate = new Date(messages[0].getTimestampMillis()); // 보낸 날짜와 시간
+            String contents = messages[0].getMessageBody(); // 메세지 내용
 
             // 인텐트를 만들어서 데이터를 넣은후 액티비티를 띄운다.
             Intent disIntent = new Intent(context, Login02Activity.class);
-            // 액티비티가 아닌곳에서 인텐트를 만들어 사용할때
-            // FLAG_ACTIVITY_NEW_TASK를 플래그에 추가해야 한다.
+
+            // 액티비티가 아닌곳에서 인텐트를 만들어 사용할때 FLAG_ACTIVITY_NEW_TASK를 플래그에 추가해야 한다.
             disIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                    // SINGLE_TOP은 똑같은 화면이 띄워져 있는 상태라면
-                    // 그 화면을 재사용 하겠다.
+                    // SINGLE_TOP은 똑같은 화면이 띄워져 있는 상태라면 그 화면을 재사용 하겠다.
                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             disIntent.putExtra("sender",  sender);
             disIntent.putExtra("receivedDate",  dateFormat.format(receivedDate));
             disIntent.putExtra("contents",  contents);
             context.startActivity(disIntent);
-
         }
 
     }

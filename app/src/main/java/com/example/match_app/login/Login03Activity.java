@@ -91,8 +91,6 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
                     }
                 }, 1000);
 
-
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -156,6 +154,7 @@ public class Login03Activity extends AppCompatActivity implements OnMapReadyCall
         startActivity(nextIntent);
         finish();
     }
+
 
     private void getAddress() {
         Geocoder geocoder = new Geocoder(this);
